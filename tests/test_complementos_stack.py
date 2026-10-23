@@ -158,3 +158,15 @@ def test_geracao_documento_escrito_dashboard_html_e_pdf_multipagina() -> None:
     assert b"/Count 4" in pdf_bytes
     assert b"%%EOF" in pdf_bytes
 
+    cam_acad_md = Path(caminhos["monografia_academica_md"])
+    cam_acad_html = Path(caminhos["monografia_academica_html"])
+    cam_acad_pdf = Path(caminhos["monografia_academica_pdf"])
+
+    assert cam_acad_md.exists() and cam_acad_md.stat().st_size > 15_000
+    assert "Antimicrobial Resistance Collaborators" in cam_acad_md.read_text(encoding="utf-8")
+    assert cam_acad_html.exists() and cam_acad_html.stat().st_size > 25_000
+    assert cam_acad_pdf.exists() and cam_acad_pdf.stat().st_size > 12_000
+    pdf_acad_bytes = cam_acad_pdf.read_bytes()
+    assert pdf_acad_bytes.startswith(b"%PDF-1.4")
+    assert b"/Count 5" in pdf_acad_bytes
+
