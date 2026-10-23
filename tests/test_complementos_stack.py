@@ -139,9 +139,9 @@ def test_rastreador_mlflow_cliente_bvbrc_e_cli_demo(tmp_path: Path) -> None:
     assert cod_saida == 0
 
 
-def test_geracao_documento_escrito_dashboard_html_e_pdf_multipagina() -> None:
+def test_geracao_documento_escrito_dashboard_html_e_pdf_multipagina(tmp_path: Path) -> None:
     """Valida que o documento escrito (.md), o dashboard interativo (.html) e o relatório multipágina (.pdf) são gerados."""
-    caminhos = gerar_todos_documentos_e_dashboards()
+    caminhos = gerar_todos_documentos_e_dashboards(diretorio_docs=tmp_path / "docs")
     cam_md = Path(caminhos["documento_escrito_md"])
     cam_html = Path(caminhos["dashboard_html_docs"])
     cam_pdf = Path(caminhos["relatorio_pdf_docs"])

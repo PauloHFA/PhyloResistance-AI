@@ -42,6 +42,10 @@ mlruns/
 !data/interim/.gitkeep
 !data/processed/.gitkeep
 
+# Generated PDFs
+docs/*.pdf
+reports/*.pdf
+
 # Temporary API uploads
 tmp_uploads/
 *.tmp

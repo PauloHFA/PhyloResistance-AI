@@ -1696,46 +1696,46 @@
         "ciprofloxacina": {
           "versao_modelo": "kpneu-cip-1.2.0",
           "total_isolados": 90,
-          "auprc_b1": 0.8341,
-          "auprc_b4": 0.96,
-          "vme_b4": 0.0476,
-          "me_b4": 0.0625,
-          "delta_auprc_vs_b1": 0.1259,
+          "auprc_b1": 0.8427,
+          "auprc_b4": 0.9199,
+          "vme_b4": 0.2,
+          "me_b4": 0.2,
+          "delta_auprc_vs_b1": 0.0701,
           "supera_b1": true,
           "principais_loci_shap": [
             "gyrA:S83L",
-            "marR:G103S (unitig)",
-            "locus_kmer31_poly_0039"
+            "locus_kmer31_poly_0026",
+            "locus_kmer31_poly_0027"
           ]
         },
         "gentamicina": {
           "versao_modelo": "kpneu-gen-1.2.0",
           "total_isolados": 90,
-          "auprc_b1": 0.7501,
-          "auprc_b4": 0.8173,
-          "vme_b4": 0.2308,
-          "me_b4": 0.098,
-          "delta_auprc_vs_b1": 0.0614,
-          "supera_b1": false,
+          "auprc_b1": 0.8537,
+          "auprc_b4": 0.9429,
+          "vme_b4": 0.1522,
+          "me_b4": 0.1591,
+          "delta_auprc_vs_b1": 0.0989,
+          "supera_b1": true,
           "principais_loci_shap": [
             "aac(3)-IIa",
             "cpxA:Y144C (unitig)",
-            "blaCTX-M-15"
+            "gyrA:S83L"
           ]
         },
         "ceftriaxona": {
           "versao_modelo": "kpneu-cro-1.2.0",
           "total_isolados": 90,
-          "auprc_b1": 0.7668,
-          "auprc_b4": 0.8927,
-          "vme_b4": 0.1795,
-          "me_b4": 0.1569,
-          "delta_auprc_vs_b1": 0.1159,
+          "auprc_b1": 0.9004,
+          "auprc_b4": 0.9725,
+          "vme_b4": 0.1087,
+          "me_b4": 0.0455,
+          "delta_auprc_vs_b1": 0.0673,
           "supera_b1": true,
           "principais_loci_shap": [
             "blaCTX-M-15",
             "ompF:c.-112del (unitig)",
-            "locus_kmer31_poly_0119"
+            "locus_kmer31_poly_0051"
           ]
         }
       },
@@ -1743,31 +1743,31 @@
         "oxacilina": {
           "versao_modelo": "saureus-oxa-1.2.0",
           "total_isolados": 90,
-          "auprc_b1": 0.8529,
-          "auprc_b4": 0.9778,
-          "vme_b4": 0.0476,
-          "me_b4": 0.0417,
-          "delta_auprc_vs_b1": 0.128,
-          "supera_b1": true,
+          "auprc_b1": 0.8534,
+          "auprc_b4": 0.8837,
+          "vme_b4": 0.1818,
+          "me_b4": 0.0435,
+          "delta_auprc_vs_b1": 0.0358,
+          "supera_b1": false,
           "principais_loci_shap": [
             "mecA",
             "pbp4:c.-90T>A (unitig)",
-            "locus_kmer31_poly_0034"
+            "locus_kmer31_poly_0102"
           ]
         },
         "ciprofloxacina": {
           "versao_modelo": "saureus-cip-1.2.0",
           "total_isolados": 90,
-          "auprc_b1": 0.7685,
-          "auprc_b4": 0.9441,
-          "vme_b4": 0.125,
-          "me_b4": 0.1429,
-          "delta_auprc_vs_b1": 0.1676,
+          "auprc_b1": 0.8027,
+          "auprc_b4": 0.8643,
+          "vme_b4": 0.2,
+          "me_b4": 0.2,
+          "delta_auprc_vs_b1": 0.0595,
           "supera_b1": true,
           "principais_loci_shap": [
             "grlA:S80F",
             "norA:flqB_up (unitig)",
-            "locus_kmer31_poly_0024"
+            "locus_kmer31_poly_0069"
           ]
         }
       }
@@ -1821,7 +1821,7 @@
     "modelo_multisaida_auprc_medio": 0.8906
   },
   "manifesto_dados": {
-    "gerado_em_utc": "2026-10-23T16:24:46.919795+00:00",
+    "gerado_em_utc": "2026-10-23T16:41:11.732984+00:00",
     "fonte_primaria": "BV-BRC / CARD / NCBI RefSeq",
     "versoes_bancos": {
       "amrfinderplus": "3.12.8",
@@ -1838,7 +1838,7 @@
       "atributos_f3_kmers.npz": "790419cdd3e6249357ef6ad42d2972016a1d85f11c47bbc2c089a668d3e75fd1",
       "funil_exclusao.json": "cadd5d3dbceeab50e68e074cc3d8acda3a88c3df9b82da3d61cc59bc77daf559",
       "relatorio_desduplicacao.json": "ece314a9111df15dc8cd68eab4aa04926a5257c03b552188d70de090f4deca2d",
-      "modelos_servico.pkl": "99274a25da72ac865a4b99f0dac2c262267652f306371f5cb2615cb60db15a5d"
+      "modelos_servico.pkl": "f3a0051b54c26db5686ec3fa8cd38f34c8499c0fc5cba45b25cc5a5ea9b0abd0"
     },
     "termos_uso_confirmados": true,
     "aviso_regulatorio": "Uso exclusivo em pesquisa científica. Não substitui o antibiograma."
@@ -1851,8 +1851,8 @@
     "reports\\figuras\\extensoes_multiespecie_e_mic.svg"
   ],
   "mlflow_runs_registradas": [
-    "72d69356f4b5",
-    "41d86b2bd9f4",
-    "37d0441353b8"
+    "3857d319f3f0",
+    "517b9425d39d",
+    "89ab7637f772"
   ]
 }

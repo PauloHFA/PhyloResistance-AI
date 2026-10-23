@@ -382,11 +382,11 @@ onde $\mathcal{A}(L)$ é o conjunto de todos os atributos mapeados para o locus 
 
 | Espécie Bacteriana | Fármaco Avaliado | Versão do Modelo | Isolados ($N$) | AUPRC `B1` | AUPRC `B4` | Ganho $\Delta\text{AUPRC}$ | VME `B4` | ME `B4` | Top Loci Recuperados via `TreeSHAP` |
 |---|---|---|---|---|---|---|---|---|---|
-| *Klebsiella pneumoniae* | `ciprofloxacina` | `kpneu-cip-1.2.0` | `90` | 0.8341 | **0.9600** | **+0.1259** | 0.0476 | 0.0625 | gyrA:S83L, marR:G103S (unitig), locus_kmer31_poly_0039 |
-| *Klebsiella pneumoniae* | `gentamicina` | `kpneu-gen-1.2.0` | `90` | 0.7501 | **0.8173** | **+0.0614** | 0.2308 | 0.0980 | aac(3)-IIa, cpxA:Y144C (unitig), blaCTX-M-15 |
-| *Klebsiella pneumoniae* | `ceftriaxona` | `kpneu-cro-1.2.0` | `90` | 0.7668 | **0.8927** | **+0.1159** | 0.1795 | 0.1569 | blaCTX-M-15, ompF:c.-112del (unitig), locus_kmer31_poly_0119 |
-| *Staphylococcus aureus* | `oxacilina` | `saureus-oxa-1.2.0` | `90` | 0.8529 | **0.9778** | **+0.1280** | 0.0476 | 0.0417 | mecA, pbp4:c.-90T>A (unitig), locus_kmer31_poly_0034 |
-| *Staphylococcus aureus* | `ciprofloxacina` | `saureus-cip-1.2.0` | `90` | 0.7685 | **0.9441** | **+0.1676** | 0.1250 | 0.1429 | grlA:S80F, norA:flqB_up (unitig), locus_kmer31_poly_0024 |
+| *Klebsiella pneumoniae* | `ciprofloxacina` | `kpneu-cip-1.2.0` | `90` | 0.8427 | **0.9199** | **+0.0701** | 0.2000 | 0.2000 | gyrA:S83L, locus_kmer31_poly_0026, locus_kmer31_poly_0027 |
+| *Klebsiella pneumoniae* | `gentamicina` | `kpneu-gen-1.2.0` | `90` | 0.8537 | **0.9429** | **+0.0989** | 0.1522 | 0.1591 | aac(3)-IIa, cpxA:Y144C (unitig), gyrA:S83L |
+| *Klebsiella pneumoniae* | `ceftriaxona` | `kpneu-cro-1.2.0` | `90` | 0.9004 | **0.9725** | **+0.0673** | 0.1087 | 0.0455 | blaCTX-M-15, ompF:c.-112del (unitig), locus_kmer31_poly_0051 |
+| *Staphylococcus aureus* | `oxacilina` | `saureus-oxa-1.2.0` | `90` | 0.8534 | **0.8837** | **+0.0358** | 0.1818 | 0.0435 | mecA, pbp4:c.-90T>A (unitig), locus_kmer31_poly_0102 |
+| *Staphylococcus aureus* | `ciprofloxacina` | `saureus-cip-1.2.0` | `90` | 0.8027 | **0.8643** | **+0.0595** | 0.2000 | 0.2000 | grlA:S80F, norA:flqB_up (unitig), locus_kmer31_poly_0069 |
 
 ### 4.6 Validação Externa Independente — Coorte NCBI Pathogen Detection AST ($N = 100$ isolados)
 
@@ -444,7 +444,7 @@ onde $\mathcal{A}(L)$ é o conjunto de todos os atributos mapeados para o locus 
 | `atributos_f3_kmers.npz` | `790419cdd3e6249357ef6ad42d2972016a1d85f11c47bbc2c089a668d3e75fd1` |
 | `funil_exclusao.json` | `cadd5d3dbceeab50e68e074cc3d8acda3a88c3df9b82da3d61cc59bc77daf559` |
 | `relatorio_desduplicacao.json` | `ece314a9111df15dc8cd68eab4aa04926a5257c03b552188d70de090f4deca2d` |
-| `modelos_servico.pkl` | `99274a25da72ac865a4b99f0dac2c262267652f306371f5cb2615cb60db15a5d` |
+| `modelos_servico.pkl` | `f3a0051b54c26db5686ec3fa8cd38f34c8499c0fc5cba45b25cc5a5ea9b0abd0` |
 
 ---
 

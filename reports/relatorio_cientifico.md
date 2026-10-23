@@ -184,11 +184,11 @@
 
 | Espécie | Fármaco | Versão do Modelo | AUPRC Baseline B1 | AUPRC Modelo B4 ($\Delta$) | VME | Top Loci TreeSHAP |
 |---|---|---|---|---|---|---|
-| *Klebsiella pneumoniae* | `ciprofloxacina` | `kpneu-cip-1.2.0` | 0.8341 | **0.9600** (+0.1259) | 0.0476 | gyrA:S83L, marR:G103S (unitig), locus_kmer31_poly_0039 |
-| *Klebsiella pneumoniae* | `gentamicina` | `kpneu-gen-1.2.0` | 0.7501 | **0.8173** (+0.0614) | 0.2308 | aac(3)-IIa, cpxA:Y144C (unitig), blaCTX-M-15 |
-| *Klebsiella pneumoniae* | `ceftriaxona` | `kpneu-cro-1.2.0` | 0.7668 | **0.8927** (+0.1159) | 0.1795 | blaCTX-M-15, ompF:c.-112del (unitig), locus_kmer31_poly_0119 |
-| *Staphylococcus aureus* | `oxacilina` | `saureus-oxa-1.2.0` | 0.8529 | **0.9778** (+0.1280) | 0.0476 | mecA, pbp4:c.-90T>A (unitig), locus_kmer31_poly_0034 |
-| *Staphylococcus aureus* | `ciprofloxacina` | `saureus-cip-1.2.0` | 0.7685 | **0.9441** (+0.1676) | 0.1250 | grlA:S80F, norA:flqB_up (unitig), locus_kmer31_poly_0024 |
+| *Klebsiella pneumoniae* | `ciprofloxacina` | `kpneu-cip-1.2.0` | 0.8427 | **0.9199** (+0.0701) | 0.2000 | gyrA:S83L, locus_kmer31_poly_0026, locus_kmer31_poly_0027 |
+| *Klebsiella pneumoniae* | `gentamicina` | `kpneu-gen-1.2.0` | 0.8537 | **0.9429** (+0.0989) | 0.1522 | aac(3)-IIa, cpxA:Y144C (unitig), gyrA:S83L |
+| *Klebsiella pneumoniae* | `ceftriaxona` | `kpneu-cro-1.2.0` | 0.9004 | **0.9725** (+0.0673) | 0.1087 | blaCTX-M-15, ompF:c.-112del (unitig), locus_kmer31_poly_0051 |
+| *Staphylococcus aureus* | `oxacilina` | `saureus-oxa-1.2.0` | 0.8534 | **0.8837** (+0.0358) | 0.1818 | mecA, pbp4:c.-90T>A (unitig), locus_kmer31_poly_0102 |
+| *Staphylococcus aureus* | `ciprofloxacina` | `saureus-cip-1.2.0` | 0.8027 | **0.8643** (+0.0595) | 0.2000 | grlA:S80F, norA:flqB_up (unitig), locus_kmer31_poly_0069 |
 
 ### 3.2 Validação Externa Independente — Padrão NCBI Pathogen Detection AST (Seção 3.1, 7.1 e Fase 6)
 
