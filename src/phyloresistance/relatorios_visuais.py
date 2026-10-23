@@ -1371,10 +1371,10 @@ def gerar_todos_documentos_e_dashboards(
     cam_pdf_docs.write_bytes(pdf_bytes)
     cam_pdf_rep.write_bytes(pdf_bytes)
 
-    # 4) Monografia Acadêmica Completa (Fundamentação, Literatura, Metodologia e Todos os Resultados em .md, .html e .pdf)
-    from phyloresistance.monografia_academica import gerar_documentos_academicos_completos
+    # 4) Estudo Científico Completo (Fundamentação, Literatura, Metodologia, Resultados e Conclusão em .md, .html e .pdf)
+    from phyloresistance.monografia_academica import gerar_documentos_estudo_completo
 
-    caminhos_acad = gerar_documentos_academicos_completos(
+    caminhos_estudo = gerar_documentos_estudo_completo(
         relatorio, stats_epi, diretorio_docs=diretorio_docs, diretorio_reports=diretorio_reports
     )
 
@@ -1384,5 +1384,5 @@ def gerar_todos_documentos_e_dashboards(
         "dashboard_html_reports": str(cam_html_rep),
         "relatorio_pdf_docs": str(cam_pdf_docs),
         "relatorio_pdf_reports": str(cam_pdf_rep),
-        **caminhos_acad,
+        **caminhos_estudo,
     }

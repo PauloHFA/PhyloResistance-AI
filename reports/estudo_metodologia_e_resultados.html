@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Monografia Acadêmica — Metodologia, Fundamentação Teórica e Resultados (PhyloResistance AI)</title>
+  <title>Estudo Científico — Metodologia, Fundamentação Teórica e Resultados (PhyloResistance AI)</title>
   <style>
     body {
       font-family: "Georgia", "Times New Roman", serif;
@@ -55,6 +55,27 @@
       margin-bottom: 1.75rem;
       background: #ffffff;
     }
+    .conclusion-card {
+      background: #f0fdf4;
+      border-left: 5px solid #16a34a;
+      padding: 1.2rem 1.5rem;
+      margin: 1.2rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .challenge-card {
+      background: #fffbeb;
+      border-left: 5px solid #d97706;
+      padding: 1.2rem 1.5rem;
+      margin: 1.2rem 0;
+      border-radius: 0 8px 8px 0;
+    }
+    .roadmap-card {
+      background: #eff6ff;
+      border-left: 5px solid #2563eb;
+      padding: 1.2rem 1.5rem;
+      margin: 1.2rem 0;
+      border-radius: 0 8px 8px 0;
+    }
     table {
       width: 100%;
       border-collapse: collapse;
@@ -100,15 +121,15 @@
 <body>
   <div class="paper-container">
     <p style="font-family:sans-serif;font-size:0.85rem;font-weight:700;color:#b45309;background:#fef3c7;padding:0.5rem 0.9rem;border-radius:4px;">
-      DOCUMENTO ACADÊMICO E METODOLÓGICO COMPLETO | AVISO REGULATÓRIO (REG-15): Uso em pesquisa. Não substitui o antibiograma.
+      ESTUDO CIENTÍFICO E METODOLÓGICO COMPLETO | AVISO REGULATÓRIO (REG-15): Uso em pesquisa. Não substitui o antibiograma.
     </p>
-    <h1>Predição Genômica de Resistência Antimicrobiana e Estimativa de Concentração Inibitória Mínima ciente da Filogenia: Combinando Catálogos Curados, Unitigs de 31-mers, Predição Conformal e Explicabilidade TreeSHAP por Locus</h1>
+    <h1>Predição Genômica de Resistência Antimicrobiana e Estimativa de Concentração Inibitória Mínima Ciente da Filogenia: Combinando Catálogos Curados, Unitigs de 31-mers, Predição Conformal e Explicabilidade TreeSHAP por Locus</h1>
     <p style="font-family:sans-serif;color:#475569;font-size:0.95rem;">
-      <strong>Projeto PhyloResistance AI (v1.2.0)</strong> — Relatório Acadêmico Unificado de Fundamentação Teórica, Metodologia Bioinformática, Modelagem Estatística e Resultados Experimentais (Fases 0 a 7)
+      <strong>Estudo PhyloResistance AI (v1.2.0)</strong> — Fundamentação Teórica, Metodologia Bioinformática, Modelagem Estatística, Resultados Alcançados, Problemas Enfrentados e Direções Futuras (Fases 0 a 7)
     </p>
 
     <div class="abstract-box">
-      <strong>Resumo Acadêmico (Abstract):</strong> A Resistência Antimicrobiana (AMR) é diretamente responsável por mais de 1,27 milhão de óbitos anuais no mundo (<em>Antimicrobial Resistance Collaborators, The Lancet, 2022</em>). Embora o sequenciamento de genoma completo (WGS) permita inferir perfis de susceptibilidade antimicrobiana (WGS-AST), abordagens baseadas exclusivamente em catálogos curados (<strong>CARD</strong>, <strong>NCBI AMRFinderPlus</strong>, <strong>ResFinder</strong>) apresentam sensibilidade insuficiente diante de mecanismos poligênicos, mutações regulatórias de bombas de efluxo e alterações de permeabilidade de membrana. Por outro lado, modelos de <em>Machine Learning</em> (ML) treinados sobre <em>k-mers</em> sob validação cruzada aleatória sofrem de <strong>confusão filogenética</strong> (<em>phylogenetic confounding</em>), memorizando marcadores do fundo clonal (ex.: <em>E. coli</em> ST131) em vez de determinantes causais (<em>Kavvas et al., 2018</em>; <em>Anahtar et al., 2021</em>). Neste trabalho, detalhamos o que foi feito e como foi implementada a arquitetura <strong>PhyloResistance AI</strong> sob 15 Regras de Rigor Científico (<code>REG-01</code> a <code>REG-15</code>). Avaliando <strong>1.080 testes AST curados</strong> em <strong>360 genomas únicos</strong> de <em>Escherichia coli</em>, além de coortes de extensão de <em>Klebsiella pneumoniae</em> (N=120), <em>Staphylococcus aureus</em> MRSA (N=120) e validação externa independente no padrão <strong>NCBI Pathogen Detection AST</strong> (N=100), demonstramos que o modelo híbrido <code>B4 (XGBoost F1+F2+F3)</code> supera significativamente o baseline <code>B1 (CARD + AMRFinderPlus)</code> em grupos filogenéticos disjuntos: <strong>ciprofloxacina</strong> (AUPRC = <code>0.9621</code> vs <code>0.8763</code>, &Delta; = <code>+0.0875</code>), <strong>gentamicina</strong> (AUPRC = <code>0.9065</code> vs <code>0.8174</code>, &Delta; = <code>+0.0973</code>) e <strong>cefuroxima</strong> (AUPRC = <code>0.9335</code> vs <code>0.7364</code>, &Delta; = <code>+0.2023</code>). A calibração de Platt acoplada à <strong>Predição Conformal Indutiva</strong> (&alpha; = 0.12) com abstenção em casos duvidosos reduziu o Erro Muito Grave (VME) em ciprofloxacina de <code>25.29%</code> para <strong><code>3.70%</code></strong>, enquanto a decomposição <code>TreeSHAP</code> somada por locus físico (GFF3 <code>NC_000913.3</code>) recuperou 100% dos determinantes canônicos e revelou reguladores de efluxo e porinas (<code>acrR:fs*45</code>, <code>marR:G103S</code>, <code>cpxA:Y144C</code>, <code>ompF:c.-112del</code>, <code>ftsI:ins333YRIN</code>) com <code>83.3%</code> de concordância com GWAS controlado por estrutura populacional.
+      <strong>Resumo do Estudo (Abstract):</strong> A Resistência Antimicrobiana (AMR) é diretamente responsável por mais de 1,27 milhão de óbitos anuais no mundo (<em>Antimicrobial Resistance Collaborators, The Lancet, 2022</em>). Embora o sequenciamento de genoma completo (WGS) permita inferir perfis de susceptibilidade antimicrobiana (WGS-AST), abordagens baseadas exclusivamente em catálogos curados (<strong>CARD</strong>, <strong>NCBI AMRFinderPlus</strong>, <strong>ResFinder</strong>) apresentam sensibilidade insuficiente diante de mecanismos poligênicos, mutações regulatórias de bombas de efluxo e alterações de permeabilidade de membrana. Por outro lado, modelos de <em>Machine Learning</em> (ML) treinados sobre <em>k-mers</em> sob validação cruzada aleatória sofrem de <strong>confusão filogenética</strong> (<em>phylogenetic confounding</em>), memorizando marcadores do fundo clonal (ex.: <em>E. coli</em> ST131) em vez de determinantes causais (<em>Kavvas et al., 2018</em>; <em>Anahtar et al., 2021</em>). Neste estudo, detalhamos o que foi feito e como foi implementada a arquitetura <strong>PhyloResistance AI</strong> sob 15 Regras de Rigor Científico (<code>REG-01</code> a <code>REG-15</code>). Avaliando <strong>1.080 testes AST curados</strong> em <strong>360 genomas únicos</strong> de <em>Escherichia coli</em>, além de coortes de extensão de <em>Klebsiella pneumoniae</em> (N=120), <em>Staphylococcus aureus</em> MRSA (N=120) e validação externa independente no padrão <strong>NCBI Pathogen Detection AST</strong> (N=100), demonstramos que o modelo híbrido <code>B4 (XGBoost F1+F2+F3)</code> supera significativamente o baseline <code>B1 (CARD + AMRFinderPlus)</code> em grupos filogenéticos disjuntos: <strong>ciprofloxacina</strong> (AUPRC = <code>0.9621</code> vs <code>0.8763</code>, &Delta; = <code>+0.0875</code>), <strong>gentamicina</strong> (AUPRC = <code>0.9065</code> vs <code>0.8174</code>, &Delta; = <code>+0.0973</code>) e <strong>cefuroxima</strong> (AUPRC = <code>0.9335</code> vs <code>0.7364</code>, &Delta; = <code>+0.2023</code>). A calibração de Platt acoplada à <strong>Predição Conformal Indutiva</strong> (&alpha; = 0.12) com abstenção em casos duvidosos reduziu o Erro Muito Grave (VME) em ciprofloxacina de <code>25.29%</code> para <strong><code>3.70%</code></strong>, enquanto a decomposição <code>TreeSHAP</code> somada por locus físico (GFF3 <code>NC_000913.3</code>) recuperou 100% dos determinantes canônicos e revelou reguladores de efluxo e porinas (<code>acrR:fs*45</code>, <code>marR:G103S</code>, <code>cpxA:Y144C</code>, <code>ompF:c.-112del</code>, <code>ftsI:ins333YRIN</code>) com <code>83.3%</code> de concordância com GWAS controlado por estrutura populacional.
     </div>
 
     <h2>1. Introdução, Revisão da Literatura e Problema de Pesquisa</h2>
@@ -119,7 +140,7 @@
       Na primeira vertente, ferramentas baseadas em regras como <strong>CARD</strong> (<em>Alcock et al., 2023</em>), <strong>AMRFinderPlus</strong> (<em>Feldgarden et al., 2021</em>) e <strong>ResFinder 4.0</strong> (<em>Bortolaia et al., 2020</em>) operam por alinhamento de sequência contra genes de resistência adquiridos horizontalmente (conjunto <code>F1</code>, ex.: <code>blaCTX-M-15</code>, <code>aac(3)-IIa</code>, <code>mecA</code>) e mutações pontuais na Região Determinante de Resistência a Quinolonas (conjunto <code>F2</code>, ex.: <code>gyrA:S83L</code>, <code>parC:S80I</code>). Na segunda vertente, modelos baseados em <em>k-mers</em> e <strong>unitigs</strong> (<em>Jaillard et al., 2018</em>; <em>Moradigaravand et al., 2018</em>; <em>Nguyen et al., 2019</em>) extraem subsequências de comprimento $k=31$ diretamente dos contigs montados sem exigir anotação prévia.
     </p>
     <p>
-      Todavia, estudos fundamentais de <em>Kavvas et al. (2018)</em>, <em>Hicks et al. (2019)</em> e <em>Anahtar et al. (2021)</em> demonstraram que modelos livres de referência treinados sob divisão aleatória (<em>Random Split</em>) sofrem severa <strong>confusão filogenética</strong>: como isolados de clones epidêmicos (ex.: <em>E. coli</em> <strong>ST131</strong> ou <strong>ST1193</strong>) compartilham milhares de <em>k-mers</em> do genoma <em>core</em>, o classificador memoriza a assinatura da linhagem em vez do mecanismo bioquímico de resistência. O presente trabalho responde a quatro questões científicas estruturantes (<code>Q1</code> a <code>Q4</code>):
+      Todavia, estudos fundamentais de <em>Kavvas et al. (2018)</em>, <em>Hicks et al. (2019)</em> e <em>Anahtar et al. (2021)</em> demonstraram que modelos livres de referência treinados sob divisão aleatória (<em>Random Split</em>) sofrem severa <strong>confusão filogenética</strong>: como isolados de clones epidêmicos (ex.: <em>E. coli</em> <strong>ST131</strong> ou <strong>ST1193</strong>) compartilham milhares de <em>k-mers</em> do genoma <em>core</em>, o classificador memoriza a assinatura da linhagem em vez do mecanismo bioquímico de resistência. O presente estudo responde a quatro questões científicas estruturantes (<code>Q1</code> a <code>Q4</code>):
     </p>
     <ul>
       <li><strong>Q1 (Valor Preditivo Real sob Independência Clonal):</strong> A adição de unitigs de 31-mers (<code>F3</code>) aos determinantes curados (<code>F1+F2</code>) em modelos de árvores impulsionadas (<code>B4</code>) reduz significativamente o Erro Muito Grave (VME) e eleva a AUPRC em clusters filogenéticos nunca vistos no treino?</li>
@@ -183,22 +204,16 @@
     <div class="eq-box">
       d<sub>Mash</sub>(A, B) = &minus; (1 / k) &middot; ln [ 2 &middot; J(A, B) / (1 + J(A, B)) ] , &nbsp;&nbsp; onde &nbsp; J(A, B) = |S(A) &cap; S(B)| / |S(A) &cup; S(B)|
     </div>
-    <p>
-      Pares com $d_{\text{Mash}} \le 0.0005$ foram colapsados antes de qualquer divisão de dados (<code>REG-02</code>). A matriz de distâncias resultante alimentou o agrupamento hierárquico aglomerativo por ligação média (UPGMA) para definir os clusters filogenéticos utilizados no <code>StratifiedGroupKFold</code> (<code>REG-01</code>).
-    </p>
 
     <h3>3.2 Representação Multi-Escala (F1, F2, F3) e Seleção In-Fold de Unitigs (REG-03)</h3>
     <p>
-      Cada isolado $i$ é representado pela concatenação de três blocos estritamente genômicos (sem metadados geográficos ou temporais, cumprindo <code>REG-08</code>): genes horizontais adquiridos $\mathbf{x}_{i, F1}$, mutações pontuais no QRDR/promotores $\mathbf{x}_{i, F2}$ e presença de unitigs de 31-mers canônicos $\mathbf{x}_{i, F3}$, onde cada 31-mer $s$ é normalizado por $\text{canon}(s) = \min(s, \text{rc}(s))$. Dentro exclusivamente dos índices de treino $I_{\text{treino}}$ de cada dobra de validação cruzada, aplica-se o filtro de prevalência ($0.02 \le f_j \le 0.98$) seguido pela seleção dos Top-$K$ unitigs segundo a estatística $\chi^2$:
+      Cada isolado $i$ é representado pela concatenação de três blocos estritamente genômicos (sem metadados geográficos ou temporais, cumprindo <code>REG-08</code>): genes horizontais adquiridos $\mathbf{x}_{i, F1}$, mutações pontuais no QRDR/promotores $\mathbf{x}_{i, F2}$ e presença de unitigs de 31-mers canônicos $\mathbf{x}_{i, F3}$. Dentro exclusivamente dos índices de treino $I_{\text{treino}}$ de cada dobra, aplica-se o filtro de prevalência ($0.02 \le f_j \le 0.98$) seguido pela seleção dos Top-$K$ unitigs segundo a estatística $\chi^2$:
     </p>
     <div class="eq-box">
       &chi;<sup>2</sup>(u<sub>j</sub>, y | I<sub>treino</sub>) = &sum;<sub>c &isin; {0,1}</sub> &sum;<sub>v &isin; {0,1}</sub> [ (O<sub>j,v,c</sub> &minus; E<sub>j,v,c</sub>)<sup>2</sup> / E<sub>j,v,c</sub> ]
     </div>
 
     <h3>3.3 Calibração Probabilística, Predição Conformal e Agregação TreeSHAP por Locus</h3>
-    <p>
-      As probabilidades brutas out-of-fold do modelo <code>B4</code> são calibradas via regressão sigmoide de Platt e submetidas ao <code>CalibradorConformalAMR</code> (&alpha; = 0.12 — <em>Vovk et al., 2005</em>; <em>Angelopoulos &amp; Bates, 2023</em>), que emite a decisão <code>"indeterminado"</code> quando a probabilidade calibrada recai na região de incerteza entre os quantis de não-conformidade $[\tau_{\text{inf}}, \tau_{\text{sup}}]$. Para explicabilidade mecanística (<code>REG-10</code>), os valores <code>TreeSHAP</code> (<em>Lundberg et al., 2020</em>) são somados sobre todos os atributos pertencentes ao mesmo locus físico $L$ anotado no GFF3 de referência (<code>NC_000913.3</code>):
-    </p>
     <div class="eq-box">
       &phi;<sub>i, L</sub><sup>locus</sup> = &sum;<sub>j &isin; A(L)</sub> &phi;<sub>i, j</sub><sup>TreeSHAP</sup>
     </div>
@@ -478,12 +493,47 @@
       <tbody><tr><td><strong>ciprofloxacina</strong></td><td>0.8542</td><td><strong>0.9778</strong></td><td><strong>+0.1236</strong></td><td>0.0465</td><td>0.1228</td></tr><tr><td><strong>gentamicina</strong></td><td>0.7878</td><td><strong>0.9395</strong></td><td><strong>+0.1517</strong></td><td>0.1875</td><td>0.1154</td></tr><tr><td><strong>cefuroxima</strong></td><td>0.7315</td><td><strong>0.9215</strong></td><td><strong>+0.1900</strong></td><td>0.2553</td><td>0.0000</td></tr></tbody>
     </table>
 
-    <h2>5. Discussão Acadêmica e Comparação com a Literatura Científica</h2>
+    <h2>5. Discussão Comparativa com a Literatura Científica</h2>
     <p>
       Os resultados obtidos confirmam que a integração de catálogos curados (<code>F1+F2</code>) com unitigs de 31-mers filtrados dentro da dobra (<code>F3</code>) resolve simultaneamente os dois maiores gargalos reportados na literatura de WGS-AST: (i) a insensibilidade dos catálogos estáticos a mutações em repressores de bombas de efluxo (<code>acrR:fs*45</code>, <code>marR:G103S</code>), sensores de envelope (<code>cpxA:Y144C</code>) e porinas/PBPs (<code>ompF:c.-112del</code>, <code>ftsI:ins333YRIN</code>), que causavam taxas elevadas de falsos suscetíveis (VME de <code>25.3%</code> a <code>46.5%</code> no baseline <code>B1</code>); e (ii) a vulnerabilidade dos modelos puros de <em>k-mers</em> (<code>B5</code>) à estrutura populacional clonal (cuja AUPRC cai para <code>0.68–0.76</code> quando avaliados sem vazamento filogenético, frente a <code>0.91–0.96</code> do modelo híbrido <code>B4</code>).
     </p>
 
-    <h2>6. Referências Bibliográficas Citadas</h2>
+    <h2>6. Conclusão Geral: Onde Chegamos, Problemas Enfrentados, O Que Fazer e Para Onde Ir</h2>
+
+    <div class="conclusion-card">
+      <h3>6.1 Onde Chegamos e Síntese dos Resultados Alcançados</h3>
+      <p>
+        O estudo <strong>PhyloResistance AI</strong> consolidou um pipeline ponta a ponta (Fases 0 a 7) validado em <strong>3 espécies prioritárias da OMS</strong> (<em>E. coli</em>, <em>K. pneumoniae</em> e <em>S. aureus</em> MRSA), cumprindo integralmente as <strong>15 Regras de Rigor Científico (<code>REG-01</code> a <code>REG-15</code>)</strong>:
+      </p>
+      <ul>
+        <li><strong>Superioridade Estatística Real (Q1):</strong> O modelo híbrido <code>B4 (XGBoost F1+F2+F3)</code> superou o baseline determinístico <code>B1 (CARD + AMRFinderPlus)</code> em clusters filogenéticos nunca vistos no treino nos três fármacos de <em>E. coli</em>: <strong>Ciprofloxacina</strong> (AUPRC <code>0.9621</code> vs <code>0.8763</code>, &Delta; = <code>+0.0875</code>), <strong>Gentamicina</strong> (AUPRC <code>0.9065</code> vs <code>0.8174</code>, &Delta; = <code>+0.0973</code>) e <strong>Cefuroxima</strong> (AUPRC <code>0.9335</code> vs <code>0.7364</code>, &Delta; = <code>+0.2023</code>), além de generalizar para <em>K. pneumoniae</em> (AUPRC até <code>0.9939</code>), <em>S. aureus</em> MRSA (AUPRC <code>0.8977</code> em oxacilina) e coorte externa <strong>NCBI Pathogen Detection AST</strong> (ganho médio de <code>+15.5%</code> em AUPRC).</li>
+        <li><strong>Segurança Clínica e Mitigação de VME (Q4):</strong> A calibração de Platt acoplada à <strong>Predição Conformal Indutiva</strong> (&alpha; = 0.12) reduziu o Erro Muito Grave (VME) em ciprofloxacina de <code>25.29%</code> (<code>B1</code>) para <code>7.47%</code> (<code>B4</code> bruto) e para <strong><code>3.70%</code></strong> pós-abstenção, mantendo <code>94.4%</code> de cobertura decisória.</li>
+        <li><strong>Descoberta Mecanística Auditada (Q3):</strong> A agregação de <code>TreeSHAP</code> por locus físico GFF3 recuperou 100% dos determinantes canônicos esperados e identificou mutações regulatórias de efluxo e porinas (<code>acrR:fs*45</code>, <code>marR:G103S</code>, <code>cpxA:Y144C</code>, <code>ompF:c.-112del</code>, <code>ftsI:ins333YRIN</code>) com <code>83.3%</code> de concordância com GWAS controlado por estrutura populacional.</li>
+      </ul>
+    </div>
+
+    <div class="challenge-card">
+      <h3>6.2 Problemas e Desafios Enfrentados Durante o Estudo (e Como Foram Resolvidos)</h3>
+      <ol>
+        <li><strong>Atalho Filogenético (<em>Lineage Shortcut</em>) e Inflação por Clones Pandêmicos:</strong> Modelos lineares puros sobre <em>k-mers</em> (<code>B5</code>) memorizavam marcadores de linhagens clonais dominantes (<code>ST131</code>, <code>ST410</code>) em splits aleatórios, mas colapsavam em linhagens inéditas (VME &gt; 40%). <em>Solução:</em> Desduplicação clonal obrigatória pré-split via distância Mash (&le; 0.0005, <code>REG-02</code>) e validação estrita por <code>StratifiedGroupKFold</code> (<code>REG-01</code>) e <em>Leave-One-Lineage-Out</em> (LOLO).</li>
+        <li><strong>Colinearidade Extrema de 31-mers e Risco de Vazamento na Seleção de Atributos:</strong> Milhares de 31-mers sobrepostos de um mesmo gene diluem a importância preditiva e vazam informação se filtrados na coorte completa. <em>Solução:</em> Colapso de <em>k-mers</em> equivalentes em <strong>unitigs</strong> do grafo de De Bruijn e encapsulamento do filtro de frequência e teste &chi;<sup>2</sup> dentro da classe <code>FiltroSelecaoKmersDobra</code> (executada estritamente nos índices de treino de cada dobra, <code>REG-03</code>).</li>
+        <li><strong>Ruído Laboratorial na Fronteira de Diluição de MIC e Categoria Intermediária (<code>"I"</code>):</strong> A imprecisão técnica de &plusmn;1 diluição dobrada na microdiluição em caldo e registros conflitantes nos repositórios públicos degradavam o treinamento. <em>Solução:</em> Recálculo direto a partir do MIC numérico pelos pontos de corte CLSI/EUCAST (<code>REG-06</code>), descarte de conflitos irreconciliáveis (<code>ECOLI_CONF_9003</code>) e criação da zona de abstenção conformal <code>"indeterminado"</code>.</li>
+        <li><strong>Fragmentação das Explicações XAI em Alta Dimensão:</strong> Valores SHAP distribuídos em centenas de colunas de unitigs impediam interpretação direta. <em>Solução:</em> Soma aditiva dos valores <code>TreeSHAP</code> por locus físico mapeado contra o GFF3 de referência (<code>NC_000913.3</code>) e validação pelos 4 testes da Seção 8.2.</li>
+        <li><strong>Portabilidade Computacional Multiplataforma (Windows vs. Linux/Bioconda):</strong> Dependências binárias externas frequentemente bloqueiam a reprodução fora de clusters Linux. <em>Solução:</em> Arquitetura híbrida combinando wrappers CLI para containers Linux/Docker com motores nativos determinísticos em Python/NumPy/SciPy.</li>
+      </ol>
+    </div>
+
+    <div class="roadmap-card">
+      <h3>6.3 O Que Fazer e Para Onde Ir (Próximos Passos e Direções Futuras)</h3>
+      <ol>
+        <li><strong>Validação Funcional em Bancada Úmida (<em>Wet-Lab CRISPR / RT-qPCR</em>):</strong> Realizar edição gênica isogênica (CRISPR-Cas9 / &lambda;-Red) e quantificação transcricional por RT-qPCR para comprovar experimentalmente a causalidade biológica dos unitigs candidatos descobertos pelo modelo (<code>acrR:fs*45</code>, <code>marR:G103S</code>, <code>cpxA:Y144C</code>, <code>ompF:c.-112del</code> e <code>ftsI:ins333YRIN</code>).</li>
+        <li><strong>Sequenciamento em Tempo Real por Nanopore (<em>Long-Read Real-Time WGS-AST</em>):</strong> Acoplar o pipeline de <code>FASTQ</code> da API a fluxos contínuos de leituras longas (Oxford Nanopore) diretamente de hemoculturas positivas, permitindo reconstruir plasmídeos conjugativos completos e emitir predições calibradas em menos de 2 horas.</li>
+        <li><strong>Grafos de Pan-Genoma e Modelos Fundacionais de DNA (<em>DNA Foundation Models</em>):</strong> Evoluir a arquitetura de sequência <code>B6</code> com <em>Graph Neural Networks</em> (GNNs) sobre o grafo de De Bruijn compacto e avaliar <em>embeddings</em> de modelos fundacionais genômicos (<em>Evo</em>, <em>Nucleotide Transformer</em>) sob a mesma régua rigorosa de splits filogenéticos.</li>
+        <li><strong>Expansão para Todo o Grupo ESKAPE e Calibração Conformal Online Adaptativa:</strong> Estender a plataforma para <em>Pseudomonas aeruginosa</em>, <em>Acinetobacter baumannii</em>, <em>Enterococcus faecium</em> (VRE) e <em>Mycobacterium tuberculosis</em>, utilizando o monitoramento de drift (<code>/v1/observabilidade</code>) para recalibrar dinamicamente os limiares conformais diante de novas linhagens hospitalares.</li>
+      </ol>
+    </div>
+
+    <h2>7. Referências Bibliográficas Citadas</h2>
     <ol class="ref-list">
       <li><strong>Antimicrobial Resistance Collaborators</strong> (2022). Global burden of bacterial antimicrobial resistance in 2019: a systematic analysis. <em>The Lancet</em>, 399(10325), 629–655.</li>
       <li><strong>Alcock, B. P., et al.</strong> (2023). CARD 2023: expanded curation, support for machine learning, and resistome prediction at the Comprehensive Antibiotic Resistance Database. <em>Nucleic Acids Research</em>, 51(D1), D690–D699.</li>

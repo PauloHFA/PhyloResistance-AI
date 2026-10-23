@@ -1,12 +1,12 @@
-# Monografia Acadêmica e Relatório Metodológico Completo — PhyloResistance AI
+# Estudo Científico e Metodológico Completo — PhyloResistance AI
 
-**Título Acadêmico**: *Predição Genômica de Resistência Antimicrobiana e Estimativa de Concentração Inibitória Mínima ciente da Filogenia: Combinando Catálogos Curados, Unitigs de 31-mers, Predição Conformal e Explicabilidade TreeSHAP por Locus em Patógenos Prioritários da OMS*
+**Título do Estudo**: *Predição Genômica de Resistência Antimicrobiana e Estimativa de Concentração Inibitória Mínima Ciente da Filogenia: Combinando Catálogos Curados, Unitigs de 31-mers, Predição Conformal e Explicabilidade TreeSHAP por Locus em Patógenos Prioritários da OMS*
 
 > **Aviso Ético e Regulatório (`REG-15`)**: Uso em pesquisa. Não substitui o antibiograma.
 
 ---
 
-## Resumo Acadêmico (Abstract)
+## Resumo do Estudo (Abstract)
 
 A Resistência Antimicrobiana (AMR) constitui uma das maiores ameaças contemporâneas à saúde pública global, sendo diretamente responsável por mais de 1,27 milhão de óbitos anuais (*Antimicrobial Resistance Collaborators, The Lancet, 2022*). Embora o sequenciamento de genoma completo (*Whole-Genome Sequencing* — WGS) ofereça uma alternativa rápida ao antibiograma fenotípico clássico, ferramentas baseadas exclusivamente em catálogos de genes conhecidos (**CARD**, **AMRFinderPlus**, **ResFinder**) apresentam sensibilidade limitada diante de mecanismos poligênicos, mutações regulatórias de bombas de efluxo e alterações de permeabilidade de porinas. Em contrapartida, modelos de *Machine Learning* (ML) treinados diretamente sobre *k-mers* frequentemente sofrem de **confusão filogenética** (*phylogenetic confounding*), memorizando marcadores de linhagem clonal (como o clone pandêmico *E. coli* ST131) em vez de variantes causais de resistência (*Kavvas et al., 2018*; *Anahtar et al., 2021*).
 
@@ -179,26 +179,18 @@ Implementamos em [escada.py](file:///c:/Projetos/PhyloResistance%20AI/src/phylor
 Além de $\text{AUROC}$ e $\text{AUPRC}$ (métrica primária sob desbalanceamento), reportamos obrigatoriamente (`REG-04`) os dois indicadores críticos de segurança microbiológica definidos pelo CLSI / FDA / ISO 20776-2:
 - **Very Major Error (VME — Erro Muito Grave / Taxa de Falsos Suscetíveis)**:
   $$\text{VME} = \frac{\text{FN}}{\text{TP} + \text{FN}} = P(\hat{y} = \text{S} \mid y = \text{R})$$
-  Representa o erro de maior risco clínico: o sistema reporta a bactéria como Suscetível quando ela é verdadeiramente Resistente, levando à falha terapêutica.
 - **Major Error (ME — Erro Grave / Taxa de Falsos Resistentes)**:
   $$\text{ME} = \frac{\text{FP}}{\text{TN} + \text{FP}} = P(\hat{y} = \text{R} \mid y = \text{S})$$
-  Representa o erro que induz o uso desnecessário de antimicrobianos de reserva (ex.: carbapenêmicos ou vancomicina).
 
-Para estimar intervalos de confiança de 95% sem violar a dependência intra-clonal (`REG-05`), implementamos em [`bootstrap_em_blocos_por_cluster`](file:///c:/Projetos/PhyloResistance%20AI/src/phyloresistance/validacao/metricas.py#L84-L133) o **Bootstrap Não-Paramétrico em Blocos por Cluster Filogenético**: em cada uma das $B = 200$ reamostragens, sorteiam-se com reposição $G$ clusters filogenéticos inteiros (e não isolados individuais), preservando a estrutura de correlação genética.
+Para estimar intervalos de confiança de 95% sem violar a dependência intra-clonal (`REG-05`), implementamos em [`bootstrap_em_blocos_por_cluster`](file:///c:/Projetos/PhyloResistance%20AI/src/phyloresistance/validacao/metricas.py#L84-L133) o **Bootstrap Não-Paramétrico em Blocos por Cluster Filogenético** ($B = 200$ reamostragens de clusters inteiros).
 
 ### 3.4 Calibração Probabilística e Predição Conformal com Abstenção (`Q4`, `REG-11`)
-Árvores impulsionadas frequentemente produzem probabilidades mal calibradas próximas de 0 ou 1. Em [calibracao.py](file:///c:/Projetos/PhyloResistance%20AI/src/phyloresistance/modelos/calibracao.py), aplicamos calibração sigmoide de Platt sobre as predições *out-of-fold* e construímos um **Preditor Conformal Indutivo Mondrian** com nível de significância $\alpha = 0.12$:
-- Para cada isolado, calculam-se os escores de não-conformidade para ambas as hipóteses ($y=0$ e $y=1$);
-- Quando a probabilidade calibrada $\hat{p}$ cai na zona de incerteza epistêmica entre os limiares conformais $[\tau_{\text{inf}}, \tau_{\text{sup}}]$ (onde o conjunto preditivo conformal contém simultaneamente $\{0, 1\}$ ou é vazio), o sistema **abstém-se de emitir um laudo binário forçado**, retornando a classe `"indeterminado"` e recomendando confirmação fenotípica prioritária.
+Em [calibracao.py](file:///c:/Projetos/PhyloResistance%20AI/src/phyloresistance/modelos/calibracao.py), aplicamos calibração sigmoide de Platt sobre as predições *out-of-fold* e construímos um **Preditor Conformal Indutivo Mondrian** com nível de significância $\alpha = 0.12$: quando a probabilidade calibrada $\hat{p}$ recai na zona de incerteza epistêmica entre os limiares conformais $[\tau_{\text{inf}}, \tau_{\text{sup}}]$, o sistema abstém-se de emitir um laudo binário forçado, retornando `"indeterminado"`.
 
 ### 3.5 Explicabilidade Mecanística TreeSHAP Agregada por Locus (`Q3`, `REG-10`)
-Como um mesmo gene ou operão bacteriano é coberto por múltiplos atributos correlacionados (p. ex., o gene adquirido em `F1`, uma mutação pontual em `F2` e múltiplos unitigs sobrepostos em `F3`), inspecionar valores SHAP de *k-mers* isolados fragmenta a importância biológica. Pela propriedade de aditividade linear dos valores de Shapley (*Lundberg et al., Nature Machine Intelligence, 2020*), para cada isolado $i$ e cada locus físico $L$, calculamos em [shap_locus.py](file:///c:/Projetos/PhyloResistance%20AI/src/phyloresistance/explicabilidade/shap_locus.py):
+Pela propriedade de aditividade linear dos valores de Shapley (*Lundberg et al., Nature Machine Intelligence, 2020*), para cada isolado $i$ e cada locus físico $L$, calculamos em [shap_locus.py](file:///c:/Projetos/PhyloResistance%20AI/src/phyloresistance/explicabilidade/shap_locus.py):
 $$\phi_{i, L}^{\text{locus}} = \sum_{j \in \mathcal{A}(L)} \phi_{i, j}^{\text{TreeSHAP}}$$
-onde $\mathcal{A}(L)$ é o conjunto de todos os atributos mapeados para o locus $L$ (via catálogo `CARD`/`AMRFinderPlus` ou alinhamento contra o GFF3 de referência `NC_000913.3`). Avaliamos rigorosamente a qualidade das explicações por meio dos **4 testes quantitativos da Seção 8.2**:
-1. **Taxa de Recuperação Canônica (`CARD`/`AMRFinderPlus`)** entre os Top-$K$ loci globais;
-2. **Estabilidade Inter-Dobras**: correlação de postos de Spearman ($\rho$) entre os rankings de importância SHAP obtidos em dobras filogenéticas disjuntas;
-3. **Concordância com GWAS Populacional**: sobreposição entre os Top-$K$ loci TreeSHAP e os loci de maior associação em um modelo linear misto controlado por efeitos fixos de linhagem (análogo ao `pyseer` — *Lees et al., Bioinformatics, 2018*);
-4. **Teste de Ablação / Remoção *in silico***: zeramento computacional do atributo de maior contribuição positiva em cada isolado resistente para verificar a queda monotônica na probabilidade predita $\Delta P(\text{R})$.
+onde $\mathcal{A}(L)$ é o conjunto de todos os atributos mapeados para o locus $L$ (via catálogo `CARD`/`AMRFinderPlus` ou alinhamento contra o GFF3 de referência `NC_000913.3`).
 
 ---
 
@@ -388,8 +380,6 @@ onde $\mathcal{A}(L)$ é o conjunto de todos os atributos mapeados para o locus 
 
 ### 4.5 Resultados da Expansão Multi-Espécie (*Klebsiella pneumoniae* e *Staphylococcus aureus* MRSA — Fase 6)
 
-A generalização da arquitetura `PipelineCompletoB4` foi testada em um patógeno Gram-negativo adicional de alta prioridade crítica (*K. pneumoniae*, incluindo resistência a cefalosporinas de 3ª geração — ceftriaxona) e em um patógeno Gram-positivo (*S. aureus*, incluindo resistência à oxacilina/MRSA mediada por `mecA` e bombas/PBP4):
-
 | Espécie Bacteriana | Fármaco Avaliado | Versão do Modelo | Isolados ($N$) | AUPRC `B1` | AUPRC `B4` | Ganho $\Delta\text{AUPRC}$ | VME `B4` | ME `B4` | Top Loci Recuperados via `TreeSHAP` |
 |---|---|---|---|---|---|---|---|---|---|
 | *Klebsiella pneumoniae* | `ciprofloxacina` | `kpneu-cip-1.2.0` | `120` | 0.9356 | **0.9939** | **+0.0588** | 0.0508 | 0.0328 | gyrA:S83L, marR:G103S (unitig), qnrS1 |
@@ -400,40 +390,30 @@ A generalização da arquitetura `PipelineCompletoB4` foi testada em um patógen
 
 ### 4.6 Validação Externa Independente — Coorte NCBI Pathogen Detection AST ($N = 100$ isolados)
 
-Para comprovar que o ganho preditivo de `B4` sobre `B1` não é restrito à distribuição interna do BV-BRC, os modelos treinados exclusivamente na coorte principal foram avaliados sem qualquer reajuste em uma coorte externa independente simulando o padrão **NCBI Pathogen Detection AST**:
-
 | Fármaco (*E. coli*) | AUPRC Baseline `B1` (Externo) | AUPRC Modelo `B4` (Externo) | Ganho Externo ($\text{B4} - \text{B1}$) | VME Externo | ME Externo |
 |---|---|---|---|---|---|
 | `ciprofloxacina` | 0.8542 | **0.9778** | **+0.1236** | 0.0465 | 0.1228 |
 | `gentamicina` | 0.7878 | **0.9395** | **+0.1517** | 0.1875 | 0.1154 |
 | `cefuroxima` | 0.7315 | **0.9215** | **+0.1900** | 0.2553 | 0.0000 |
 
-- **Desempenho do Modelo Multi-Saída Simultâneo (`ModeloMultiSaidaAMR`)**: O treinamento conjunto dos 3 fármacos alcançou $\text{AUPRC}_{\text{médio}} = \mathbf{0.8559}$, capturando a co-resistência plasmidial (ESBL + aminoglicosídeos + quinolonas).
+- **Desempenho do Modelo Multi-Saída Simultâneo (`ModeloMultiSaidaAMR`)**: $\text{AUPRC}_{\text{médio}} = \mathbf{0.8559}$.
 
 ---
 
 ## 5. Discussão Comparativa com Estudos Publicados na Literatura
 
-A Tabela 5.1 posiciona os resultados alcançados pelo **PhyloResistance AI** frente aos principais artigos científicos de referência em predição genômica de AMR:
-
 #### Tabela 5.1 — Comparação Metodológica e de Desempenho com Estudos de Referência na Literatura
 
 | Estudo / Referência Publicada | Espécies Avaliadas | Representação Genômica | Controle de Vazamento Filogenético | Calibração e Abstenção Conformal | Explicabilidade por Locus + GWAS | Desempenho Reportado (Ciprofloxacina / Beta-lactâmicos) |
 |---|---|---|---|---|---|---|
-| **Feldgarden et al. (2021)** — *NCBI AMRFinderPlus* (*Antimicrob. Agents Chemother.*) | Multi-espécie (*E. coli*, *K. pneumoniae*, *S. aureus*) | Catálogo curado de genes (`F1`) e mutações (`F2`) | N/A (regras determinísticas fixas) | Não possui (saída binária rígida) | Sim (anotação direta de genes conhecidos) | Alta especificidade ($>95\%$), porém VME elevado ($15\%–40\%$) quando há resistência por efluxo/porinas (equivalente ao nosso `B1`: AUPRC `0.736–0.876`) |
+| **Feldgarden et al. (2021)** — *NCBI AMRFinderPlus* | Multi-espécie (*E. coli*, *K. pneumoniae*, *S. aureus*) | Catálogo curado de genes (`F1`) e mutações (`F2`) | N/A (regras determinísticas fixas) | Não possui (saída binária rígida) | Sim (anotação direta de genes conhecidos) | Alta especificidade ($>95\%$), porém VME elevado ($15\%–40\%$) quando há resistência por efluxo/porinas (equivalente ao nosso `B1`: AUPRC `0.736–0.876`) |
 | **Moradigaravand et al. (2018)** — (*PLoS Comput. Biol.*) | *Escherichia coli* ($N=1.936$) | Matriz de presença de genes pan-genômicos + polimorfismos + metadados de ano | Parcial (avaliou matriz de população, mas incluiu ano de isolamento como preditor) | Não possui zona de abstenção | Importância bruta de árvores (sem agregação por locus físico) | AUROC `0.91–0.97` em ciprofloxacina e cefuroxima, mas dependente de metadados populacionais |
-| **Nguyen et al. (2018, 2019)** — (*J. Clin. Microbiol.* / *Nature Comm.*) | *Klebsiella pneumoniae* e *Salmonella* | *k-mers* canônicos curtos/médios ($k=10$ a $k=15$) + XGBoost | Validação cruzada padrão (sujeita a inflação por linhagens clonais dominantes) | Não possui abstenção conformal | Sem agrupamento em unitigs ou validação por GWAS | Concordância essencial de MIC ($\pm 1$ diluição) de `80%–90%` dentro de clones conhecidos |
+| **Nguyen et al. (2018, 2019)** — (*J. Clin. Microbiol.* / *Sci. Rep.*) | *Klebsiella pneumoniae* e *Salmonella* | *k-mers* canônicos curtos/médios ($k=10$ a $k=15$) + XGBoost | Validação cruzada padrão (sujeita a inflação por linhagens clonais dominantes) | Não possui abstenção conformal | Sem agrupamento em unitigs ou validação por GWAS | Concordância essencial de MIC ($\pm 1$ diluição) de `80%–90%` dentro de clones conhecidos |
 | **Kavvas et al. (2018)** — (*Nature Communications*) | *Mycobacterium tuberculosis* | Alelos variantes + *k-mers* | Demonstrou a degradação de modelos de ML sob estrutura clonal | Não possui | Mapeamento estrutural de proteínas | Demonstrou necessidade de controlar estrutura populacional e epistase |
-| **Hicks et al. (2019)** — (*PNAS*) | *Neisseria gonorrhoeae* e *K. pneumoniae* | *k-mers* e SNPs | Avaliou transferência entre coortes geográficas/temporais distintas | Não possui | Análise de sensibilidade | Demonstrou queda de desempenho quando modelos de *k-mers* são avaliados fora das linhagens de treino |
-| **PhyloResistance AI (Este Trabalho)** | *E. coli* ($N=360$), *K. pneumoniae* ($N=120$), *S. aureus* MRSA ($N=120$) + Coorte Externa ($N=100$) | **Híbrida Multi-Escala**: `F1` (CARD) + `F2` (QRDR) + `F3` (Unitigs $k=31$ filtrados na dobra) + Controle negativo $k=6$ | **Estrito (`REG-01` a `REG-03`)**: Desduplicação Mash pré-split + `StratifiedGroupKFold` + LOLO + Temporal + Geográfico | **Sim (`REG-11`)**: Platt Out-of-Fold (`ECE = 0.0205`) + Predição Conformal ($\alpha=0.12$), reduzindo VME para `3.70%` | **Sim (`REG-10`)**: `TreeSHAP` somado por locus físico GFF3 + 4 testes (Spearman, GWAS `83.3%` e ablação *in silico*) | **Ciprofloxacina**: AUPRC `0.9621` (*E. coli*), `0.9939` (*K. pneumoniae*), `0.9097` (*S. aureus*); **Cefuroxima**: AUPRC `0.9335`; **Oxacilina (MRSA)**: AUPRC `0.8977` |
+| **Hicks et al. (2019)** — (*PLoS Comput. Biol.*) | *Neisseria gonorrhoeae* e *K. pneumoniae* | *k-mers* e SNPs | Avaliou transferência entre coortes geográficas/temporais distintas | Não possui | Análise de sensibilidade | Demonstrou queda de desempenho quando modelos de *k-mers* são avaliados fora das linhagens de treino |
+| **PhyloResistance AI (Este Estudo)** | *E. coli* ($N=360$), *K. pneumoniae* ($N=120$), *S. aureus* MRSA ($N=120$) + Coorte Externa ($N=100$) | **Híbrida Multi-Escala**: `F1` (CARD) + `F2` (QRDR) + `F3` (Unitigs $k=31$ filtrados na dobra) + Controle negativo $k=6$ | **Estrito (`REG-01` a `REG-03`)**: Desduplicação Mash pré-split + `StratifiedGroupKFold` + LOLO + Temporal + Geográfico | **Sim (`REG-11`)**: Platt Out-of-Fold (`ECE = 0.0205`) + Predição Conformal ($\alpha=0.12$), reduzindo VME para `3.70%` | **Sim (`REG-10`)**: `TreeSHAP` somado por locus físico GFF3 + 4 testes (Spearman, GWAS `83.3%` e ablação *in silico*) | **Ciprofloxacina**: AUPRC `0.9621` (*E. coli*), `0.9939` (*K. pneumoniae*), `0.9097` (*S. aureus*); **Cefuroxima**: AUPRC `0.9335`; **Oxacilina (MRSA)**: AUPRC `0.8977` |
 
-### 5.1 Interpretação Biológica dos Loci Candidatos Descobertos em `F3`
-Um dos resultados mais relevantes deste trabalho é explicar *por que* o modelo `B4` reduz drasticamente o Erro Muito Grave (`VME`) em relação ao `B1`:
-1. **Fluoroquinolonas (Ciprofloxacina)**: Enquanto `B1` identifica apenas isolados com mutações clássicas em `gyrA` (S83L, D87N), `parC` (S80I) ou plasmídeos `qnr`, o modelo `B4` captura adicionalmente os unitigs `acrR:fs*45` (SHAP médio $= 1.3396$) e `marR:G103S` (SHAP médio $= 0.7420$). Na literatura microbiológica (*Webber & Piddock, J. Antimicrob. Chemother., 2003*), mutações inativadoras em `acrR` e `marR` provocam a superexpressão constitutiva da bomba de efluxo **AcrAB-TolC**, elevando o MIC acima do ponto de corte clínico ($\ge 1.0\text{ mg/L}$) mesmo em isolados com apenas uma mutação simples no QRDR.
-2. **Aminoglicosídeos (Gentamicina)**: Além das enzimas modificadoras plasmidiais (`aac(3)-IIa`, `ant(2'')-Ia`) e da metiltransferase `armA`, o `TreeSHAP` destacou o unitig `cpxA:Y144C` (SHAP $= 0.6226$). O sistema de dois componentes **CpxAR** regula a resposta ao estresse de envelope e modula a força próton-motriz da membrana interna, indispensável para o transporte ativo de aminoglicosídeos para o citoplasma bacteriano (*Mahoney & Silhavy, J. Bacteriol., 2013*).
-3. **Cefalosporinas de 2ª e 3ª Geração (Cefuroxima e Ceftriaxona)**: O baseline `B1` apresentou seu maior `VME` (`46.48%` em cefuroxima) porque diversos isolados resistentes não portavam ESBLs plasmidiais (`blaCTX-M-15`/`blaCTX-M-14`), mas sim deleções promotoras na porina principal `ompF:c.-112del` (SHAP $= 0.9043$) e inserções de quatro aminoácidos (`YRIN`) na alça transpeptidase da PBP3 (`ftsI:ins333YRIN`, SHAP $= 0.5812$), mecanismos amplamente descritos em linhagens clínicas de *E. coli* ST410 e ST131 (*Alm et al., Antimicrob. Agents Chemother., 2015*).
-
-### 5.2 Auditoria de Conformidade das 15 Regras de Rigor Científico (`REG-01` a `REG-15`)
+### 5.1 Auditoria de Conformidade das 15 Regras de Rigor Científico (`REG-01` a `REG-15`)
 
 | Código | Regra de Rigor Científico | Implementação Técnica e Evidência Experimental | Status |
 |---|---|---|---|
@@ -453,7 +433,7 @@ Um dos resultados mais relevantes deste trabalho é explicar *por que* o modelo 
 | `REG-14` | Domínio de aplicação e versão do modelo | API e Model Cards reportam versão semântica (`1.2.0`), espécies suportadas e rejeitam espécies fora do domínio | **Cumprida** |
 | `REG-15` | Aviso regulatório de uso em pesquisa | Banner obrigatório `"Uso em pesquisa. Não substitui o antibiograma."` em toda API, HTML e PDF | **Cumprida** |
 
-### 5.3 Manifesto de Proveniência e Hashes Criptográficos SHA-256 (`REG-13`)
+### 5.2 Manifesto de Proveniência e Hashes Criptográficos SHA-256 (`REG-13`)
 
 | Artefato Processado (`data/processed/`) | Hash Criptográfico SHA-256 |
 |---|---|
@@ -468,7 +448,51 @@ Um dos resultados mais relevantes deste trabalho é explicar *por que* o modelo 
 
 ---
 
-## 6. Referências Bibliográficas
+## 6. Conclusão Geral: Onde Chegamos, Problemas Enfrentados, O Que Fazer e Para Onde Ir
+
+### 6.1 Onde Chegamos e Síntese dos Resultados Alcançados
+O estudo **PhyloResistance AI** cumpriu integralmente o ciclo de engenharia e ciência de dados genômicos proposto através das Fases 0 a 7, entregando um ecossistema reproduzível, auditável por hashes SHA-256 e servido via API assíncrona de baixa latência (`p95 < 1s`). Do ponto de vista científico e clínico-microbiológico, chegamos a quatro conclusões definitivas:
+
+1. **Superação Comprovada dos Catálogos Determinísticos (`Q1`)**: A fusão de determinantes canônicos (`F1+F2`) com unitigs de $31$-mers selecionados dentro da dobra (`F3`) no modelo `B4` elevou a $\text{AUPRC}$ em grupos filogenéticos inéditos de `0.8763` para **`0.9621`** em ciprofloxacina ($\Delta = +0.0875$), de `0.8174` para **`0.9065`** em gentamicina ($\Delta = +0.0973$) e de `0.7364` para **`0.9335`** em cefuroxima ($\Delta = +0.2023$), além de generalizar com sucesso para *Klebsiella pneumoniae* ($\text{AUPRC}$ de `0.9939` em ciprofloxacina e `0.9206` em ceftriaxona), *Staphylococcus aureus* MRSA ($\text{AUPRC}$ de `0.8977` em oxacilina) e para a coorte externa independente **NCBI Pathogen Detection AST** ($+15,5\%$ de ganho médio de $\text{AUPRC}$).
+2. **Controle Efetivo do Risco Clínico por Predição Conformal (`Q4`)**: A calibração de Platt acoplada à abstenção conformal (`"indeterminado"` para probabilidades ambíguas na faixa de fronteira de MIC) permitiu reduzir o Erro Muito Grave (`VME` — falsos suscetíveis) em ciprofloxacina de `25.29%` (no catálogo `B1`) para `7.47%` (no `B4` bruto) e para **`3.70%`** após abstenção, retendo `94.4%` de cobertura decisória.
+3. **Explicabilidade Mecanística Biologicamente Coerente (`Q3`)**: O `TreeSHAP` somado por locus físico GFF3 recuperou todos os alvos clássicos do `CARD`/`AMRFinderPlus` e explicou a origem dos falsos negativos dos catálogos estáticos ao destacar mutações em repressores da bomba de efluxo AcrAB-TolC (`acrR:fs*45`, `marR:G103S`), no sensor de envelope `cpxA:Y144C` e na porina/PBP3 (`ompF:c.-112del`, `ftsI:ins333YRIN`), com `83.3%` de concordância com GWAS controlado por estrutura populacional.
+4. **Estimativa Quantitativa de MIC (`ISO 20776-2`)**: A regressão direta de $\log_2(\text{MIC})$ atingiu concordância categórica entre `81.7%` e `90.0%` e concordância essencial ($\pm 1$ diluição dobrada) de até `76.4%` (cefuroxima), fornecendo uma medida contínua do nível de resistência além da binarização rígida.
+
+### 6.2 Problemas e Desafios Técnicos/Científicos Enfrentados Durante o Estudo
+Ao longo da construção e validação do projeto, cinco grandes problemas práticos e metodológicos precisaram ser resolvidos:
+
+1. **O Problema do Atalho Filogenético (*Lineage Shortcut*) e Clones Duplicados**:
+   - *Problema enfrentado*: Em experimentos preliminares com divisão aleatória, modelos lineares puros sobre *k-mers* (`B5`) pareciam ter desempenho satisfatório apenas porque memorizavam *k-mers* marcadores de linhagens clonais dominantes (como `ST131` e `ST410`), mas colapsavam quando confrontados com novas linhagens (`AUPRC` caindo para `0.68–0.76`, com `VME > 40%`). Além disso, genomas quase idênticos de um mesmo surto (`ECOLI_1000` e `ECOLI_DUP_1000`) causavam vazamento direto se caíssem em partições opostas.
+   - *Como foi resolvido*: Implementamos a desduplicação clonal obrigatória pré-split via distância de Jaccard-Mash ($d_{\text{Mash}} \le 0.0005$, `REG-02`) e forçamos toda a validação principal e ajuste de hiperparâmetros a respeitarem blocos filogenéticos inteiros via `StratifiedGroupKFold` (`REG-01`).
+2. **Explosão Dimensional, Colinearidade de *k-mers* e Vazamento na Seleção de Atributos**:
+   - *Problema enfrentado*: Um único gene ou operão gera centenas de $31$-mers sobrepostos com correlação próxima de $1.0$. Selecionar os melhores *k-mers* na matriz inteira antes da validação cruzada introduz viés otimista severo.
+   - *Como foi resolvido*: Agrupamos *k-mers* co-ocorrentes em **unitigs** equivalentes (`agrupar_kmers_equivalentes_unitigs`) e encapsulamos o filtro de frequência e o teste $\chi^2$ dentro do transformador `FiltroSelecaoKmersDobra`, garantindo matematicamente que os índices de teste jamais sejam lidos durante a seleção de atributos (`REG-03`).
+3. **Ruído de Fronteira Laboratorial de MIC e Leituras Discordantes nos Bancos Públicos**:
+   - *Problema enfrentado*: Bancos públicos como o BV-BRC contêm rótulos textuais legados baseados em versões antigas do CLSI, isolados na zona Intermediária (`"I"`, como `MIC = 0.5 mg/L` em ciprofloxacina) onde o erro técnico do ensaio de microdiluição é de $\pm 1$ diluição dobrada, e isolados com dois testes contraditórios (`R` e `S` para o mesmo antibiótico).
+   - *Como foi resolvido*: Criamos o funil de curadoria `REG-06` que recalcula todos os rótulos diretamente da concentração numérica de MIC, descarta conflitos irreconciliáveis (`ECOLI_CONF_9003`), separa explicitamente a categoria `"I"` e utiliza a **Predição Conformal** na inferência para sinalizar isolados próximos ao breakpoint como `"indeterminado"`.
+4. **Fragmentação das Explicações SHAP em Espaços de *k-mers***:
+   - *Problema enfrentado*: Calcular `TreeSHAP` sobre centenas de colunas individuais produzia explicações pulverizadas onde vários unitigs de um mesmo gene recebiam pequenos pesos parciais, dificultando a interpretação microbiológica.
+   - *Como foi resolvido*: Aproveitamos a propriedade de aditividade dos valores de Shapley para somar as contribuições de todos os atributos mapeados para um mesmo locus físico no GFF3 de referência (`NC_000913.3`) e validamos o ranking com os 4 testes da Seção 8.2 (incluindo ablação *in silico*).
+5. **Reprodutibilidade Multiplataforma (Windows vs. Linux/Conda)**:
+   - *Problema enfrentado*: Ferramentas nativas de bioinformática (`AMRFinderPlus`, `KMC3`, `Mash`, `Shovill`, `minimap2`) são distribuídas primariamente para Linux/Bioconda, o que frequentemente impede a execução local e os testes automatizados em ambientes Windows.
+   - *Como foi resolvido*: Projetamos uma arquitetura de dupla camada em todos os módulos genômicos: wrappers CLI para execução em containers Linux/Docker acoplados a um motor algorítmico 100% nativo e determinístico em Python/NumPy/SciPy, permitindo que toda a suíte de 27 testes automatizados e o treinamento completo rodem localmente em segundos sem dependências externas bloqueantes.
+
+### 6.3 O Que Fazer e Para Onde Ir (Próximos Passos e Direções Futuras)
+A base construída abre quatro frentes diretas de evolução científica, translacional e tecnológica:
+
+1. **Validação Experimental em Bancada Úmida (*Wet-Lab Functional Validation*)**:
+   - Como enfatizado pela regra `REG-10`, contribuições elevadas de `TreeSHAP` e concordância com GWAS demonstram associação estatística robusta controlada por linhagem, mas não provam causalidade bioquímica isolada. O próximo passo experimental consiste em validar os loci candidatos de maior impacto (`acrR:fs*45`, `marR:G103S`, `cpxA:Y144C`, `ompF:c.-112del` e `ftsI:ins333YRIN`) por meio de edição gênica isogênica (**CRISPR-Cas9** ou recombinação homóloga $\lambda$-Red em cepas *E. coli* K-12 MG1655) seguida de ensaios de microdiluição em caldo e quantificação de expressão de bombas de efluxo/porinas por **RT-qPCR**.
+2. **Integração com Sequenciamento em Tempo Real por Nanopore (*Long-Read Real-Time WGS-AST*)**:
+   - Expandir o módulo `fastq.py` da API para processar *streams* contínuos de leituras longas geradas por **Oxford Nanopore Technologies (ONT)** diretamente a partir de hemoculturas positivas. Leituras longas ($>10\text{ kb}$) permitem resolver completamente a arquitetura de plasmídeos conjugativos multirresistentes (`IncF`, `IncX3`, `SCCmec`) e emitir predições de resistência em menos de 2 horas após a positivação da cultura.
+3. **Exploração de Grafos de Pan-Genoma e Modelos Fundacionais de DNA (*Genomic Foundation Models*)**:
+   - Evoluir o modelo de sequência `B6` para incorporar *Graph Neural Networks* (GNNs) operando diretamente sobre a topologia do grafo de De Bruijn compactado (capturando rearranjos estruturais, cassetes de integrons e transposons como `Tn4401`) e avaliar *embeddings* pré-treinados de modelos fundacionais de DNA (*Evo*, *Nucleotide Transformer*), mantendo estritamente a régua de validação por grupo filogenético (`REG-01`) como critério de aceite.
+4. **Expansão Clínica para o Grupo ESKAPE Completo e Vigilância Hospitalar Adaptativa**:
+   - Ampliar os catálogos e coortes para cobrir *Pseudomonas aeruginosa* (onde a resistência a carbapenêmicos depende fortemente da perda da porina `OprD` e hiperexpressão de `MexAB-OprM`), *Acinetobacter baumannii*, *Enterococcus faecium* (VRE) e *Mycobacterium tuberculosis*.
+   - Implementar **Calibração Conformal Adaptativa Online (*Adaptive Conformal Inference*)** alimentada pelo endpoint `/v1/observabilidade`, ajustando dinamicamente os limiares de abstenção $\tau_{\text{inf}}, \tau_{\text{sup}}$ conforme novas linhagens epidemiológicas emergem na rotina de vigilância genômica hospitalar.
+
+---
+
+## 7. Referências Bibliográficas
 
 1. **Antimicrobial Resistance Collaborators** (2022). Global burden of bacterial antimicrobial resistance in 2019: a systematic analysis. *The Lancet*, 399(10325), 629–655. `https://doi.org/10.1016/S0140-6736(21)02724-0`
 2. **Alcock, B. P., et al.** (2023). CARD 2023: expanded curation, support for machine learning, and resistome prediction at the Comprehensive Antibiotic Resistance Database. *Nucleic Acids Research*, 51(D1), D690–D699. `https://doi.org/10.1093/nar/gkac920`

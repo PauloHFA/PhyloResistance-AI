@@ -4,7 +4,7 @@
 << /Type /Catalog /Pages 2 0 R >>
 endobj
 2 0 obj
-<< /Type /Pages /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R] /Count 5 >>
+<< /Type /Pages /Kids [5 0 R 7 0 R 9 0 R 11 0 R 13 0 R 15 0 R] /Count 6 >>
 endobj
 3 0 obj
 << /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>
@@ -16,15 +16,15 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 6 0 R >>
 endobj
 6 0 obj
-<< /Length 6572 >>
+<< /Length 6565 >>
 stream
 0.08 0.14 0.32 rg 0.0 770.0 595.0 72.0 re f
-1.00 1.00 1.00 rg BT /F2 12 Tf 30.0 818.0 Td (MONOGRAFIA ACADEMICA - METODOLOGIA, FUNDAMENTACAO E RESULTADOS) Tj ET
+1.00 1.00 1.00 rg BT /F2 12 Tf 30.0 818.0 Td (ESTUDO CIENTIFICO - METODOLOGIA, FUNDAMENTACAO E RESULTADOS) Tj ET
 0.88 0.93 1.00 rg BT /F2 9.5 Tf 30.0 801.0 Td (Predicao Genomica de Resistencia Antimicrobiana e Estimativa de MIC Ciente da Filogenia:) Tj ET
 0.82 0.88 0.98 rg BT /F1 9 Tf 30.0 788.0 Td (Catalogos Curados, Unitigs de 31-mers, Predicao Conformal e Explicabilidade TreeSHAP por Locus) Tj ET
-0.99 0.85 0.35 rg BT /F2 7.5 Tf 30.0 775.0 Td (Projeto PhyloResistance AI \(v1.2.0\) | Uso em pesquisa. Não substitui o antibiograma.) Tj ET
+0.99 0.85 0.35 rg BT /F2 7.5 Tf 30.0 775.0 Td (Estudo PhyloResistance AI \(v1.2.0\) | Uso em pesquisa. Não substitui o antibiograma.) Tj ET
 0.95 0.97 1.00 rg 0.65 0.75 0.90 RG 0.8 w 30.0 610.0 535.0 148.0 re B
-0.06 0.09 0.16 rg BT /F2 8 Tf 38.0 744.0 Td (RESUMO ACADEMICO \(ABSTRACT\)) Tj ET
+0.06 0.09 0.16 rg BT /F2 8 Tf 38.0 744.0 Td (RESUMO DO ESTUDO \(ABSTRACT\)) Tj ET
 0.06 0.09 0.16 rg BT /F1 8 Tf 38.0 732.0 Td (A Resistencia Antimicrobiana \(AMR\) causa diretamente 1,27 milhao de obitos anuais no mundo \(Lancet, 2022\). Embora o) Tj ET
 0.06 0.09 0.16 rg BT /F1 8 Tf 38.0 720.0 Td (sequenciamento de genoma completo \(WGS-AST\) permita predizer perfis de susceptibilidade, catalogos estaticos \(CARD,) Tj ET
 0.06 0.09 0.16 rg BT /F1 8 Tf 38.0 708.0 Td (AMRFinderPlus, ResFinder\) falham diante de mecanismos poligenicos, mutacoes em reguladores de bombas de efluxo e porinas.) Tj ET
@@ -61,14 +61,14 @@ stream
 0.06 0.09 0.16 rg BT /F1 8 Tf 30.0 295.0 Td (    fora de escopo \(meropenem\) -> -1 categoria Intermediaria 'I' \(ECOLI_INT_9002, REG-06\) -> -2 conflitos R vs S) Tj ET
 0.06 0.09 0.16 rg BT /F1 8 Tf 30.0 282.5 Td (    \(ECOLI_CONF_9003, REG-06\) -> -1 reprovado no QC genomico \(ECOLI_LOWQC_9004: 1.250 contigs, N50=4.5kb, REG-07\)) Tj ET
 0.06 0.09 0.16 rg BT /F1 8 Tf 30.0 270.0 Td (    -> -3 desduplicados por distancia Mash <= 0.0005 antes do split \(ECOLI_DUP_1000, REG-02\) = 1.080 AST \(360 genomas\).) Tj ET
-0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 1 de 5 | Monografia Academica PhyloResistance AI - Introducao, Literatura e Base de Dados) Tj ET
+0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 1 de 6 | Estudo Cientifico PhyloResistance AI - Introducao, Literatura e Base de Dados) Tj ET
 endstream
 endobj
 7 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 8 0 R >>
 endobj
 8 0 obj
-<< /Length 5858 >>
+<< /Length 5855 >>
 stream
 0.08 0.14 0.32 rg 0.0 785.0 595.0 57.0 re f
 1.00 1.00 1.00 rg BT /F2 12 Tf 30.0 815.0 Td (3. METODOLOGIA MATEMATICA, BIOINFORMATICA E DE MACHINE LEARNING) Tj ET
@@ -108,14 +108,14 @@ stream
 0.08 0.20 0.50 rg BT /F2 8 Tf 30.0 120.0 Td (    EQUACAO \(4\):   Phi_{i, L}^{locus} = Sum_{j in A\(L\)} Phi_{i, j}^{TreeSHAP}) Tj ET
 0.06 0.09 0.16 rg BT /F1 8 Tf 30.0 100.0 Td (Validada por 4 testes: \(1\) Recuperacao CARD Top-6; \(2\) Estabilidade de Spearman rho entre dobras; \(3\) Concordancia) Tj ET
 0.06 0.09 0.16 rg BT /F1 8 Tf 30.0 80.0 Td (com GWAS populacional controlado por efeitos fixos de linhagem \(estilo pyseer, Lees et al., 2018\); \(4\) Ablacao in silico.) Tj ET
-0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 2 de 5 | Monografia Academica PhyloResistance AI - Metodologia Matematica e Bioinformatica) Tj ET
+0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 2 de 6 | Estudo Cientifico PhyloResistance AI - Metodologia Matematica e Bioinformatica) Tj ET
 endstream
 endobj
 9 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 10 0 R >>
 endobj
 10 0 obj
-<< /Length 7113 >>
+<< /Length 7110 >>
 stream
 0.08 0.14 0.32 rg 0.0 785.0 595.0 57.0 re f
 1.00 1.00 1.00 rg BT /F2 12 Tf 30.0 815.0 Td (4. RESULTADOS ALCANCADOS CONSOLIDADOS: ESCOPO PRINCIPAL \(ESCHERICHIA COLI\)) Tj ET
@@ -161,14 +161,14 @@ stream
 0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 323.0 Td (Temporal Prospectivo \(> 2022\)            0.9921 \(0.0833\)      0.9381 \(0.1250\)      0.9495 \(0.1111\)      Isolados 2023-2025) Tj ET
 0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 311.0 Td (Holdout Geografico \(FR, IN, JP\)          0.9569 \(0.0513\)      0.8960 \(0.1954\)      0.9261 \(0.1515\)      Transferencia continental) Tj ET
 0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 299.0 Td (Aleatorio c/ Vazamento \(B5\)              0.7597 \(0.3736\)      0.7408 \(0.3314\)      0.6842 \(0.4437\)      Atalho de fundo clonal) Tj ET
-0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 3 de 5 | Monografia Academica PhyloResistance AI - Resultados Experimentais E. coli \(Q1, Q2, Q4\)) Tj ET
+0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 3 de 6 | Estudo Cientifico PhyloResistance AI - Resultados Experimentais E. coli \(Q1, Q2, Q4\)) Tj ET
 endstream
 endobj
 11 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
 endobj
 12 0 obj
-<< /Length 7997 >>
+<< /Length 7994 >>
 stream
 0.08 0.14 0.32 rg 0.0 785.0 595.0 57.0 re f
 1.00 1.00 1.00 rg BT /F2 12 Tf 30.0 815.0 Td (4.5 EXPLICABILIDADE TREESHAP \(Q3\), MULTI-ESPECIE, MIC E VALIDACAO EXTERNA) Tj ET
@@ -245,19 +245,19 @@ stream
 0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 388.0 Td (ciprofloxacina  | MIC ISO 20776-2: EA\(+-1 dil\)=58.6%, CA=88.6%, RMSE=2.240 | Externo NCBI: B1=0.854 -> B4=0.978 \(+0.124\)) Tj ET
 0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 376.0 Td (gentamicina     | MIC ISO 20776-2: EA\(+-1 dil\)=61.9%, CA=81.7%, RMSE=2.236 | Externo NCBI: B1=0.788 -> B4=0.940 \(+0.152\)) Tj ET
 0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 364.0 Td (cefuroxima      | MIC ISO 20776-2: EA\(+-1 dil\)=76.4%, CA=90.0%, RMSE=1.592 | Externo NCBI: B1=0.732 -> B4=0.921 \(+0.190\)) Tj ET
-0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 4 de 5 | Monografia Academica PhyloResistance AI - Explicabilidade XAI, Multi-Especie e NCBI Externo) Tj ET
+0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 4 de 6 | Estudo Cientifico PhyloResistance AI - Explicabilidade XAI, Multi-Especie e NCBI Externo) Tj ET
 endstream
 endobj
 13 0 obj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 14 0 R >>
 endobj
 14 0 obj
-<< /Length 6846 >>
+<< /Length 4998 >>
 stream
 0.08 0.14 0.32 rg 0.0 785.0 595.0 57.0 re f
-1.00 1.00 1.00 rg BT /F2 12 Tf 30.0 815.0 Td (5. DISCUSSAO COMPARATIVA COM A LITERATURA E REFERENCIAS BIBLIOGRAFICAS) Tj ET
-0.82 0.88 0.98 rg BT /F1 8.5 Tf 30.0 797.0 Td (Posicionamento Frente aos Artigos de Referencia Publicados e Bibliografia Completa \(18 Estudos\)) Tj ET
-0.08 0.18 0.45 rg BT /F2 10 Tf 30.0 762.0 Td (5.1 Comparacao Direta entre o PhyloResistance AI e Estudos Publicados na Literatura:) Tj ET
+1.00 1.00 1.00 rg BT /F2 12 Tf 30.0 815.0 Td (5. DISCUSSAO COMPARATIVA COM A LITERATURA E AUDITORIA DE RIGOR CIENTIFICO) Tj ET
+0.82 0.88 0.98 rg BT /F1 8.5 Tf 30.0 797.0 Td (Posicionamento Frente aos Artigos Publicados, Interpretacao Biologica e Conformidade REG-01 a REG-15) Tj ET
+0.08 0.18 0.45 rg BT /F2 10 Tf 30.0 762.0 Td (5.1 Comparacao Direta entre o Estudo PhyloResistance AI e Estudos Publicados na Literatura:) Tj ET
 0.90 0.93 0.98 rg 30.0 742.0 535.0 15.0 re f
 0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 746.0 Td (Estudo Publicado              Especies           Atributos        Split Filogenetico   Conformal/Abst.   XAI Locus+GWAS   Desempenho Reportado) Tj ET
 0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 728.0 Td (Feldgarden et al. \(2021\) NCBI Multi-especie      Regras F1+F2     N/A \(regras fixas\)   Nao possui        Apenas F1+F2     Alta especif., VME 15-40% \(nosso B1\)) Tj ET
@@ -266,55 +266,101 @@ stream
 0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 686.0 Td (Kavvas et al. \(2018\) Nat.Comm M. tuberculosis    Alelos + k-mers  Analisou estrutura   Nao possui        Estrutural 3D    Demonstrou epistase e confusao clonal) Tj ET
 0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 672.0 Td (Hicks et al. \(2019\) PLoS CB   N.gono / K.pneu    SNPs e k-mers    Cross-dataset        Nao possui        Sensibilidade    Mostrou queda fora da linhagem treino) Tj ET
 0.88 0.95 0.90 rg 30.0 655.0 535.0 14.0 re f
-0.06 0.09 0.16 rg BT /F2 6.6 Tf 35.0 658.0 Td (PhyloResistance AI \(Nosso\)    E.coli/K.pneu/MRSA F1+F2+Unitigs k31 Mash+LOLO+Geo+Temp   Sim \(VME 3.7%\)    SHAP+GWAS 83%    AUPRC 0.962 CIP, 0.934 CXM, 0.994 KP) Tj ET
-0.08 0.18 0.45 rg BT /F2 10 Tf 30.0 636.0 Td (5.2 Sintese da Interpretacao Biologica dos Candidatos Descobertos em F3:) Tj ET
-0.06 0.09 0.16 rg BT /F1 7.3 Tf 35.0 622.0 Td (* Ciprofloxacina: Alem de gyrA \(S83L, D87N\) e parC \(S80I\), o modelo B4 identificou truncamento em acrR \(fs*45, SHAP=1.340\) e) Tj ET
-0.06 0.09 0.16 rg BT /F1 7.3 Tf 35.0 610.0 Td (  mutacao em marR \(G103S, SHAP=0.742\), repressores da bomba RND AcrAB-TolC \(Webber & Piddock, 2003\), reduzindo o VME de 25.3% para 3.7%.) Tj ET
-0.06 0.09 0.16 rg BT /F1 7.3 Tf 35.0 598.0 Td (* Gentamicina: Alem de aac\(3\)-IIa, ant\(2''\)-Ia e armA, destacou cpxA:Y144C \(SHAP=0.623\), sensor quinase de envelope que regula o) Tj ET
-0.06 0.09 0.16 rg BT /F1 7.3 Tf 35.0 586.0 Td (  potencial eletroquimico de membrana exigido para captacao ativa de aminoglicosideos \(Mahoney & Silhavy, 2013\).) Tj ET
-0.06 0.09 0.16 rg BT /F1 7.3 Tf 35.0 574.0 Td (* Cefuroxima / Ceftriaxona: O baseline B1 teve VME de 46.5% por perder resistencias nao-ESBL; o modelo B4 capturou delecao promotora) Tj ET
-0.06 0.09 0.16 rg BT /F1 7.3 Tf 35.0 562.0 Td (  na porina ompF \(c.-112del, SHAP=0.904\) e insercao YRIN na PBP3 \(ftsI:ins333YRIN, SHAP=0.581\) \(Alm et al., 2015\).) Tj ET
-0.08 0.18 0.45 rg BT /F2 10 Tf 30.0 542.0 Td (6. REFERENCIAS BIBLIOGRAFICAS CITADAS) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 528.0 Td ([1] Antimicrobial Resistance Collaborators \(2022\). Global burden of bacterial AMR in 2019. The Lancet, 399\(10325\), 629-655.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 517.0 Td ([2] Alcock, B. P. et al. \(2023\). CARD 2023: expanded curation and resistome prediction. Nucleic Acids Research, 51\(D1\), D690-D699.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 506.0 Td ([3] Feldgarden, M. et al. \(2021\). AMRFinderPlus and the Reference Gene Catalog. Scientific Reports, 11, 12728.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 495.0 Td ([4] Bortolaia, V. et al. \(2020\). ResFinder 4.0 for predictions of phenotypes from genotypes. J. Antimicrob. Chemother., 75, 3491-3500.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 484.0 Td ([5] Olson, R. D. et al. \(2023\). Introducing the BV-BRC resource combining PATRIC, IRD and ViPR. Nucleic Acids Res., 51, D678-D689.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 473.0 Td ([6] Ondov, B. D. et al. \(2016\). Mash: fast genome distance estimation using MinHash. Genome Biology, 17, 132.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 462.0 Td ([7] Moradigaravand, D. et al. \(2018\). Prediction of antibiotic resistance in E. coli from pan-genome data. PLoS Comput. Biol., 14, e1006258.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 451.0 Td ([8] Nguyen, M. et al. \(2018\). Developing an in silico MIC panel test for Klebsiella pneumoniae. Scientific Reports, 8, 421.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 440.0 Td ([9] Nguyen, M. et al. \(2019\). Using ML to predict antimicrobial MICs for nontyphoidal Salmonella. J. Clin. Microbiol., 57, e01260-18.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 429.0 Td ([10] Kavvas, E. S. et al. \(2018\). ML and structural analysis of M. tuberculosis pan-genome. Nature Communications, 9, 4306.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 418.0 Td ([11] Hicks, A. L. et al. \(2019\). Evaluation of parameters affecting ML-based AST from WGS data. PLoS Comput. Biol., 15, e1007349.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 407.0 Td ([12] Anahtar, M. N., Yang, J. H., & Kanjilal, S. \(2021\). Applications of ML to AMR. J. Clin. Microbiol., 59\(7\), e01260-20.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 396.0 Td ([13] Jaillard, M. et al. \(2018\). A fast and agnostic method for bacterial GWAS using unitigs. PLoS Genetics, 14\(11\), e1007758.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 385.0 Td ([14] Lees, J. A. et al. \(2018\). pyseer: a comprehensive tool for microbial pangenome-wide association studies. Bioinformatics, 34, 4310.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 374.0 Td ([15] Lundberg, S. M. et al. \(2020\). From local explanations to global understanding with explainable AI for trees. Nat. Mach. Intell., 2, 56.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 363.0 Td ([16] Angelopoulos, A. N., & Bates, S. \(2023\). Conformal prediction: A gentle introduction. Found. Trends Mach. Learn., 16\(4\), 494-591.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 352.0 Td ([17] Roberts, D. R. et al. \(2017\). Cross-validation strategies for data with phylogenetic structure. Ecography, 40\(8\), 913-929.) Tj ET
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 35.0 341.0 Td ([18] ISO 20776-2:2021 / CLSI M100-Ed34 \(2024\). Evaluation of performance of antimicrobial susceptibility test devices.) Tj ET
-0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 5 de 5 | Monografia Academica PhyloResistance AI - Discussao Comparativa e Referencias Bibliograficas) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.6 Tf 35.0 658.0 Td (PhyloResistance AI \(Este\)     E.coli/K.pneu/MRSA F1+F2+Unitigs k31 Mash+LOLO+Geo+Temp   Sim \(VME 3.7%\)    SHAP+GWAS 83%    AUPRC 0.962 CIP, 0.934 CXM, 0.994 KP) Tj ET
+0.08 0.18 0.45 rg BT /F2 10 Tf 30.0 634.0 Td (5.2 Sintese da Interpretacao Biologica dos Candidatos Descobertos em F3:) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 35.0 620.0 Td (* Ciprofloxacina: Alem de gyrA \(S83L, D87N\) e parC \(S80I\), o modelo B4 identificou truncamento em acrR \(fs*45, SHAP=1.340\) e) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 35.0 607.0 Td (  mutacao em marR \(G103S, SHAP=0.742\), repressores da bomba RND AcrAB-TolC \(Webber & Piddock, 2003\), reduzindo o VME de 25.3% para 3.7%.) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 35.0 594.0 Td (* Gentamicina: Alem de aac\(3\)-IIa, ant\(2''\)-Ia e armA, destacou cpxA:Y144C \(SHAP=0.623\), sensor quinase de envelope que regula o) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 35.0 581.0 Td (  potencial eletroquimico de membrana exigido para captacao ativa de aminoglicosideos \(Mahoney & Silhavy, 2013\).) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 35.0 568.0 Td (* Cefuroxima / Ceftriaxona: O baseline B1 teve VME de 46.5% por perder resistencias nao-ESBL; o modelo B4 capturou delecao promotora) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 35.0 555.0 Td (  na porina ompF \(c.-112del, SHAP=0.904\) e insercao YRIN na PBP3 \(ftsI:ins333YRIN, SHAP=0.581\) \(Alm et al., 2015\).) Tj ET
+0.08 0.18 0.45 rg BT /F2 10 Tf 30.0 532.0 Td (5.3 Auditoria Consolidada das 15 Regras de Rigor Cientifico \(REG-01 a REG-15\):) Tj ET
+0.06 0.35 0.18 rg BT /F1 7.3 Tf 35.0 518.0 Td ([OK] REG-01 \(Split por Grupo Filogenetico\): Cumprida via StratifiedGroupKFold sobre clusters Mash disjuntos.) Tj ET
+0.06 0.35 0.18 rg BT /F1 7.3 Tf 35.0 505.0 Td ([OK] REG-02 \(Desduplicacao Clonal Pre-Split\): Cumprida colapsando clones com distancia Mash <= 0.0005 antes da divisao.) Tj ET
+0.06 0.35 0.18 rg BT /F1 7.3 Tf 35.0 492.0 Td ([OK] REG-03 \(Selecao de k-mers na Dobra\): Cumprida via FiltroSelecaoKmersDobra ajustado exclusivamente no treino de cada dobra.) Tj ET
+0.06 0.35 0.18 rg BT /F1 7.3 Tf 35.0 479.0 Td ([OK] REG-04 e REG-05 \(Metricas Clinicas e Bootstrap em Blocos\): Cumpridas com VME, ME, AUPRC, Brier, ECE e IC95% por cluster.) Tj ET
+0.06 0.35 0.18 rg BT /F1 7.3 Tf 35.0 466.0 Td ([OK] REG-06 e REG-07 \(Curadoria MIC/'I' e QC Genomico\): Cumpridas com recalculo CLSI/EUCAST e filtro N50/contigs/completude.) Tj ET
+0.06 0.35 0.18 rg BT /F1 7.3 Tf 35.0 453.0 Td ([OK] REG-08 e REG-09 \(Sem Metadados em X e Generalizacao Multipla\): Cumpridas \(LOLO, Temporal >2022, Geografico e NCBI Externo\).) Tj ET
+0.06 0.35 0.18 rg BT /F1 7.3 Tf 35.0 440.0 Td ([OK] REG-10 e REG-11 \(SHAP por Locus GFF3 e Abstencao Conformal\): Cumpridas \(4 testes XAI + classe 'indeterminado'\).) Tj ET
+0.06 0.35 0.18 rg BT /F1 7.3 Tf 35.0 427.0 Td ([OK] REG-12 a REG-15 \(Plano Pre-Registrado, SHA-256, Dominio e Aviso Etico\): Cumpridas integralmente em todo o sistema.) Tj ET
+0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 5 de 6 | Estudo Cientifico PhyloResistance AI - Discussao Comparativa e Auditoria REG-01 a REG-15) Tj ET
+endstream
+endobj
+15 0 obj
+<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 16 0 R >>
+endobj
+16 0 obj
+<< /Length 7470 >>
+stream
+0.08 0.14 0.32 rg 0.0 785.0 595.0 57.0 re f
+1.00 1.00 1.00 rg BT /F2 11.5 Tf 30.0 815.0 Td (6. CONCLUSAO GERAL: ONDE CHEGAMOS, PROBLEMAS ENFRENTADOS E PROXIMOS PASSOS) Tj ET
+0.82 0.88 0.98 rg BT /F1 8.5 Tf 30.0 797.0 Td (Sintese dos Resultados, Desafios Superados, Direcoes Futuras \(O Que Fazer / Para Onde Ir\) e Bibliografia) Tj ET
+0.93 0.98 0.95 rg 0.55 0.82 0.65 RG 0.8 w 30.0 696.0 535.0 80.0 re B
+0.05 0.32 0.16 rg BT /F2 7.8 Tf 38.0 764.0 Td (6.1 ONDE CHEGAMOS E SINTESE DA CONCLUSAO \(RESULTADOS ALCANCADOS\)) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.8 Tf 38.0 752.0 Td (Chegamos a uma plataforma completa e reproduzivel \(Fases 0 a 7\) validada em 3 especies prioritarias da OMS \(E. coli,) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.8 Tf 38.0 740.0 Td (K. pneumoniae e S. aureus MRSA\). Comprovamos que o modelo hibrido B4 supera significativamente os catalogos estaticos) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.8 Tf 38.0 728.0 Td (\(ganhos de +0.0875 a +0.2023 em AUPRC\), reduz o Erro Muito Grave \(VME\) de 25.29% para 3.70% com Abstencao Conformal,) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.8 Tf 38.0 716.0 Td (estima log2\(MIC\) segundo a norma ISO 20776-2 e descobre loci regulatorios \(acrR, marR, cpxA, ompF, ftsI\) concordantes) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.8 Tf 38.0 704.0 Td (em 83.3% com GWAS populacional, mantendo desempenho robusto na coorte externa NCBI Pathogen Detection \(+15.5% AUPRC\).) Tj ET
+1.00 0.98 0.92 rg 0.90 0.72 0.35 RG 0.8 w 30.0 568.0 535.0 122.0 re B
+0.55 0.32 0.02 rg BT /F2 7.5 Tf 38.0 678.0 Td (6.2 PROBLEMAS ENFRENTADOS DURANTE O ESTUDO E COMO FORAM RESOLVIDOS) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 665.5 Td (1. Atalho Filogenetico e Clones Duplicados: Modelos puros de k-mers \(B5\) memorizavam linhagens clonais \(ST131\) em splits) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 653.0 Td (   aleatorios, mas colapsavam em linhagens novas \(VME > 40%\). Solucao: Desduplicacao Mash <= 0.0005 pre-split + GroupKFold.) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 640.5 Td (2. Explosao Dimensional e Vazamento na Selecao de k-mers: Milhares de 31-mers colineares vazavam informacao se filtrados) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 628.0 Td (   antes do split. Solucao: Colapso em unitigs de De Bruijn e FiltroSelecaoKmersDobra estritamente dentro da dobra \(REG-03\).) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 615.5 Td (3. Ruido de Fronteira de MIC e Categoria Intermediaria \('I'\): Ensaios de microdiluicao possuem variacao de +-1 diluicao) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 603.0 Td (   e conflitos R/S. Solucao: Recalculo direto por breakpoints CLSI/EUCAST, exclusao de conflitos e Abstencao Conformal.) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 590.5 Td (4. Fragmentacao do SHAP e Portabilidade Windows/Linux: Explicacoes pulverizadas em k-mers e binarios restritos a Linux.) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 578.0 Td (   Solucao: Soma aditiva de TreeSHAP por locus fisico GFF3 \(NC_000913.3\) e motor hibrido CLI + Python/NumPy/SciPy nativo.) Tj ET
+0.94 0.97 1.00 rg 0.55 0.72 0.92 RG 0.8 w 30.0 452.0 535.0 110.0 re B
+0.08 0.25 0.62 rg BT /F2 7.5 Tf 38.0 550.0 Td (6.3 O QUE FAZER E PARA ONDE IR \(PROXIMOS PASSOS E DIRECOES FUTURAS\)) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 537.5 Td (1. Validacao Experimental em Bancada Umida \(Wet-Lab\): Edicao genica CRISPR-Cas9 / lambda-Red e RT-qPCR em cepas isogenicas) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 525.0 Td (   para confirmar a causalidade bioquimica dos unitigs candidatos descobertos \(acrR:fs*45, marR:G103S, cpxA, ompF, ftsI\).) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 512.5 Td (2. Sequenciamento Nanopore em Tempo Real \(Long-Read WGS-AST\): Acoplar o pipeline FASTQ a leituras longas Oxford Nanopore) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 500.0 Td (   diretamente de hemoculturas positivas para reconstruir plasmideos completos e emitir predicoes em menos de 2 horas.) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 487.5 Td (3. Grafos de Pan-Genoma e Foundation Models de DNA: Evoluir o modelo B6 com Graph Neural Networks \(GNNs\) sobre o grafo de) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 475.0 Td (   De Bruijn e embeddings de modelos fundacionais \(Evo, Nucleotide Transformer\) sob validacao filogenetica estrita.) Tj ET
+0.06 0.09 0.16 rg BT /F1 7.5 Tf 38.0 462.5 Td (4. Expansao para Todo o Grupo ESKAPE e Calibracao Conformal Online: Incluir P. aeruginosa, A. baumannii e M. tuberculosis.) Tj ET
+0.08 0.18 0.45 rg BT /F2 9.5 Tf 30.0 436.0 Td (7. REFERENCIAS BIBLIOGRAFICAS CITADAS NO ESTUDO) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 424.0 Td ([1] Antimicrobial Resistance Collaborators \(2022\). Global burden of bacterial AMR in 2019. The Lancet, 399\(10325\), 629-655.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 413.8 Td ([2] Alcock, B. P. et al. \(2023\). CARD 2023: expanded curation and resistome prediction. Nucleic Acids Research, 51\(D1\), D690-D699.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 403.6 Td ([3] Feldgarden, M. et al. \(2021\). AMRFinderPlus and the Reference Gene Catalog. Scientific Reports, 11, 12728.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 393.4 Td ([4] Bortolaia, V. et al. \(2020\). ResFinder 4.0 for predictions of phenotypes from genotypes. J. Antimicrob. Chemother., 75, 3491-3500.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 383.2 Td ([5] Olson, R. D. et al. \(2023\). Introducing the BV-BRC resource combining PATRIC, IRD and ViPR. Nucleic Acids Res., 51, D678-D689.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 373.0 Td ([6] Ondov, B. D. et al. \(2016\). Mash: fast genome distance estimation using MinHash. Genome Biology, 17, 132.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 362.8 Td ([7] Moradigaravand, D. et al. \(2018\). Prediction of antibiotic resistance in E. coli from pan-genome data. PLoS Comput. Biol., 14, e1006258.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 352.6 Td ([8] Nguyen, M. et al. \(2018, 2019\). Developing in silico MIC panel tests for K. pneumoniae and Salmonella. Sci. Rep. / J. Clin. Microbiol.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 342.4 Td ([9] Kavvas, E. S. et al. \(2018\). ML and structural analysis of M. tuberculosis pan-genome. Nature Communications, 9, 4306.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 332.2 Td ([10] Hicks, A. L. et al. \(2019\). Evaluation of parameters affecting ML-based AST from WGS data. PLoS Comput. Biol., 15, e1007349.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 322.0 Td ([11] Anahtar, M. N., Yang, J. H., & Kanjilal, S. \(2021\). Applications of ML to AMR. J. Clin. Microbiol., 59\(7\), e01260-20.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 311.8 Td ([12] Jaillard, M. et al. \(2018\) & Lees, J. A. et al. \(2018\). Bacterial GWAS using unitigs and pyseer. PLoS Genetics / Bioinformatics.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 301.6 Td ([13] Lundberg, S. M. et al. \(2020\). From local explanations to global understanding with explainable AI for trees. Nat. Mach. Intell., 2, 56.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 291.4 Td ([14] Angelopoulos, A. N., & Bates, S. \(2023\) & Roberts, D. R. et al. \(2017\). Conformal prediction & phylogenetic cross-validation.) Tj ET
+0.06 0.09 0.16 rg BT /F1 6.6 Tf 35.0 281.2 Td ([15] ISO 20776-2:2021 / CLSI M100-Ed34 \(2024\). Evaluation of performance of antimicrobial susceptibility test devices.) Tj ET
+0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 6 de 6 | Estudo Cientifico PhyloResistance AI - Conclusao, Problemas Enfrentados, Futuro e Bibliografia) Tj ET
 endstream
 endobj
 xref
-0 15
+0 17
 0000000000 65535 f 
 0000000015 00000 n 
 0000000064 00000 n 
-0000000147 00000 n 
-0000000217 00000 n 
-0000000292 00000 n 
-0000000428 00000 n 
+0000000154 00000 n 
+0000000224 00000 n 
+0000000299 00000 n 
+0000000435 00000 n 
 0000007052 00000 n 
 0000007188 00000 n 
-0000013098 00000 n 
-0000013235 00000 n 
-0000020401 00000 n 
-0000020539 00000 n 
-0000028589 00000 n 
-0000028727 00000 n 
+0000013095 00000 n 
+0000013232 00000 n 
+0000020395 00000 n 
+0000020533 00000 n 
+0000028580 00000 n 
+0000028718 00000 n 
+0000033769 00000 n 
+0000033907 00000 n 
 trailer
-<< /Size 15 /Root 1 0 R >>
+<< /Size 17 /Root 1 0 R >>
 startxref
-35626
+41430
 %%EOF

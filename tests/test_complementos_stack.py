@@ -158,15 +158,19 @@ def test_geracao_documento_escrito_dashboard_html_e_pdf_multipagina() -> None:
     assert b"/Count 4" in pdf_bytes
     assert b"%%EOF" in pdf_bytes
 
-    cam_acad_md = Path(caminhos["monografia_academica_md"])
-    cam_acad_html = Path(caminhos["monografia_academica_html"])
-    cam_acad_pdf = Path(caminhos["monografia_academica_pdf"])
+    cam_estudo_md = Path(caminhos["estudo_cientifico_md"])
+    cam_estudo_html = Path(caminhos["estudo_cientifico_html"])
+    cam_estudo_pdf = Path(caminhos["estudo_cientifico_pdf"])
 
-    assert cam_acad_md.exists() and cam_acad_md.stat().st_size > 15_000
-    assert "Antimicrobial Resistance Collaborators" in cam_acad_md.read_text(encoding="utf-8")
-    assert cam_acad_html.exists() and cam_acad_html.stat().st_size > 25_000
-    assert cam_acad_pdf.exists() and cam_acad_pdf.stat().st_size > 12_000
-    pdf_acad_bytes = cam_acad_pdf.read_bytes()
-    assert pdf_acad_bytes.startswith(b"%PDF-1.4")
-    assert b"/Count 5" in pdf_acad_bytes
+    assert cam_estudo_md.exists() and cam_estudo_md.stat().st_size > 15_000
+    txt_estudo_md = cam_estudo_md.read_text(encoding="utf-8")
+    assert "Estudo Científico" in txt_estudo_md
+    assert "Monografia" not in txt_estudo_md
+    assert "Conclusão Geral: Onde Chegamos, Problemas Enfrentados" in txt_estudo_md
+    assert "Antimicrobial Resistance Collaborators" in txt_estudo_md
+    assert cam_estudo_html.exists() and cam_estudo_html.stat().st_size > 25_000
+    assert cam_estudo_pdf.exists() and cam_estudo_pdf.stat().st_size > 12_000
+    pdf_estudo_bytes = cam_estudo_pdf.read_bytes()
+    assert pdf_estudo_bytes.startswith(b"%PDF-1.4")
+    assert b"/Count 6" in pdf_estudo_bytes
 
