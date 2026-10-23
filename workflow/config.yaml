@@ -8,3 +8,4 @@ kmer_short_control: 6
 random_seed: 42
 mash_dedup_threshold: 0.0005
 mash_cluster_threshold: 0.02
+

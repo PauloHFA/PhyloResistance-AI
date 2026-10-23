@@ -1,0 +1,37 @@
+{
+  "total_registros_brutos": 1089,
+  "removidos_especie_fora_escopo": 1,
+  "removidos_farmaco_fora_escopo": 1,
+  "removidos_fenotipo_invalido": 0,
+  "removidos_intermediario": 1,
+  "removidos_duplicata_concordante": 0,
+  "removidos_conflito_rotulo": 2,
+  "removidos_qc_genoma": 1,
+  "removidos_desduplicacao_clonal": 3,
+  "total_aprovados_curadoria": 1084,
+  "total_aprovados_pos_qc_dedup": 1080,
+  "modo_intermediario": "excluir",
+  "detalhes_por_farmaco": {
+    "ciprofloxacina": {
+      "brutos": 363,
+      "intermediarios": 1,
+      "conflitos": 0,
+      "aprovados_R": 176,
+      "aprovados_S": 186
+    },
+    "gentamicina": {
+      "brutos": 363,
+      "intermediarios": 0,
+      "conflitos": 2,
+      "aprovados_R": 176,
+      "aprovados_S": 185
+    },
+    "cefuroxima": {
+      "brutos": 361,
+      "intermediarios": 0,
+      "conflitos": 0,
+      "aprovados_R": 143,
+      "aprovados_S": 218
+    }
+  }
+}

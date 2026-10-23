@@ -51,3 +51,4 @@
 
 - As probabilidades brutas do modelo passam por calibração em conjunto separado.
 - Quando a probabilidade calibrada cai na faixa de incerteza conformal próxima ao limiar de decisão, o serviço emite `classe: "indeterminado"` e `confianca: "baixa"`, abstendo-se de uma classificação binária forçada para reduzir erros graves (*Very Major Error* — VME e *Major Error* — ME).
+

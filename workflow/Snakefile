@@ -14,3 +14,4 @@ rule all:
         "data/processed/atributos_f3_kmers.npz",
         "reports/relatorio_validacao.json",
         "reports/relatorio_cientifico.md"
+

@@ -1,0 +1,21 @@
+{
+  "gerado_em_utc": "2026-10-23T04:39:57.529168+00:00",
+  "fonte_primaria": "BV-BRC / CARD / NCBI RefSeq",
+  "versoes_bancos": {
+    "amrfinderplus": "3.12.8",
+    "card": "3.2.9",
+    "refseq_ecoli": "NC_000913.3"
+  },
+  "arquivos_hashes_sha256": {
+    "curadoria_rotulos.parquet": "d734eaac17f25d61f693920ade93eea66b3d91424c41a1a6a435da663e91a6ed",
+    "qc_genomas.parquet": "debf35089d01d77a12625ccce3bf6bc2e43de30ce2bcb706995c11893913ee9d",
+    "clusters_filogeneticos.parquet": "6ad775e1e5c8e0595d073d381a89a0ae001765a2aa3845b8ffc548f69ac8fde2",
+    "atributos_f1_f2.parquet": "0a3808ec11a6b1f9042dfc568bab2555c117efdbb76986a410117433f742a05f",
+    "atributos_f3_kmers.npz": "86c9bd4273664f5332bd7f8c45c32335203a97cb61f83aac243646db4ad9ca35",
+    "funil_exclusao.json": "3057201c560c4606264d88c63346fdd2f50adace3fb021977ffc9341f8802596",
+    "relatorio_desduplicacao.json": "c0fa2194d47c233671c659806e977a976d7136d5f90efe4c53ba64f04306189e",
+    "modelos_servico.pkl": "441d096e81bbb112debd3e203e23b8841ea73b99bef0ae2c4b9b6bc881e71f5d"
+  },
+  "termos_uso_confirmados": true,
+  "aviso_regulatorio": "Uso exclusivo em pesquisa científica. Não substitui o antibiograma."
+}

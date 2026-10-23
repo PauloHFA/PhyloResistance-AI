@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from dataclasses import dataclass, field
+from dataclasses import dataclass
 
 GLOBAL_RANDOM_SEED: int = 42
 AVISO_USO_PESQUISA: str = "Uso em pesquisa. Não substitui o antibiograma."

@@ -44,3 +44,4 @@ rule train_and_evaluate:
         "../envs/bioinfo.yaml"
     shell:
         "python -m phyloresistance.cli run-all --output-dir data/processed --reports-dir reports"
+

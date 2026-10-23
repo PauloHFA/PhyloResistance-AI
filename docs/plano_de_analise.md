@@ -92,3 +92,4 @@ Antes de qualquer divisão ou extração de atributos (REG-02, REG-07):
   - Taxa de Cobertura e Taxa de Abstenção (predição conformal / limiar de confiança).
 - **Inferência Estatística**:
   - Intervalos de confiança de 95% via **bootstrap em blocos por cluster filogenético** ($B = 200$ reamostragens de clusters) e diferença pareada $\Delta(\text{Modelo} - \text{B1})$.
+

@@ -54,3 +54,4 @@ Toda execução da etapa de curadoria gera um objeto estruturado `FunilExclusao`
 - `removidos_qc_genoma`: Isolados reprovados no controle de qualidade do FASTA.
 - `removidos_desduplicacao`: Clones quase idênticos removidos (REG-02).
 - `total_aprovados_finais`: Isolados únicos prontos para modelagem.
+

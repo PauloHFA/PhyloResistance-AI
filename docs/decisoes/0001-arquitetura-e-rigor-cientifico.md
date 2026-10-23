@@ -22,3 +22,4 @@ O projeto **PhyloResistance AI** exige:
 
 - Qualquer pesquisador ou avaliador consegue reproduzir todo o pipeline (`phyloresistance run-all` ou `pytest`) com um único comando em Windows, macOS, Linux ou Docker.
 - As 15 regras de rigor científico (REG-01 a REG-15) são verificadas automaticamente pela suíte de testes.
+

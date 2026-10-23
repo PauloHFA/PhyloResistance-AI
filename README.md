@@ -107,3 +107,4 @@ phyloresistance/
 ├── docker/                         # Dockerfiles da API/worker e docker-compose.yml
 └── reports/                        # Relatório científico final e métricas exportadas
 ```
+

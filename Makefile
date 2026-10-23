@@ -17,3 +17,4 @@ api:
 
 clean:
 	rm -rf .pytest_cache .ruff_cache .mypy_cache tmp_uploads
+
