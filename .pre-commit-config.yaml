@@ -1,0 +1,16 @@
+repos:
+  - repo: https://github.com/astral-sh/ruff-pre-commit
+    rev: v0.4.4
+    hooks:
+      - id: ruff
+        args: [--fix]
+      - id: ruff-format
+  - repo: local
+    hooks:
+      - id: pytest-rigor-cientifico
+        name: Executar testes unitarios e anti-vazamento (REG-01 a REG-15)
+        entry: uv run pytest -v
+        language: system
+        pass_filenames: false
+        always_run: true
+

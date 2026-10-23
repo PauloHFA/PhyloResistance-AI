@@ -1,9 +1,13 @@
 # Snakemake Workflow — PhyloResistance AI (Etapas 1 a 4 + Treino e Relatório)
-# Orquestra ingestão, QC, desduplicação, estrutura filogenética e atributos (F1, F2, F3)
+# Regras modulares conforme Seção 10 da documentação
 
 configfile: "workflow/config.yaml"
 
-include: "rules/pipeline.smk"
+include: "rules/ingest.smk"
+include: "rules/qc.smk"
+include: "rules/dedup.smk"
+include: "rules/features.smk"
+include: "rules/kmers.smk"
 
 rule all:
     input:
@@ -15,3 +19,15 @@ rule all:
         "reports/relatorio_validacao.json",
         "reports/relatorio_cientifico.md"
 
+rule train_and_evaluate:
+    input:
+        clusters="data/processed/clusters_filogeneticos.parquet",
+        f1_f2="data/processed/atributos_f1_f2.parquet",
+        f3="data/processed/atributos_f3_kmers.npz"
+    output:
+        validacao="reports/relatorio_validacao.json",
+        relatorio="reports/relatorio_cientifico.md"
+    conda:
+        "envs/bioinfo.yaml"
+    shell:
+        "python -m phyloresistance.cli run-all --output-dir data/processed --reports-dir reports"

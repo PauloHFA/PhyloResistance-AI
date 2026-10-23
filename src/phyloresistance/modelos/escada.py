@@ -2,6 +2,9 @@
 
 from __future__ import annotations
 
+from typing import Literal
+
+import lightgbm as lgb
 import numpy as np
 import optuna
 import scipy.sparse as sp
@@ -147,35 +150,50 @@ class ModeloLogisticoRegularizadoB2:
 
 
 class ModeloArvoreCuradoB3:
-    """Nível B3: XGBoost sobre F1 + F2 (determinantes curados)."""
+    """Nível B3: XGBoost ou LightGBM sobre F1 + F2 (determinantes curados — Seção 6.1)."""
 
     def __init__(
         self,
         n_estimators: int = 200,
         max_depth: int = 4,
         learning_rate: float = 0.05,
+        motor: Literal["xgboost", "lightgbm"] = "xgboost",
         seed: int = GLOBAL_RANDOM_SEED,
     ) -> None:
         self.n_estimators = n_estimators
         self.max_depth = max_depth
         self.learning_rate = learning_rate
+        self.motor = motor
         self.seed = seed
-        self.modelo_: xgb.XGBClassifier | None = None
+        self.modelo_: xgb.XGBClassifier | lgb.LGBMClassifier | None = None
 
     def fit(self, X_f1_f2: np.ndarray, y: np.ndarray) -> ModeloArvoreCuradoB3:
         y_arr = np.asarray(y, dtype=np.int32)
         peso = calcular_peso_classe_balanceado(y_arr)
-        self.modelo_ = xgb.XGBClassifier(
-            n_estimators=self.n_estimators,
-            max_depth=self.max_depth,
-            learning_rate=self.learning_rate,
-            subsample=0.8,
-            colsample_bytree=0.8,
-            scale_pos_weight=peso,
-            eval_metric="aucpr",
-            random_state=self.seed,
-            n_jobs=1,
-        )
+        if self.motor == "lightgbm":
+            self.modelo_ = lgb.LGBMClassifier(
+                n_estimators=self.n_estimators,
+                max_depth=self.max_depth,
+                learning_rate=self.learning_rate,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                scale_pos_weight=peso,
+                random_state=self.seed,
+                n_jobs=1,
+                verbose=-1,
+            )
+        else:
+            self.modelo_ = xgb.XGBClassifier(
+                n_estimators=self.n_estimators,
+                max_depth=self.max_depth,
+                learning_rate=self.learning_rate,
+                subsample=0.8,
+                colsample_bytree=0.8,
+                scale_pos_weight=peso,
+                eval_metric="aucpr",
+                random_state=self.seed,
+                n_jobs=1,
+            )
         self.modelo_.fit(np.asarray(X_f1_f2, dtype=np.float64), y_arr)
         return self
 
@@ -190,7 +208,7 @@ class ModeloArvoreCuradoB3:
 
 class PipelineCompletoB4:
     """
-    Nível B4: Modelo Completo XGBoost sobre F1 + F2 + F3 (captura variantes novas e interações).
+    Nível B4: Modelo Completo XGBoost ou LightGBM sobre F1 + F2 + F3 (captura variantes novas e interações).
     Cumpre estritamente a Regra REG-03: o filtro de frequência de k-mers e a seleção supervisionada
     em F3 são ajustados APENAS nos dados de treino desta dobra.
     """
@@ -205,6 +223,7 @@ class PipelineCompletoB4:
         n_estimators: int = 250,
         max_depth: int = 4,
         learning_rate: float = 0.05,
+        motor: Literal["xgboost", "lightgbm"] = "xgboost",
         seed: int = GLOBAL_RANDOM_SEED,
     ) -> None:
         self.nomes_f1_f2 = list(nomes_f1_f2)
@@ -217,8 +236,9 @@ class PipelineCompletoB4:
         self.n_estimators = n_estimators
         self.max_depth = max_depth
         self.learning_rate = learning_rate
+        self.motor = motor
         self.seed = seed
-        self.modelo_: xgb.XGBClassifier | None = None
+        self.modelo_: xgb.XGBClassifier | lgb.LGBMClassifier | None = None
         self.nomes_atributos_finais_: list[str] = []
 
     def _combinar_matrizes(
@@ -243,17 +263,30 @@ class PipelineCompletoB4:
         X_treino_full = self._combinar_matrizes(X_f1_f2_treino, X_f3_sel)
         peso = calcular_peso_classe_balanceado(y_arr)
 
-        self.modelo_ = xgb.XGBClassifier(
-            n_estimators=self.n_estimators,
-            max_depth=self.max_depth,
-            learning_rate=self.learning_rate,
-            subsample=0.8,
-            colsample_bytree=0.6,
-            scale_pos_weight=peso,
-            eval_metric="aucpr",
-            random_state=self.seed,
-            n_jobs=1,
-        )
+        if self.motor == "lightgbm":
+            self.modelo_ = lgb.LGBMClassifier(
+                n_estimators=self.n_estimators,
+                max_depth=self.max_depth,
+                learning_rate=self.learning_rate,
+                subsample=0.8,
+                colsample_bytree=0.6,
+                scale_pos_weight=peso,
+                random_state=self.seed,
+                n_jobs=1,
+                verbose=-1,
+            )
+        else:
+            self.modelo_ = xgb.XGBClassifier(
+                n_estimators=self.n_estimators,
+                max_depth=self.max_depth,
+                learning_rate=self.learning_rate,
+                subsample=0.8,
+                colsample_bytree=0.6,
+                scale_pos_weight=peso,
+                eval_metric="aucpr",
+                random_state=self.seed,
+                n_jobs=1,
+            )
         self.modelo_.fit(X_treino_full, y_arr)
         return self
 

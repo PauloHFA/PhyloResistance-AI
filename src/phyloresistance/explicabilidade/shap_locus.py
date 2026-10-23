@@ -527,10 +527,118 @@ def gerar_relatorio_html_isolado(dados_resposta: dict[str, object]) -> str:
   </div>
   <h2>Predições e Evidências Genômicas (TreeSHAP Agregado por Locus)</h2>
   {''.join(blocos_pred)}
-  <footer>
-    <p><strong>Versão do Modelo:</strong> {versao_modelo} | <strong>Versões dos Bancos:</strong> {versoes_bancos}</p>
-    <p>Nota científica (REG-10): Contribuições SHAP refletem associação estatística ao modelo preditivo, não causalidade biológica direta.</p>
-  </footer>
-</body>
+    <footer>
+      <p><strong>Versão do Modelo:</strong> {versao_modelo} | <strong>Versões dos Bancos:</strong> {versoes_bancos}</p>
+      <p>Nota científica (REG-10): Contribuições SHAP refletem associação estatística ao modelo preditivo, não causalidade biológica direta.</p>
+    </footer>
+  </body>
 </html>"""
+
+
+def _escapar_texto_pdf(texto: str) -> str:
+    """Escapa parênteses e barras invertidas para strings literais PDF (Latin-1)."""
+    limpo = texto.encode("latin-1", errors="replace").decode("latin-1")
+    return limpo.replace("\\", "\\\\").replace("(", "\\(").replace(")", "\\)")
+
+
+def gerar_relatorio_pdf_isolado(dados_resposta: dict[str, object]) -> bytes:
+    """
+    Gera relatório visual em formato binário PDF 1.4 (Seção 9.2) para um isolado
+    consultado via GET /v1/predicoes/{job_id}/relatorio?formato=pdf.
+    """
+    job_id = str(dados_resposta.get("job_id", "N/A"))
+    especie = str(dados_resposta.get("especie", "Escherichia coli"))
+    qc = dados_resposta.get("qc", {})
+    qc_dict = qc if isinstance(qc, dict) else {}
+    predicoes = dados_resposta.get("predicoes", [])
+    versao_modelo = str(dados_resposta.get("versao_modelo", "ecoli-amr-1.2.0"))
+    aviso = str(dados_resposta.get("aviso", AVISO_USO_PESQUISA))
+
+    linhas_pdf: list[str] = [
+        f"PhyloResistance AI - Relatorio Genomico XAI (Job {job_id})",
+        f"AVISO: {aviso}",
+        f"Especie: {especie} | Modelo: {versao_modelo}",
+        (
+            f"QC: Tamanho={qc_dict.get('tamanho_pb', 0)} pb | "
+            f"Contigs={qc_dict.get('contigs', 0)} | "
+            f"N50={qc_dict.get('n50', 0)} pb | "
+            f"Aprovado={qc_dict.get('aprovado', False)}"
+        ),
+        "-" * 75,
+    ]
+
+    if isinstance(predicoes, list):
+        for p in predicoes:
+            if not isinstance(p, dict):
+                continue
+            linhas_pdf.append(
+                f"Farmaco: {p.get('farmaco', '')} | "
+                f"Classe: {p.get('classe', '')} | "
+                f"Prob. Calibrada: {float(p.get('probabilidade_resistencia', 0.0)):.2f} | "
+                f"Confianca: {p.get('confianca', '')}"
+            )
+            evs = p.get("evidencias", [])
+            if isinstance(evs, list) and evs:
+                for ev in evs[:5]:
+                    if not isinstance(ev, dict):
+                        continue
+                    linhas_pdf.append(
+                        f"  * [{ev.get('tipo', '')}] {ev.get('gene', '')} "
+                        f"({ev.get('alteracao') or '-'}) | "
+                        f"SHAP={float(ev.get('contribuicao_shap', 0.0)):+.3f} | "
+                        f"Status={ev.get('status', '')} ({ev.get('fonte', '')})"
+                    )
+            else:
+                linhas_pdf.append("  * Nenhuma evidencia de resistencia ativa detectada.")
+            linhas_pdf.append("-" * 75)
+
+    linhas_pdf.append(
+        "Nota (REG-10): Contribuicoes SHAP refletem associacao estatistica, nao causalidade direta."
+    )
+
+    comandos_stream = ["BT", "/F1 10 Tf", "50 790 Td", "14 TL"]
+    for idx, linha in enumerate(linhas_pdf[:48]):
+        esc = _escapar_texto_pdf(linha)
+        if idx == 0:
+            comandos_stream.append(f"({esc}) Tj")
+        else:
+            comandos_stream.append(f"T* ({esc}) Tj")
+    comandos_stream.append("ET")
+    conteudo_stream = "\n".join(comandos_stream).encode("latin-1")
+
+    objetos: list[bytes] = [
+        b"1 0 obj\n<< /Type /Catalog /Pages 2 0 R >>\nendobj\n",
+        b"2 0 obj\n<< /Type /Pages /Kids [3 0 R] /Count 1 >>\nendobj\n",
+        (
+            b"3 0 obj\n<< /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] "
+            b"/Resources << /Font << /F1 4 0 R >> >> /Contents 5 0 R >>\nendobj\n"
+        ),
+        b"4 0 obj\n<< /Type /Font /Subtype /Type1 /BaseFont /Helvetica >>\nendobj\n",
+        (
+            f"5 0 obj\n<< /Length {len(conteudo_stream)} >>\nstream\n".encode("latin-1")
+            + conteudo_stream
+            + b"\nendstream\nendobj\n"
+        ),
+    ]
+
+    buffer = bytearray(b"%PDF-1.4\n%\xe2\xe3\xcf\xd3\n")
+    offsets: list[int] = []
+    for obj in objetos:
+        offsets.append(len(buffer))
+        buffer.extend(obj)
+
+    xref_pos = len(buffer)
+    buffer.extend(f"xref\n0 {len(objetos) + 1}\n".encode("latin-1"))
+    buffer.extend(b"0000000000 65535 f \n")
+    for off in offsets:
+        buffer.extend(f"{off:010d} 00000 n \n".encode("latin-1"))
+
+    buffer.extend(
+        (
+            f"trailer\n<< /Size {len(objetos) + 1} /Root 1 0 R >>\n"
+            f"startxref\n{xref_pos}\n%%EOF\n"
+        ).encode("latin-1")
+    )
+    return bytes(buffer)
+
 

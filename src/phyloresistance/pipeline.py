@@ -73,6 +73,7 @@ from phyloresistance.modelos.extensoes import (
     ModeloSequenciaConvolucionalB6,
     RegressorMICLog2,
 )
+from phyloresistance.validacao.experimentos import RastreadorExperimentosMLflow
 from phyloresistance.validacao.metricas import (
     ComparacaoPareadaBaseline,
     ResultadoMetricasModelo,
@@ -860,6 +861,28 @@ def executar_pipeline_completo(
         relatorio_consolidado, diretorio_figuras=dir_rep / "figuras"
     )
     relatorio_consolidado["figuras_svg_geradas"] = caminhos_svg
+
+    # Rastreamento de experimentos (MLflow / FileStore local — Seção 12)
+    rastreador_mlflow = RastreadorExperimentosMLflow(diretorio_mlruns=dir_rep / "mlruns")
+    runs_registradas: list[str] = []
+    for farm_nome, dados_f in resultados_por_farmaco.items():
+        m_b4_f = dados_f["escada_modelos_grupo_filogenetico"]["B4_XGBoost_F1_F2_F3"]  # type: ignore[index]
+        run_info = rastreador_mlflow.registrar_execucao_farmaco(
+            especie=ESPECIE_PILOTO,
+            farmaco=farm_nome,
+            parametros={"modelo": "B4_XGBoost_F1_F2_F3", "max_kmers_f3": 50, "seed": seed},
+            metricas={
+                "auprc": float(m_b4_f["auprc"]),
+                "auroc": float(m_b4_f["auroc"]),
+                "vme": float(m_b4_f["vme"]),
+                "me": float(m_b4_f["me"]),
+                "brier_score": float(m_b4_f["brier_score"]),
+            },
+            tags={"versao_modelo": str(dados_f["versao_modelo"])},
+            artefatos=caminhos_svg,
+        )
+        runs_registradas.append(run_info.run_id)
+    relatorio_consolidado["mlflow_runs_registradas"] = runs_registradas
 
     caminho_rel_json = dir_rep / "relatorio_validacao.json"
     caminho_rel_json.write_text(

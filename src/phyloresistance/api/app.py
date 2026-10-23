@@ -13,7 +13,7 @@ from typing import Annotated, Literal
 
 import numpy as np
 from fastapi import FastAPI, File, Form, Header, HTTPException, Query, Request, UploadFile
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
 
 from phyloresistance.api.esquemas import (
     InfoModeloCardAPI,
@@ -32,7 +32,10 @@ from phyloresistance.config import (
     VERSOES_BANCOS,
     VERSOES_MODELOS_POR_ESPECIE,
 )
-from phyloresistance.explicabilidade.shap_locus import gerar_relatorio_html_isolado
+from phyloresistance.explicabilidade.shap_locus import (
+    gerar_relatorio_html_isolado,
+    gerar_relatorio_pdf_isolado,
+)
 from phyloresistance.genomica.fastq import (
     ErroValidacaoFASTQ,
     trimar_e_montar_fastq_para_fasta,
@@ -446,12 +449,23 @@ def criar_app() -> FastAPI:
             raise HTTPException(status_code=404, detail=f"Job '{job_id}' não encontrado.")
         return _ARMAZENAMENTO_JOBS[job_id]
 
-    @aplicacao.get("/v1/predicoes/{job_id}/relatorio", response_class=HTMLResponse)
-    async def consultar_relatorio_predicao(job_id: str) -> HTMLResponse:
-        """Gera e retorna o relatório interpretável em HTML para o isolado (Seção 9.2)."""
+    @aplicacao.get("/v1/predicoes/{job_id}/relatorio")
+    async def consultar_relatorio_predicao(
+        job_id: str,
+        formato: Literal["html", "pdf"] = "html",
+    ) -> Response:
+        """Gera e retorna o relatório interpretável em HTML ou PDF para o isolado (Seção 9.2)."""
         if job_id not in _ARMAZENAMENTO_JOBS:
             raise HTTPException(status_code=404, detail=f"Job '{job_id}' não encontrado.")
         dados = _ARMAZENAMENTO_JOBS[job_id]
+        if formato == "pdf":
+            pdf_bytes = gerar_relatorio_pdf_isolado(dados)
+            return Response(
+                content=pdf_bytes,
+                media_type="application/pdf",
+                headers={"Content-Disposition": f'inline; filename="relatorio_{job_id}.pdf"'},
+                status_code=200,
+            )
         html = gerar_relatorio_html_isolado(dados)
         return HTMLResponse(content=html, status_code=200)
 

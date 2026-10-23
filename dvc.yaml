@@ -1,0 +1,19 @@
+stages:
+  run_pipeline:
+    cmd: python -m phyloresistance.cli run-all --output-dir data/processed --reports-dir reports
+    deps:
+      - src/phyloresistance/
+      - docs/plano_de_analise.md
+    outs:
+      - data/processed/curadoria_rotulos.parquet
+      - data/processed/qc_genomas.parquet
+      - data/processed/clusters_filogeneticos.parquet
+      - data/processed/atributos_f1_f2.parquet
+      - data/processed/atributos_f3_kmers.npz
+      - data/processed/modelos_servico.pkl
+      - data/processed/manifesto_versoes_hashes.json
+      - reports/relatorio_cientifico.md
+    metrics:
+      - reports/relatorio_validacao.json:
+          cache: false
+

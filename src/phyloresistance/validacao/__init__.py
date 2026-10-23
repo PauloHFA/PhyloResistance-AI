@@ -1,5 +1,9 @@
 """Módulo de validação: métricas clínicas/microbiológicas (VME, ME, AUPRC, Brier) e bootstrap em blocos por cluster."""
 
+from phyloresistance.validacao.experimentos import (
+    RastreadorExperimentosMLflow,
+    RegistroExecucaoExperimento,
+)
 from phyloresistance.validacao.metricas import (
     ComparacaoPareadaBaseline,
     IntervaloConfiancaBloco,
@@ -15,6 +19,8 @@ from phyloresistance.validacao.metricas import (
 __all__ = [
     "ComparacaoPareadaBaseline",
     "IntervaloConfiancaBloco",
+    "RastreadorExperimentosMLflow",
+    "RegistroExecucaoExperimento",
     "ResultadoAvaliacaoMIC",
     "ResultadoMetricasModelo",
     "bootstrap_em_blocos_por_cluster",
