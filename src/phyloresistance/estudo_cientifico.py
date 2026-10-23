@@ -1317,40 +1317,22 @@ def gerar_documentos_estudo_completo(
     diretorio_docs: Path = Path("docs"),
     diretorio_reports: Path = Path("reports"),
 ) -> dict[str, str]:
-    """Salva o Estudo Científico completo em Markdown (.md), Estudo Web (.html) e PDF 6 páginas (.pdf)."""
+    """Salva o Estudo Científico completo em Markdown (.md), Estudo Web (.html) e PDF 6 páginas (.pdf) em `docs/`."""
     diretorio_docs.mkdir(parents=True, exist_ok=True)
-    diretorio_reports.mkdir(parents=True, exist_ok=True)
-
-    # Remove arquivos antigos com nome 'monografia_academica' caso existam
-    for pasta in (diretorio_docs, diretorio_reports):
-        for arq_antigo in (
-            "monografia_academica_metodologia_e_resultados.md",
-            "monografia_academica_metodologia_e_resultados.html",
-            "Monografia_Academica_PhyloResistance_AI.pdf",
-        ):
-            cam_old = pasta / arq_antigo
-            if cam_old.exists():
-                cam_old.unlink()
 
     md_estudo = gerar_estudo_cientifico_md(relatorio, stats_epi)
     cam_md_docs = diretorio_docs / "estudo_metodologia_e_resultados.md"
-    cam_md_rep = diretorio_reports / "estudo_metodologia_e_resultados.md"
     cam_md_docs.write_text(md_estudo, encoding="utf-8")
-    cam_md_rep.write_text(md_estudo, encoding="utf-8")
 
     html_estudo = gerar_estudo_cientifico_html(
         relatorio, stats_epi, diretorio_figuras=diretorio_reports / "figuras"
     )
     cam_html_docs = diretorio_docs / "estudo_metodologia_e_resultados.html"
-    cam_html_rep = diretorio_reports / "estudo_metodologia_e_resultados.html"
     cam_html_docs.write_text(html_estudo, encoding="utf-8")
-    cam_html_rep.write_text(html_estudo, encoding="utf-8")
 
     pdf_estudo = gerar_estudo_cientifico_pdf(relatorio, stats_epi)
     cam_pdf_docs = diretorio_docs / "Estudo_Cientifico_PhyloResistance_AI.pdf"
-    cam_pdf_rep = diretorio_reports / "Estudo_Cientifico_PhyloResistance_AI.pdf"
     cam_pdf_docs.write_bytes(pdf_estudo)
-    cam_pdf_rep.write_bytes(pdf_estudo)
 
     return {
         "estudo_cientifico_md": str(cam_md_docs),

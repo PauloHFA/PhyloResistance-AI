@@ -121,46 +121,46 @@ stream
 1.00 1.00 1.00 rg BT /F2 12 Tf 30.0 815.0 Td (4. RESULTADOS ALCANCADOS CONSOLIDADOS: ESCOPO PRINCIPAL \(ESCHERICHIA COLI\)) Tj ET
 0.82 0.88 0.98 rg BT /F1 8.5 Tf 30.0 797.0 Td (Desempenho na Escada B0-B6 + k=6 \(Q1\), Generalizacao nos 5 Splits \(Q2\) e Calibracao Conformal \(Q4\)) Tj ET
 0.88 0.92 0.99 rg 30.0 758.0 535.0 16.0 re f
-0.08 0.22 0.55 rg BT /F2 7.5 Tf 35.0 762.0 Td (4.1 CIPROFLOXACINA \(ecoli-cip-1.2.0\) | Delta AUPRC \(B4 vs B1\) = +0.0875 [+0.0402, +0.1396] | VME pos-abstencao = 3.70%) Tj ET
+0.08 0.22 0.55 rg BT /F2 7.5 Tf 35.0 762.0 Td (4.1 CIPROFLOXACINA \(ecoli-cip-1.2.0\) | Delta AUPRC \(B4 vs B1\) = +0.0774 [+0.0546, +0.1008] | VME pos-abstencao = 5.66%) Tj ET
 0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 747.0 Td (Arquitetura                  AUPRC [IC 95% Bloco]     AUROC    Sensib.   Especif.   VME \(Grave\)   ME       Brier    ECE) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 735.0 Td (B0_Classe_Majoritaria        0.4486 [0.399,0.508]   0.4323   0.0000    1.0000     1.0000        0.0000   0.2525   0.0033) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 723.5 Td (Controle_Kmers_Curtos_k6     0.4862 [0.413,0.558]   0.4840   0.4483    0.4946     0.5517        0.5054   0.2760   0.1515) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 712.0 Td (B5_Linear_Esparso_F3         0.7602 [0.706,0.803]   0.7249   0.5747    0.8011     0.4253        0.1989   0.2126   0.0834) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 700.5 Td (B1_Regras_CARD_AMRFinder     0.8763 [0.820,0.922]   0.8499   0.7471    0.9677     0.2529        0.0323   0.1143   0.0224) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 689.0 Td (B2_LogReg_L1_F1_F2           0.9005 [0.852,0.943]   0.8691   0.7356    0.9731     0.2644        0.0269   0.1118   0.0332) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 677.5 Td (B3_XGBoost_F1_F2             0.8987 [0.844,0.935]   0.8665   0.7356    0.9570     0.2644        0.0430   0.1163   0.0282) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 666.0 Td (B6_CNN1D_Sequencia           0.9556 [0.942,0.970]   0.9529   0.8793    0.9086     0.1207        0.0914   0.0872   0.0794) Tj ET
-0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 654.5 Td (B4_XGBoost_F1_F2_F3          0.9621 [0.946,0.978]   0.9644   0.9253    0.9247     0.0747        0.0753   0.0553   0.0205) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 735.0 Td (B0_Classe_Majoritaria        0.3988 [0.354,0.481]   0.3934   0.0000    1.0000     1.0000        0.0000   0.2536   0.0056) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 723.5 Td (Controle_Kmers_Curtos_k6     0.4444 [0.344,0.587]   0.4517   0.3704    0.5455     0.6296        0.4545   0.3077   0.2110) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 712.0 Td (B5_Linear_Esparso_F3         0.6489 [0.529,0.708]   0.5915   0.4815    0.6061     0.5185        0.3939   0.2703   0.2032) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 700.5 Td (B1_Regras_CARD_AMRFinder     0.9101 [0.874,0.920]   0.8886   0.8519    0.9697     0.1481        0.0303   0.0767   0.0333) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 689.0 Td (B2_LogReg_L1_F1_F2           0.9210 [0.856,0.959]   0.9112   0.7963    0.9697     0.2037        0.0303   0.0919   0.0509) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 677.5 Td (B3_XGBoost_F1_F2             0.9338 [0.906,0.957]   0.9196   0.8333    0.9545     0.1667        0.0455   0.0853   0.0658) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 666.0 Td (B6_CNN1D_Sequencia           0.9369 [0.890,0.971]   0.9352   0.8333    0.8788     0.1667        0.1212   0.1091   0.0888) Tj ET
+0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 654.5 Td (B4_XGBoost_F1_F2_F3          0.9781 [0.966,0.989]   0.9756   0.9444    0.9545     0.0556        0.0455   0.0464   0.0321) Tj ET
 0.88 0.92 0.99 rg 30.0 629.0 535.0 16.0 re f
-0.08 0.22 0.55 rg BT /F2 7.5 Tf 35.0 633.0 Td (4.2 GENTAMICINA \(ecoli-gen-1.2.0\) | Delta AUPRC \(B4 vs B1\) = +0.0973 [+0.0393, +0.1689] | VME pos-abstencao = 11.18%) Tj ET
+0.08 0.22 0.55 rg BT /F2 7.5 Tf 35.0 633.0 Td (4.2 GENTAMICINA \(ecoli-gen-1.2.0\) | Delta AUPRC \(B4 vs B1\) = +0.0453 [-0.0292, +0.1564] | VME pos-abstencao = 17.39%) Tj ET
 0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 618.0 Td (Arquitetura                  AUPRC [IC 95% Bloco]     AUROC    Sensib.   Especif.   VME \(Grave\)   ME       Brier    ECE) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 606.0 Td (B0_Classe_Majoritaria        0.4397 [0.349,0.505]   0.4189   0.2686    0.6054     0.7314        0.3946   0.2529   0.0798) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 594.5 Td (Controle_Kmers_Curtos_k6     0.5205 [0.385,0.624]   0.5112   0.4457    0.5568     0.5543        0.4432   0.2767   0.1429) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 583.0 Td (B5_Linear_Esparso_F3         0.7119 [0.658,0.771]   0.6935   0.6057    0.6811     0.3943        0.3189   0.2304   0.0982) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 571.5 Td (B1_Regras_CARD_AMRFinder     0.8174 [0.701,0.892]   0.7812   0.6457    0.9135     0.3543        0.0865   0.1640   0.0303) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 560.0 Td (B2_LogReg_L1_F1_F2           0.8344 [0.707,0.889]   0.7941   0.6171    0.9081     0.3829        0.0919   0.1674   0.0514) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 548.5 Td (B3_XGBoost_F1_F2             0.8282 [0.697,0.888]   0.7862   0.6343    0.8811     0.3657        0.1189   0.1728   0.0505) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 537.0 Td (B6_CNN1D_Sequencia           0.8920 [0.810,0.930]   0.8938   0.8171    0.8054     0.1829        0.1946   0.1567   0.1388) Tj ET
-0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 525.5 Td (B4_XGBoost_F1_F2_F3          0.9065 [0.837,0.944]   0.9157   0.8571    0.8649     0.1429        0.1351   0.1086   0.0356) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 606.0 Td (B0_Classe_Majoritaria        0.4344 [0.326,0.522]   0.4095   0.2105    0.7143     0.7895        0.2857   0.2535   0.0461) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 594.5 Td (Controle_Kmers_Curtos_k6     0.4382 [0.286,0.551]   0.4456   0.3684    0.5873     0.6316        0.4127   0.3222   0.2384) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 583.0 Td (B5_Linear_Esparso_F3         0.5595 [0.422,0.722]   0.5834   0.6140    0.5714     0.3860        0.4286   0.2807   0.1557) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 571.5 Td (B1_Regras_CARD_AMRFinder     0.8343 [0.658,0.927]   0.8020   0.7368    0.9365     0.2632        0.0635   0.1343   0.0838) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 560.0 Td (B2_LogReg_L1_F1_F2           0.8544 [0.680,0.925]   0.8092   0.5789    0.9365     0.4211        0.0635   0.1613   0.0535) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 548.5 Td (B3_XGBoost_F1_F2             0.8533 [0.632,0.927]   0.8076   0.6140    0.9365     0.3860        0.0635   0.1561   0.1363) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 537.0 Td (B6_CNN1D_Sequencia           0.7585 [0.582,0.842]   0.7884   0.6842    0.6825     0.3158        0.3175   0.2520   0.2533) Tj ET
+0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 525.5 Td (B4_XGBoost_F1_F2_F3          0.8592 [0.785,0.945]   0.8819   0.7193    0.8254     0.2807        0.1746   0.1419   0.0775) Tj ET
 0.88 0.92 0.99 rg 30.0 500.0 535.0 16.0 re f
-0.08 0.22 0.55 rg BT /F2 7.5 Tf 35.0 504.0 Td (4.3 CEFUROXIMA \(ecoli-cxm-1.2.0\) | Delta AUPRC \(B4 vs B1\) = +0.2023 [+0.1210, +0.3041] | VME pos-abstencao = 12.12%) Tj ET
+0.08 0.22 0.55 rg BT /F2 7.5 Tf 35.0 504.0 Td (4.3 CEFUROXIMA \(ecoli-cxm-1.2.0\) | Delta AUPRC \(B4 vs B1\) = +0.1916 [+0.1143, +0.3195] | VME pos-abstencao = 16.67%) Tj ET
 0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 489.0 Td (Arquitetura                  AUPRC [IC 95% Bloco]     AUROC    Sensib.   Especif.   VME \(Grave\)   ME       Brier    ECE) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 477.0 Td (B0_Classe_Majoritaria        0.3870 [0.340,0.457]   0.4845   0.0000    1.0000     1.0000        0.0000   0.2390   0.0004) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 465.5 Td (Controle_Kmers_Curtos_k6     0.3799 [0.332,0.439]   0.4753   0.3239    0.6284     0.6761        0.3716   0.2778   0.1644) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 454.0 Td (B5_Linear_Esparso_F3         0.6887 [0.643,0.740]   0.6884   0.5986    0.6468     0.4014        0.3532   0.2275   0.1623) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 442.5 Td (B1_Regras_CARD_AMRFinder     0.7364 [0.610,0.825]   0.7382   0.5352    0.9358     0.4648        0.0642   0.1699   0.0192) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 431.0 Td (B2_LogReg_L1_F1_F2           0.7328 [0.560,0.851]   0.7052   0.4930    0.9358     0.5070        0.0642   0.1763   0.0906) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 419.5 Td (B3_XGBoost_F1_F2             0.7379 [0.583,0.853]   0.7115   0.5423    0.8853     0.4577        0.1147   0.1834   0.1061) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 408.0 Td (B6_CNN1D_Sequencia           0.9176 [0.881,0.945]   0.9345   0.8380    0.8853     0.1620        0.1147   0.1142   0.1071) Tj ET
-0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 396.5 Td (B4_XGBoost_F1_F2_F3          0.9335 [0.904,0.958]   0.9471   0.8592    0.9450     0.1408        0.0550   0.0726   0.0209) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 477.0 Td (B0_Classe_Majoritaria        0.3754 [0.296,0.444]   0.4824   0.0000    1.0000     1.0000        0.0000   0.2366   0.0011) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 465.5 Td (Controle_Kmers_Curtos_k6     0.3970 [0.341,0.477]   0.4559   0.2609    0.6081     0.7391        0.3919   0.3020   0.2494) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 454.0 Td (B5_Linear_Esparso_F3         0.6117 [0.542,0.663]   0.5943   0.5000    0.6892     0.5000        0.3108   0.2639   0.2239) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 442.5 Td (B1_Regras_CARD_AMRFinder     0.7112 [0.545,0.852]   0.7283   0.5652    0.9730     0.4348        0.0270   0.1485   0.0519) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 431.0 Td (B2_LogReg_L1_F1_F2           0.7224 [0.543,0.859]   0.7083   0.5435    0.9459     0.4565        0.0541   0.1707   0.1095) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 419.5 Td (B3_XGBoost_F1_F2             0.7463 [0.588,0.865]   0.7305   0.5217    0.8649     0.4783        0.1351   0.1799   0.1522) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 408.0 Td (B6_CNN1D_Sequencia           0.8301 [0.731,0.899]   0.8237   0.6957    0.9324     0.3043        0.0676   0.1492   0.1400) Tj ET
+0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 396.5 Td (B4_XGBoost_F1_F2_F3          0.9185 [0.865,0.967]   0.9057   0.8043    0.9189     0.1957        0.0811   0.0940   0.0813) Tj ET
 0.08 0.18 0.45 rg BT /F2 9.5 Tf 30.0 375.0 Td (4.4 Comparacao Consolidada das 5 Estrategias de Particionamento \(Q2 e REG-09\):) Tj ET
 0.90 0.93 0.98 rg 30.0 357.0 535.0 14.0 re f
 0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 360.0 Td (Regime de Particionamento \(Split\)        CIP AUPRC \(VME\)      GEN AUPRC \(VME\)      CXM AUPRC \(VME\)      Interpretacao) Tj ET
-0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 347.0 Td (Grupo Filogenetico \(Principal\)           0.9621 \(0.0747\)      0.9065 \(0.1429\)      0.9335 \(0.1408\)      Sem vazamento clonal) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 335.0 Td (Leave-One-Lineage-Out \(LOLO\)             0.9496 \(0.0909\)      0.8958 \(0.1695\)      0.8852 \(0.1500\)      Linhagens ST ineditas) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 323.0 Td (Temporal Prospectivo \(> 2022\)            0.9921 \(0.0833\)      0.9381 \(0.1250\)      0.9495 \(0.1111\)      Isolados 2023-2025) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 311.0 Td (Holdout Geografico \(FR, IN, JP\)          0.9569 \(0.0513\)      0.8960 \(0.1954\)      0.9261 \(0.1515\)      Transferencia continental) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 299.0 Td (Aleatorio c/ Vazamento \(B5\)              0.7597 \(0.3736\)      0.7408 \(0.3314\)      0.6842 \(0.4437\)      Atalho de fundo clonal) Tj ET
+0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 347.0 Td (Grupo Filogenetico \(Principal\)           0.9781 \(0.0556\)      0.8592 \(0.2807\)      0.9185 \(0.1957\)      Sem vazamento clonal) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 335.0 Td (Leave-One-Lineage-Out \(LOLO\)             1.0000 \(0.0000\)      0.9796 \(0.2778\)      0.8627 \(0.2857\)      Linhagens ST ineditas) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 323.0 Td (Temporal Prospectivo \(> 2022\)            0.9936 \(0.0833\)      0.9663 \(0.1667\)      0.8271 \(0.3750\)      Isolados 2023-2025) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 311.0 Td (Holdout Geografico \(FR, IN, JP\)          1.0000 \(0.0000\)      0.8291 \(0.2917\)      0.8832 \(0.2941\)      Transferencia continental) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 299.0 Td (Aleatorio c/ Vazamento \(B5\)              0.6679 \(0.4444\)      0.5998 \(0.4912\)      0.6412 \(0.4565\)      Atalho de fundo clonal) Tj ET
 0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 3 de 6 | Estudo Cientifico PhyloResistance AI - Resultados Experimentais E. coli \(Q1, Q2, Q4\)) Tj ET
 endstream
 endobj
@@ -168,83 +168,83 @@ endobj
 << /Type /Page /Parent 2 0 R /MediaBox [0 0 595 842] /Resources << /Font << /F1 3 0 R /F2 4 0 R >> >> /Contents 12 0 R >>
 endobj
 12 0 obj
-<< /Length 7994 >>
+<< /Length 8130 >>
 stream
 0.08 0.14 0.32 rg 0.0 785.0 595.0 57.0 re f
 1.00 1.00 1.00 rg BT /F2 12 Tf 30.0 815.0 Td (4.5 EXPLICABILIDADE TREESHAP \(Q3\), MULTI-ESPECIE, MIC E VALIDACAO EXTERNA) Tj ET
 0.82 0.88 0.98 rg BT /F1 8.5 Tf 30.0 797.0 Td (Decomposicao por Locus GFF3 \(NC_000913.3\), K. pneumoniae, S. aureus MRSA e NCBI Pathogen Detection AST) Tj ET
 0.90 0.95 0.92 rg 30.0 759.0 535.0 15.0 re f
-0.06 0.38 0.22 rg BT /F2 7 Tf 35.0 762.0 Td (Ranking TreeSHAP por Locus: CIPROFLOXACINA | CARD Top-6: 50% | Spearman: 0.418 | GWAS: 83.3% | Ablacao: -0.561) Tj ET
+0.06 0.38 0.22 rg BT /F2 7 Tf 35.0 762.0 Td (Ranking TreeSHAP por Locus: CIPROFLOXACINA | CARD Top-6: 33% | Spearman: 0.432 | GWAS: 50.0% | Ablacao: -0.505) Tj ET
 0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 748.0 Td (gyrA:S83L                    [CONHECIDA]) Tj ET
-0.08 0.62 0.28 rg 205.0 746.5 121.1 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 331.1 748.0 Td (1.4252 | AMRFinderPlus | Alteração do alvo DNA girase subunidade A \(Q) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 736.5 Td (acrR:fs*45 \(unitig\)          [CANDIDATA]) Tj ET
-0.15 0.39 0.92 rg 205.0 735.0 113.9 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 323.9 736.5 Td (1.3396 | Descoberta ML \(F3\) | Desrepressão de bomba de efluxo multidroga A) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 725.0 Td (marR:G103S \(unitig\)          [CANDIDATA]) Tj ET
-0.15 0.39 0.92 rg 205.0 723.5 63.1 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 273.1 725.0 Td (0.7420 | Descoberta ML \(F3\) | Regulador reprimido de marAB / bomba de eflu) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 713.5 Td (gyrA:D87N                    [CONHECIDA]) Tj ET
-0.08 0.62 0.28 rg 205.0 712.0 37.2 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 247.2 713.5 Td (0.4377 | AMRFinderPlus | Alteração do alvo DNA girase subunidade A \(Q) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 702.0 Td (parC:S80I                    [CONHECIDA]) Tj ET
-0.08 0.62 0.28 rg 205.0 700.5 36.3 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 246.3 702.0 Td (0.4272 | AMRFinderPlus | Alteração da topoisomerase IV subunidade A \() Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 690.5 Td (locus_kmer31_poly_0029       [CANDIDATA]) Tj ET
-0.15 0.39 0.92 rg 205.0 689.0 24.8 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 234.8 690.5 Td (0.2917 | Alinhamento Referência \(k=31\) | Variante genômica não catalogada \(hipótese\)) Tj ET
+0.08 0.62 0.28 rg 205.0 746.5 117.7 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 327.7 748.0 Td (1.3847 | AMRFinderPlus | Alteração do alvo DNA girase subunidade A \(Q) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 736.5 Td (marR:G103S \(unitig\)          [CANDIDATA]) Tj ET
+0.15 0.39 0.92 rg 205.0 735.0 96.8 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 306.8 736.5 Td (1.1394 | Descoberta ML \(F3\) | Regulador reprimido de marAB / bomba de eflu) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 725.0 Td (parC:S80I                    [CONHECIDA]) Tj ET
+0.08 0.62 0.28 rg 205.0 723.5 70.3 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 280.3 725.0 Td (0.8271 | AMRFinderPlus | Alteração da topoisomerase IV subunidade A \() Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 713.5 Td (acrR:fs*45 \(unitig\)          [CANDIDATA]) Tj ET
+0.15 0.39 0.92 rg 205.0 712.0 62.9 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 272.9 713.5 Td (0.7398 | Descoberta ML \(F3\) | Desrepressão de bomba de efluxo multidroga A) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 702.0 Td (locus_kmer31_poly_0014       [CANDIDATA]) Tj ET
+0.15 0.39 0.92 rg 205.0 700.5 41.6 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 251.6 702.0 Td (0.4895 | Alinhamento Referência \(k=31\) | Variante genômica não catalogada \(hipótese\)) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 690.5 Td (locus_kmer31_poly_0012       [CANDIDATA]) Tj ET
+0.15 0.39 0.92 rg 205.0 689.0 34.3 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 244.3 690.5 Td (0.4032 | Alinhamento Referência \(k=31\) | Variante genômica não catalogada \(hipótese\)) Tj ET
 0.90 0.95 0.92 rg 30.0 670.0 535.0 15.0 re f
-0.06 0.38 0.22 rg BT /F2 7 Tf 35.0 673.0 Td (Ranking TreeSHAP por Locus: GENTAMICINA | CARD Top-6: 67% | Spearman: 0.420 | GWAS: 83.3% | Ablacao: -0.326) Tj ET
+0.06 0.38 0.22 rg BT /F2 7 Tf 35.0 673.0 Td (Ranking TreeSHAP por Locus: GENTAMICINA | CARD Top-6: 33% | Spearman: 0.447 | GWAS: 66.7% | Ablacao: -0.335) Tj ET
 0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 659.0 Td (acrR:fs*45 \(unitig\)          [CANDIDATA]) Tj ET
-0.15 0.39 0.92 rg 205.0 657.5 82.4 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 292.4 659.0 Td (0.9693 | Descoberta ML \(F3\) | Desrepressão de bomba de efluxo multidroga A) Tj ET
+0.15 0.39 0.92 rg 205.0 657.5 78.8 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 288.8 659.0 Td (0.9267 | Descoberta ML \(F3\) | Desrepressão de bomba de efluxo multidroga A) Tj ET
 0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 647.5 Td (aac\(3\)-IIa                   [CONHECIDA]) Tj ET
-0.08 0.62 0.28 rg 205.0 646.0 55.9 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 265.9 647.5 Td (0.6578 | CARD | Aminoglicosídeo 3-N-acetiltransferase) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 636.0 Td (cpxA:Y144C \(unitig\)          [CANDIDATA]) Tj ET
-0.15 0.39 0.92 rg 205.0 634.5 52.9 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 262.9 636.0 Td (0.6226 | Descoberta ML \(F3\) | Sensor quinase de envelope associado a toler) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 624.5 Td (ant\(2''\)-Ia                  [CONHECIDA]) Tj ET
-0.08 0.62 0.28 rg 205.0 623.0 52.4 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 262.4 624.5 Td (0.6169 | CARD | Aminoglicosídeo 2''-O-nucleotidiltransferase) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 613.0 Td (armA                         [CONHECIDA]) Tj ET
-0.08 0.62 0.28 rg 205.0 611.5 30.2 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 240.2 613.0 Td (0.3557 | CARD | Metiltransferase de rRNA 16S) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 601.5 Td (aac\(3\)-IId                   [CONHECIDA]) Tj ET
-0.08 0.62 0.28 rg 205.0 600.0 28.7 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 238.7 601.5 Td (0.3373 | AMRFinderPlus | Aminoglicosídeo 3-N-acetiltransferase varian) Tj ET
+0.08 0.62 0.28 rg 205.0 646.0 53.0 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 263.0 647.5 Td (0.6232 | CARD | Aminoglicosídeo 3-N-acetiltransferase) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 636.0 Td (locus_kmer31_poly_0030       [CANDIDATA]) Tj ET
+0.15 0.39 0.92 rg 205.0 634.5 41.6 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 251.6 636.0 Td (0.4896 | Alinhamento Referência \(k=31\) | Variante genômica não catalogada \(hipótese\)) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 624.5 Td (locus_kmer31_poly_0047       [CANDIDATA]) Tj ET
+0.15 0.39 0.92 rg 205.0 623.0 39.4 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 249.4 624.5 Td (0.4631 | Alinhamento Referência \(k=31\) | Variante genômica não catalogada \(hipótese\)) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 613.0 Td (ant\(2''\)-Ia                  [CONHECIDA]) Tj ET
+0.08 0.62 0.28 rg 205.0 611.5 34.8 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 244.8 613.0 Td (0.4098 | CARD | Aminoglicosídeo 2''-O-nucleotidiltransferase) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 601.5 Td (locus_kmer31_poly_0027       [CANDIDATA]) Tj ET
+0.15 0.39 0.92 rg 205.0 600.0 34.2 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 244.2 601.5 Td (0.4026 | Alinhamento Referência \(k=31\) | Variante genômica não catalogada \(hipótese\)) Tj ET
 0.90 0.95 0.92 rg 30.0 581.0 535.0 15.0 re f
-0.06 0.38 0.22 rg BT /F2 7 Tf 35.0 584.0 Td (Ranking TreeSHAP por Locus: CEFUROXIMA | CARD Top-6: 50% | Spearman: 0.417 | GWAS: 83.3% | Ablacao: -0.354) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 570.0 Td (ompF:c.-112del \(unitig\)      [CANDIDATA]) Tj ET
-0.15 0.39 0.92 rg 205.0 568.5 76.9 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 286.9 570.0 Td (0.9043 | Descoberta ML \(F3\) | Redução de permeabilidade de porina de membr) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 558.5 Td (blaCTX-M-14                  [CONHECIDA]) Tj ET
-0.08 0.62 0.28 rg 205.0 557.0 66.3 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 276.3 558.5 Td (0.7801 | CARD | Beta-lactamase de espectro estendido \(ESBL C) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 547.0 Td (blaCTX-M-15                  [CONHECIDA]) Tj ET
-0.08 0.62 0.28 rg 205.0 545.5 58.7 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 268.7 547.0 Td (0.6904 | CARD | Beta-lactamase de espectro estendido \(ESBL C) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 535.5 Td (ftsI \(PBP3\):ins333YRIN \(unitig\) [CANDIDATA]) Tj ET
-0.15 0.39 0.92 rg 205.0 534.0 49.4 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 259.4 535.5 Td (0.5812 | Descoberta ML \(F3\) | Redução de afinidade de PBP3 a cefalosporina) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 524.0 Td (ampC:c.-42C>T                [CONHECIDA]) Tj ET
-0.08 0.62 0.28 rg 205.0 522.5 45.5 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 255.5 524.0 Td (0.5351 | AMRFinderPlus | Superexpressão de beta-lactamase cromossômic) Tj ET
-0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 512.5 Td (locus_kmer31_poly_0032       [CANDIDATA]) Tj ET
-0.15 0.39 0.92 rg 205.0 511.0 22.4 8.0 re f
-0.06 0.09 0.16 rg BT /F1 6.8 Tf 232.4 512.5 Td (0.2641 | Alinhamento Referência \(k=31\) | Variante genômica não catalogada \(hipótese\)) Tj ET
+0.06 0.38 0.22 rg BT /F2 7 Tf 35.0 584.0 Td (Ranking TreeSHAP por Locus: CEFUROXIMA | CARD Top-6: 33% | Spearman: 0.355 | GWAS: 50.0% | Ablacao: -0.399) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 570.0 Td (blaCTX-M-15                  [CONHECIDA]) Tj ET
+0.08 0.62 0.28 rg 205.0 568.5 77.5 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 287.5 570.0 Td (0.9116 | CARD | Beta-lactamase de espectro estendido \(ESBL C) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 558.5 Td (ompF:c.-112del \(unitig\)      [CANDIDATA]) Tj ET
+0.15 0.39 0.92 rg 205.0 557.0 63.5 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 273.5 558.5 Td (0.7475 | Descoberta ML \(F3\) | Redução de permeabilidade de porina de membr) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 547.0 Td (blaCTX-M-14                  [CONHECIDA]) Tj ET
+0.08 0.62 0.28 rg 205.0 545.5 49.1 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 259.1 547.0 Td (0.5776 | CARD | Beta-lactamase de espectro estendido \(ESBL C) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 535.5 Td (locus_kmer31_poly_0063       [CANDIDATA]) Tj ET
+0.15 0.39 0.92 rg 205.0 534.0 34.1 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 244.1 535.5 Td (0.4015 | Alinhamento Referência \(k=31\) | Variante genômica não catalogada \(hipótese\)) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 524.0 Td (locus_kmer31_poly_0100       [CANDIDATA]) Tj ET
+0.15 0.39 0.92 rg 205.0 522.5 28.9 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 238.9 524.0 Td (0.3404 | Alinhamento Referência \(k=31\) | Variante genômica não catalogada \(hipótese\)) Tj ET
+0.06 0.09 0.16 rg BT /F2 6.8 Tf 35.0 512.5 Td (locus_kmer31_poly_0024       [CANDIDATA]) Tj ET
+0.15 0.39 0.92 rg 205.0 511.0 27.9 8.0 re f
+0.06 0.09 0.16 rg BT /F1 6.8 Tf 237.9 512.5 Td (0.3283 | Alinhamento Referência \(k=31\) | Variante genômica não catalogada \(hipótese\)) Tj ET
 0.08 0.18 0.45 rg BT /F2 9.5 Tf 30.0 495.0 Td (4.6 Expansao Multi-Especie \(Klebsiella pneumoniae e Staphylococcus aureus MRSA - Fase 6\):) Tj ET
 0.90 0.93 0.98 rg 30.0 478.0 535.0 14.0 re f
 0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 481.0 Td (Especie                   Farmaco          Modelo            AUPRC B1   AUPRC B4 \(Ganho\)     VME B4   Top Loci TreeSHAP) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 468.0 Td (Klebsiella pneumoniae     ciprofloxacina   kpneu-cip-1.2.0   0.9356     0.9939 \(+0.0588\)   0.0508   gyrA:S83L, marR:G103S \(unitig\), qnrS1) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 456.0 Td (Klebsiella pneumoniae     gentamicina      kpneu-gen-1.2.0   0.7784     0.8864 \(+0.1030\)   0.1429   aac\(3\)-IIa, cpxA:Y144C \(unitig\), armA) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 444.0 Td (Klebsiella pneumoniae     ceftriaxona      kpneu-cro-1.2.0   0.8789     0.9206 \(+0.0464\)   0.0492   blaCTX-M-15, ompF:c.-112del \(unitig\), locus_kmer31_poly_0049) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 432.0 Td (Staphylococcus aureus     oxacilina        saureus-oxa-1.2.0 0.7910     0.8977 \(+0.1066\)   0.0667   mecA, pbp4:c.-90T>A \(unitig\), locus_kmer31_poly_0041) Tj ET
-0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 420.0 Td (Staphylococcus aureus     ciprofloxacina   saureus-cip-1.2.0 0.8067     0.9097 \(+0.1048\)   0.0862   grlA:S80F, norA:flqB_up \(unitig\), locus_kmer31_poly_0118) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 468.0 Td (Klebsiella pneumoniae     ciprofloxacina   kpneu-cip-1.2.0   0.8341     0.9600 \(+0.1259\)   0.0476   gyrA:S83L, marR:G103S \(unitig\), locus_kmer31_poly_0039) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 456.0 Td (Klebsiella pneumoniae     gentamicina      kpneu-gen-1.2.0   0.7501     0.8173 \(+0.0614\)   0.2308   aac\(3\)-IIa, cpxA:Y144C \(unitig\), blaCTX-M-15) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 444.0 Td (Klebsiella pneumoniae     ceftriaxona      kpneu-cro-1.2.0   0.7668     0.8927 \(+0.1159\)   0.1795   blaCTX-M-15, ompF:c.-112del \(unitig\), locus_kmer31_poly_0119) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 432.0 Td (Staphylococcus aureus     oxacilina        saureus-oxa-1.2.0 0.8529     0.9778 \(+0.1280\)   0.0476   mecA, pbp4:c.-90T>A \(unitig\), locus_kmer31_poly_0034) Tj ET
+0.06 0.09 0.16 rg BT /F1 7 Tf 35.0 420.0 Td (Staphylococcus aureus     ciprofloxacina   saureus-cip-1.2.0 0.7685     0.9441 \(+0.1676\)   0.1250   grlA:S80F, norA:flqB_up \(unitig\), locus_kmer31_poly_0024) Tj ET
 0.08 0.18 0.45 rg BT /F2 9.5 Tf 30.0 402.0 Td (4.7 Regressao Quantitativa log2\(MIC\) \(ISO 20776-2\) e Validacao Externa Independente \(NCBI Pathogen Detection\):) Tj ET
-0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 388.0 Td (ciprofloxacina  | MIC ISO 20776-2: EA\(+-1 dil\)=58.6%, CA=88.6%, RMSE=2.240 | Externo NCBI: B1=0.854 -> B4=0.978 \(+0.124\)) Tj ET
-0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 376.0 Td (gentamicina     | MIC ISO 20776-2: EA\(+-1 dil\)=61.9%, CA=81.7%, RMSE=2.236 | Externo NCBI: B1=0.788 -> B4=0.940 \(+0.152\)) Tj ET
-0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 364.0 Td (cefuroxima      | MIC ISO 20776-2: EA\(+-1 dil\)=76.4%, CA=90.0%, RMSE=1.592 | Externo NCBI: B1=0.732 -> B4=0.921 \(+0.190\)) Tj ET
+0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 388.0 Td (ciprofloxacina  | MIC ISO 20776-2: EA\(+-1 dil\)=55.8%, CA=92.5%, RMSE=2.243 | Externo NCBI: B1=0.854 -> B4=0.984 \(+0.129\)) Tj ET
+0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 376.0 Td (gentamicina     | MIC ISO 20776-2: EA\(+-1 dil\)=54.2%, CA=76.7%, RMSE=2.375 | Externo NCBI: B1=0.788 -> B4=0.876 \(+0.088\)) Tj ET
+0.06 0.09 0.16 rg BT /F2 7 Tf 35.0 364.0 Td (cefuroxima      | MIC ISO 20776-2: EA\(+-1 dil\)=78.3%, CA=90.0%, RMSE=1.555 | Externo NCBI: B1=0.732 -> B4=0.930 \(+0.198\)) Tj ET
 0.45 0.50 0.58 rg BT /F1 8 Tf 30.0 30.0 Td (Pagina 4 de 6 | Estudo Cientifico PhyloResistance AI - Explicabilidade XAI, Multi-Especie e NCBI Externo) Tj ET
 endstream
 endobj
@@ -355,12 +355,12 @@ xref
 0000013232 00000 n 
 0000020395 00000 n 
 0000020533 00000 n 
-0000028580 00000 n 
-0000028718 00000 n 
-0000033769 00000 n 
-0000033907 00000 n 
+0000028716 00000 n 
+0000028854 00000 n 
+0000033905 00000 n 
+0000034043 00000 n 
 trailer
 << /Size 17 /Root 1 0 R >>
 startxref
-41430
+41566
 %%EOF

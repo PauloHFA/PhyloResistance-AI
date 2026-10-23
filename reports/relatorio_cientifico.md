@@ -6,14 +6,14 @@
 
 ## 1. Funil de Exclusão e Curadoria de Rótulos (REG-02, REG-06, REG-07)
 
-- **Registros brutos ingeridos**: `1089`
+- **Registros brutos ingeridos**: `369`
 - **Removidos por espécie fora do escopo**: `1`
 - **Removidos por fármaco fora do escopo**: `1`
 - **Removidos por categoria Intermediária (I)**: `1`
 - **Removidos por conflito irreconciliável de rótulo (R vs S)**: `2`
 - **Removidos por reprovação no QC do genoma (contigs/N50/completude)**: `1`
 - **Removidos por desduplicação clonal antes do split (distância Mash <= 0.0005)**: `3` (`1` genoma(s) colapsado(s))
-- **Total de registros fenotípicos aprovados para modelagem**: `1080`
+- **Total de registros fenotípicos aprovados para modelagem**: `360`
 
 ---
 
@@ -21,159 +21,159 @@
 
 ### Fármaco: `ciprofloxacina` (`ecoli-cip-1.2.0`)
 
-- **Isolados únicos pós-QC/desduplicação**: `360` (Prevalência de Resistência: `48.3%`)
-- **Conclusão Q1 (ML vs Baseline B1 em grupos filogenéticos não vistos)**: B4_XGBoost_F1_F2_F3 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.0875, IC95% [+0.0402, +0.1396], Delta VME = -0.1782).
-- **Regressão Quantitativa de $\log_2(\text{MIC})$ (ISO 20776-2)**: Concordância Essencial ($\pm 1$ diluição) = `58.6%` | Concordância Categórica = `88.6%` | RMSE $\log_2(\text{MIC})$ = `2.240`
+- **Isolados únicos pós-QC/desduplicação**: `120` (Prevalência de Resistência: `45.0%`)
+- **Conclusão Q1 (ML vs Baseline B1 em grupos filogenéticos não vistos)**: B4_XGBoost_F1_F2_F3 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.0774, IC95% [+0.0546, +0.1008], Delta VME = -0.0830).
+- **Regressão Quantitativa de $\log_2(\text{MIC})$ (ISO 20776-2)**: Concordância Essencial ($\pm 1$ diluição) = `55.8%` | Concordância Categórica = `92.5%` | RMSE $\log_2(\text{MIC})$ = `2.243`
 
 #### Escada de Modelos (Validação Principal: Grupo Filogenético — REG-01, REG-04, REG-05)
 
 | Modelo | AUPRC (IC 95% Bloco) | AUROC | Sensibilidade | Especificidade | VME (Erro Muito Grave) | ME (Erro Grave) | Brier Score |
 |---|---|---|---|---|---|---|---|
-| `B0_Classe_Majoritaria` | 0.4486 [0.399, 0.508] | 0.4323 | 0.0000 | 1.0000 | **1.0000** | **0.0000** | 0.2525 |
-| `B1_Regras_CARD_AMRFinder` | 0.8763 [0.820, 0.922] | 0.8499 | 0.7471 | 0.9677 | **0.2529** | **0.0323** | 0.1143 |
-| `B2_LogReg_L1_F1_F2` | 0.9005 [0.852, 0.943] | 0.8691 | 0.7356 | 0.9731 | **0.2644** | **0.0269** | 0.1118 |
-| `B3_XGBoost_F1_F2` | 0.8987 [0.844, 0.935] | 0.8665 | 0.7356 | 0.9570 | **0.2644** | **0.0430** | 0.1163 |
-| `B4_XGBoost_F1_F2_F3` | 0.9621 [0.946, 0.978] | 0.9644 | 0.9253 | 0.9247 | **0.0747** | **0.0753** | 0.0553 |
-| `B5_Linear_Esparso_F3` | 0.7602 [0.706, 0.803] | 0.7249 | 0.5747 | 0.8011 | **0.4253** | **0.1989** | 0.2126 |
-| `B6_CNN1D_Sequencia` | 0.9556 [0.942, 0.970] | 0.9529 | 0.8793 | 0.9086 | **0.1207** | **0.0914** | 0.0872 |
-| `Controle_Kmers_Curtos_k6` | 0.4862 [0.413, 0.558] | 0.4840 | 0.4483 | 0.4946 | **0.5517** | **0.5054** | 0.2760 |
+| `B0_Classe_Majoritaria` | 0.3988 [0.354, 0.481] | 0.3934 | 0.0000 | 1.0000 | **1.0000** | **0.0000** | 0.2536 |
+| `B1_Regras_CARD_AMRFinder` | 0.9101 [0.874, 0.920] | 0.8886 | 0.8519 | 0.9697 | **0.1481** | **0.0303** | 0.0767 |
+| `B2_LogReg_L1_F1_F2` | 0.9210 [0.856, 0.959] | 0.9112 | 0.7963 | 0.9697 | **0.2037** | **0.0303** | 0.0919 |
+| `B3_XGBoost_F1_F2` | 0.9338 [0.906, 0.957] | 0.9196 | 0.8333 | 0.9545 | **0.1667** | **0.0455** | 0.0853 |
+| `B4_XGBoost_F1_F2_F3` | 0.9781 [0.966, 0.989] | 0.9756 | 0.9444 | 0.9545 | **0.0556** | **0.0455** | 0.0464 |
+| `B5_Linear_Esparso_F3` | 0.6489 [0.529, 0.708] | 0.5915 | 0.4815 | 0.6061 | **0.5185** | **0.3939** | 0.2703 |
+| `B6_CNN1D_Sequencia` | 0.9369 [0.890, 0.971] | 0.9352 | 0.8333 | 0.8788 | **0.1667** | **0.1212** | 0.1091 |
+| `Controle_Kmers_Curtos_k6` | 0.4444 [0.344, 0.587] | 0.4517 | 0.3704 | 0.5455 | **0.6296** | **0.4545** | 0.3077 |
 
 #### Generalização entre Estratégias de Split (Q2 e REG-09)
 
 | Estratégia de Validação | AUPRC | AUROC | VME | ME | Observação |
 |---|---|---|---|---|---|
-| **Grupo Filogenético (Principal)** | 0.9621 | 0.9644 | 0.0747 | 0.0753 | Sem vazamento clonal |
-| **Leave-One-Lineage-Out (LOLO)** | 0.9496 | 0.9530 | 0.0909 | 0.0923 | Linhagens ST inteiras inéditas |
-| **Temporal (Treino <= 2022, Teste > 2022)** | 0.9921 | 0.9918 | 0.0833 | 0.0217 | Simula vigilância prospectiva |
-| **Geográfica (Países retidos)** | 0.9569 | 0.9652 | 0.0513 | 0.0714 | Robustez a epidemiologia local |
-| **Aleatória (Demonstração de Vazamento B5)** | 0.7597 | 0.7414 | 0.3736 | 0.3011 | Inflação por clones no treino e teste |
+| **Grupo Filogenético (Principal)** | 0.9781 | 0.9756 | 0.0556 | 0.0455 | Sem vazamento clonal |
+| **Leave-One-Lineage-Out (LOLO)** | 1.0000 | 1.0000 | 0.0000 | 0.0833 | Linhagens ST inteiras inéditas |
+| **Temporal (Treino <= 2022, Teste > 2022)** | 0.9936 | 0.9944 | 0.0833 | 0.0667 | Simula vigilância prospectiva |
+| **Geográfica (Países retidos)** | 1.0000 | 1.0000 | 0.0000 | 0.0000 | Robustez a epidemiologia local |
+| **Aleatória (Demonstração de Vazamento B5)** | 0.6679 | 0.6049 | 0.4444 | 0.3788 | Inflação por clones no treino e teste |
 
 #### Confiabilidade, Calibração e Abstenção Conformal (Q4 e REG-11)
 
-- **Brier Score**: `0.0553` | **ECE**: `0.0205`
-- **Cobertura Conformal**: `94.4%` (Taxa de Abstenção em casos duvidosos: `5.6%`)
-- **Redução de Erros Graves pós-abstenção**: VME cai de `0.0747` para `0.0370`, e ME cai de `0.0753` para `0.0506`.
+- **Brier Score**: `0.0464` | **ECE**: `0.0321`
+- **Cobertura Conformal**: `99.2%` (Taxa de Abstenção em casos duvidosos: `0.8%`)
+- **Redução de Erros Graves pós-abstenção**: VME cai de `0.0556` para `0.0566`, e ME cai de `0.0455` para `0.0455`.
 
 #### Avaliação de Explicabilidade TreeSHAP Agregada por Locus (Q3, Seção 8.2 e REG-10)
 
-- **Proporção do Top-6 presente no CARD/AMRFinderPlus**: `50.0%` (gyrA:S83L, gyrA:D87N, parC:S80I)
-- **Candidatos novos identificados via k-mers/unitigs (F3)**: `acrR:fs*45 (unitig), marR:G103S (unitig), locus_kmer31_poly_0029`
-- **Estabilidade entre dobras (Spearman $\rho$)**: `0.4184`
-- **Concordância com GWAS controlado por estrutura populacional**: `83.3%`
-- **Teste de remoção in silico do locus principal**: queda média de probabilidade = `-0.5608` (Coerente: `True`)
+- **Proporção do Top-6 presente no CARD/AMRFinderPlus**: `33.3%` (gyrA:S83L, parC:S80I)
+- **Candidatos novos identificados via k-mers/unitigs (F3)**: `marR:G103S (unitig), acrR:fs*45 (unitig), locus_kmer31_poly_0014, locus_kmer31_poly_0012`
+- **Estabilidade entre dobras (Spearman $\rho$)**: `0.4316`
+- **Concordância com GWAS controlado por estrutura populacional**: `50.0%`
+- **Teste de remoção in silico do locus principal**: queda média de probabilidade = `-0.5051` (Coerente: `True`)
 
 | Locus Genômico | Tipo | Status | Fonte | Importância SHAP Média | Mecanismo Associado |
 |---|---|---|---|---|---|
-| `gyrA:S83L` | mutacao_pontual | **conhecida** | AMRFinderPlus | 1.4252 | Alteração do alvo DNA girase subunidade A (QRDR S83L) |
-| `acrR:fs*45 (unitig)` | kmer_unitig | **candidata** | Descoberta ML (F3) | 1.3396 | Desrepressão de bomba de efluxo multidroga AcrAB |
-| `marR:G103S (unitig)` | kmer_unitig | **candidata** | Descoberta ML (F3) | 0.7420 | Regulador reprimido de marAB / bomba de efluxo AcrAB-TolC |
-| `gyrA:D87N` | mutacao_pontual | **conhecida** | AMRFinderPlus | 0.4377 | Alteração do alvo DNA girase subunidade A (QRDR D87N) |
-| `parC:S80I` | mutacao_pontual | **conhecida** | AMRFinderPlus | 0.4272 | Alteração da topoisomerase IV subunidade A (QRDR S80I) |
-| `locus_kmer31_poly_0029` | kmer_unitig | **candidata** | Alinhamento Referência (k=31) | 0.2917 | Variante genômica não catalogada (hipótese) |
+| `gyrA:S83L` | mutacao_pontual | **conhecida** | AMRFinderPlus | 1.3847 | Alteração do alvo DNA girase subunidade A (QRDR S83L) |
+| `marR:G103S (unitig)` | kmer_unitig | **candidata** | Descoberta ML (F3) | 1.1394 | Regulador reprimido de marAB / bomba de efluxo AcrAB-TolC |
+| `parC:S80I` | mutacao_pontual | **conhecida** | AMRFinderPlus | 0.8271 | Alteração da topoisomerase IV subunidade A (QRDR S80I) |
+| `acrR:fs*45 (unitig)` | kmer_unitig | **candidata** | Descoberta ML (F3) | 0.7398 | Desrepressão de bomba de efluxo multidroga AcrAB |
+| `locus_kmer31_poly_0014` | kmer_unitig | **candidata** | Alinhamento Referência (k=31) | 0.4895 | Variante genômica não catalogada (hipótese) |
+| `locus_kmer31_poly_0012` | kmer_unitig | **candidata** | Alinhamento Referência (k=31) | 0.4032 | Variante genômica não catalogada (hipótese) |
 
 ### Fármaco: `gentamicina` (`ecoli-gen-1.2.0`)
 
-- **Isolados únicos pós-QC/desduplicação**: `360` (Prevalência de Resistência: `48.6%`)
-- **Conclusão Q1 (ML vs Baseline B1 em grupos filogenéticos não vistos)**: B4_XGBoost_F1_F2_F3 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.0973, IC95% [+0.0393, +0.1689], Delta VME = -0.2181).
-- **Regressão Quantitativa de $\log_2(\text{MIC})$ (ISO 20776-2)**: Concordância Essencial ($\pm 1$ diluição) = `61.9%` | Concordância Categórica = `81.7%` | RMSE $\log_2(\text{MIC})$ = `2.236`
+- **Isolados únicos pós-QC/desduplicação**: `120` (Prevalência de Resistência: `47.5%`)
+- **Conclusão Q1 (ML vs Baseline B1 em grupos filogenéticos não vistos)**: B4_XGBoost_F1_F2_F3 NÃO supera com significância estatística o Baseline B1 (Delta AUPRC = +0.0453, IC95% [-0.0292, +0.1564]). Resultado reportado conforme REG-04.
+- **Regressão Quantitativa de $\log_2(\text{MIC})$ (ISO 20776-2)**: Concordância Essencial ($\pm 1$ diluição) = `54.2%` | Concordância Categórica = `76.7%` | RMSE $\log_2(\text{MIC})$ = `2.375`
 
 #### Escada de Modelos (Validação Principal: Grupo Filogenético — REG-01, REG-04, REG-05)
 
 | Modelo | AUPRC (IC 95% Bloco) | AUROC | Sensibilidade | Especificidade | VME (Erro Muito Grave) | ME (Erro Grave) | Brier Score |
 |---|---|---|---|---|---|---|---|
-| `B0_Classe_Majoritaria` | 0.4397 [0.349, 0.505] | 0.4189 | 0.2686 | 0.6054 | **0.7314** | **0.3946** | 0.2529 |
-| `B1_Regras_CARD_AMRFinder` | 0.8174 [0.701, 0.892] | 0.7812 | 0.6457 | 0.9135 | **0.3543** | **0.0865** | 0.1640 |
-| `B2_LogReg_L1_F1_F2` | 0.8344 [0.707, 0.889] | 0.7941 | 0.6171 | 0.9081 | **0.3829** | **0.0919** | 0.1674 |
-| `B3_XGBoost_F1_F2` | 0.8282 [0.697, 0.888] | 0.7862 | 0.6343 | 0.8811 | **0.3657** | **0.1189** | 0.1728 |
-| `B4_XGBoost_F1_F2_F3` | 0.9065 [0.837, 0.944] | 0.9157 | 0.8571 | 0.8649 | **0.1429** | **0.1351** | 0.1086 |
-| `B5_Linear_Esparso_F3` | 0.7119 [0.658, 0.771] | 0.6935 | 0.6057 | 0.6811 | **0.3943** | **0.3189** | 0.2304 |
-| `B6_CNN1D_Sequencia` | 0.8920 [0.810, 0.930] | 0.8938 | 0.8171 | 0.8054 | **0.1829** | **0.1946** | 0.1567 |
-| `Controle_Kmers_Curtos_k6` | 0.5205 [0.385, 0.624] | 0.5112 | 0.4457 | 0.5568 | **0.5543** | **0.4432** | 0.2767 |
+| `B0_Classe_Majoritaria` | 0.4344 [0.326, 0.522] | 0.4095 | 0.2105 | 0.7143 | **0.7895** | **0.2857** | 0.2535 |
+| `B1_Regras_CARD_AMRFinder` | 0.8343 [0.658, 0.927] | 0.8020 | 0.7368 | 0.9365 | **0.2632** | **0.0635** | 0.1343 |
+| `B2_LogReg_L1_F1_F2` | 0.8544 [0.680, 0.925] | 0.8092 | 0.5789 | 0.9365 | **0.4211** | **0.0635** | 0.1613 |
+| `B3_XGBoost_F1_F2` | 0.8533 [0.632, 0.927] | 0.8076 | 0.6140 | 0.9365 | **0.3860** | **0.0635** | 0.1561 |
+| `B4_XGBoost_F1_F2_F3` | 0.8592 [0.785, 0.945] | 0.8819 | 0.7193 | 0.8254 | **0.2807** | **0.1746** | 0.1419 |
+| `B5_Linear_Esparso_F3` | 0.5595 [0.422, 0.722] | 0.5834 | 0.6140 | 0.5714 | **0.3860** | **0.4286** | 0.2807 |
+| `B6_CNN1D_Sequencia` | 0.7585 [0.582, 0.842] | 0.7884 | 0.6842 | 0.6825 | **0.3158** | **0.3175** | 0.2520 |
+| `Controle_Kmers_Curtos_k6` | 0.4382 [0.286, 0.551] | 0.4456 | 0.3684 | 0.5873 | **0.6316** | **0.4127** | 0.3222 |
 
 #### Generalização entre Estratégias de Split (Q2 e REG-09)
 
 | Estratégia de Validação | AUPRC | AUROC | VME | ME | Observação |
 |---|---|---|---|---|---|
-| **Grupo Filogenético (Principal)** | 0.9065 | 0.9157 | 0.1429 | 0.1351 | Sem vazamento clonal |
-| **Leave-One-Lineage-Out (LOLO)** | 0.8958 | 0.9186 | 0.1695 | 0.1311 | Linhagens ST inteiras inéditas |
-| **Temporal (Treino <= 2022, Teste > 2022)** | 0.9381 | 0.9257 | 0.1250 | 0.0870 | Simula vigilância prospectiva |
-| **Geográfica (Países retidos)** | 0.8960 | 0.9046 | 0.1954 | 0.1348 | Robustez a epidemiologia local |
-| **Aleatória (Demonstração de Vazamento B5)** | 0.7408 | 0.7518 | 0.3314 | 0.2973 | Inflação por clones no treino e teste |
+| **Grupo Filogenético (Principal)** | 0.8592 | 0.8819 | 0.2807 | 0.1746 | Sem vazamento clonal |
+| **Leave-One-Lineage-Out (LOLO)** | 0.9796 | 0.9848 | 0.2778 | 0.0455 | Linhagens ST inteiras inéditas |
+| **Temporal (Treino <= 2022, Teste > 2022)** | 0.9663 | 0.9667 | 0.1667 | 0.0000 | Simula vigilância prospectiva |
+| **Geográfica (Países retidos)** | 0.8291 | 0.8542 | 0.2917 | 0.1667 | Robustez a epidemiologia local |
+| **Aleatória (Demonstração de Vazamento B5)** | 0.5998 | 0.6051 | 0.4912 | 0.3968 | Inflação por clones no treino e teste |
 
 #### Confiabilidade, Calibração e Abstenção Conformal (Q4 e REG-11)
 
-- **Brier Score**: `0.1086` | **ECE**: `0.0356`
-- **Cobertura Conformal**: `93.3%` (Taxa de Abstenção em casos duvidosos: `6.7%`)
-- **Redução de Erros Graves pós-abstenção**: VME cai de `0.1429` para `0.1118`, e ME cai de `0.1351` para `0.1257`.
+- **Brier Score**: `0.1419` | **ECE**: `0.0775`
+- **Cobertura Conformal**: `85.8%` (Taxa de Abstenção em casos duvidosos: `14.2%`)
+- **Redução de Erros Graves pós-abstenção**: VME cai de `0.2807` para `0.1739`, e ME cai de `0.1746` para `0.1579`.
 
 #### Avaliação de Explicabilidade TreeSHAP Agregada por Locus (Q3, Seção 8.2 e REG-10)
 
-- **Proporção do Top-6 presente no CARD/AMRFinderPlus**: `66.7%` (aac(3)-IIa, ant(2'')-Ia, armA, aac(3)-IId)
-- **Candidatos novos identificados via k-mers/unitigs (F3)**: `acrR:fs*45 (unitig), cpxA:Y144C (unitig)`
-- **Estabilidade entre dobras (Spearman $\rho$)**: `0.4200`
-- **Concordância com GWAS controlado por estrutura populacional**: `83.3%`
-- **Teste de remoção in silico do locus principal**: queda média de probabilidade = `-0.3262` (Coerente: `True`)
+- **Proporção do Top-6 presente no CARD/AMRFinderPlus**: `33.3%` (aac(3)-IIa, ant(2'')-Ia)
+- **Candidatos novos identificados via k-mers/unitigs (F3)**: `acrR:fs*45 (unitig), locus_kmer31_poly_0030, locus_kmer31_poly_0047, locus_kmer31_poly_0027`
+- **Estabilidade entre dobras (Spearman $\rho$)**: `0.4470`
+- **Concordância com GWAS controlado por estrutura populacional**: `66.7%`
+- **Teste de remoção in silico do locus principal**: queda média de probabilidade = `-0.3354` (Coerente: `True`)
 
 | Locus Genômico | Tipo | Status | Fonte | Importância SHAP Média | Mecanismo Associado |
 |---|---|---|---|---|---|
-| `acrR:fs*45 (unitig)` | kmer_unitig | **candidata** | Descoberta ML (F3) | 0.9693 | Desrepressão de bomba de efluxo multidroga AcrAB |
-| `aac(3)-IIa` | gene_amr | **conhecida** | CARD | 0.6578 | Aminoglicosídeo 3-N-acetiltransferase |
-| `cpxA:Y144C (unitig)` | kmer_unitig | **candidata** | Descoberta ML (F3) | 0.6226 | Sensor quinase de envelope associado a tolerância a aminoglicosídeos |
-| `ant(2'')-Ia` | gene_amr | **conhecida** | CARD | 0.6169 | Aminoglicosídeo 2''-O-nucleotidiltransferase |
-| `armA` | gene_amr | **conhecida** | CARD | 0.3557 | Metiltransferase de rRNA 16S |
-| `aac(3)-IId` | gene_amr | **conhecida** | AMRFinderPlus | 0.3373 | Aminoglicosídeo 3-N-acetiltransferase variante IId |
+| `acrR:fs*45 (unitig)` | kmer_unitig | **candidata** | Descoberta ML (F3) | 0.9267 | Desrepressão de bomba de efluxo multidroga AcrAB |
+| `aac(3)-IIa` | gene_amr | **conhecida** | CARD | 0.6232 | Aminoglicosídeo 3-N-acetiltransferase |
+| `locus_kmer31_poly_0030` | kmer_unitig | **candidata** | Alinhamento Referência (k=31) | 0.4896 | Variante genômica não catalogada (hipótese) |
+| `locus_kmer31_poly_0047` | kmer_unitig | **candidata** | Alinhamento Referência (k=31) | 0.4631 | Variante genômica não catalogada (hipótese) |
+| `ant(2'')-Ia` | gene_amr | **conhecida** | CARD | 0.4098 | Aminoglicosídeo 2''-O-nucleotidiltransferase |
+| `locus_kmer31_poly_0027` | kmer_unitig | **candidata** | Alinhamento Referência (k=31) | 0.4026 | Variante genômica não catalogada (hipótese) |
 
 ### Fármaco: `cefuroxima` (`ecoli-cxm-1.2.0`)
 
-- **Isolados únicos pós-QC/desduplicação**: `360` (Prevalência de Resistência: `39.4%`)
-- **Conclusão Q1 (ML vs Baseline B1 em grupos filogenéticos não vistos)**: B4_XGBoost_F1_F2_F3 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.2023, IC95% [+0.1210, +0.3041], Delta VME = -0.3197).
-- **Regressão Quantitativa de $\log_2(\text{MIC})$ (ISO 20776-2)**: Concordância Essencial ($\pm 1$ diluição) = `76.4%` | Concordância Categórica = `90.0%` | RMSE $\log_2(\text{MIC})$ = `1.592`
+- **Isolados únicos pós-QC/desduplicação**: `120` (Prevalência de Resistência: `38.3%`)
+- **Conclusão Q1 (ML vs Baseline B1 em grupos filogenéticos não vistos)**: B4_XGBoost_F1_F2_F3 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.1916, IC95% [+0.1143, +0.3195], Delta VME = -0.2126).
+- **Regressão Quantitativa de $\log_2(\text{MIC})$ (ISO 20776-2)**: Concordância Essencial ($\pm 1$ diluição) = `78.3%` | Concordância Categórica = `90.0%` | RMSE $\log_2(\text{MIC})$ = `1.555`
 
 #### Escada de Modelos (Validação Principal: Grupo Filogenético — REG-01, REG-04, REG-05)
 
 | Modelo | AUPRC (IC 95% Bloco) | AUROC | Sensibilidade | Especificidade | VME (Erro Muito Grave) | ME (Erro Grave) | Brier Score |
 |---|---|---|---|---|---|---|---|
-| `B0_Classe_Majoritaria` | 0.3870 [0.340, 0.457] | 0.4845 | 0.0000 | 1.0000 | **1.0000** | **0.0000** | 0.2390 |
-| `B1_Regras_CARD_AMRFinder` | 0.7364 [0.610, 0.825] | 0.7382 | 0.5352 | 0.9358 | **0.4648** | **0.0642** | 0.1699 |
-| `B2_LogReg_L1_F1_F2` | 0.7328 [0.560, 0.851] | 0.7052 | 0.4930 | 0.9358 | **0.5070** | **0.0642** | 0.1763 |
-| `B3_XGBoost_F1_F2` | 0.7379 [0.583, 0.853] | 0.7115 | 0.5423 | 0.8853 | **0.4577** | **0.1147** | 0.1834 |
-| `B4_XGBoost_F1_F2_F3` | 0.9335 [0.904, 0.958] | 0.9471 | 0.8592 | 0.9450 | **0.1408** | **0.0550** | 0.0726 |
-| `B5_Linear_Esparso_F3` | 0.6887 [0.643, 0.740] | 0.6884 | 0.5986 | 0.6468 | **0.4014** | **0.3532** | 0.2275 |
-| `B6_CNN1D_Sequencia` | 0.9176 [0.881, 0.945] | 0.9345 | 0.8380 | 0.8853 | **0.1620** | **0.1147** | 0.1142 |
-| `Controle_Kmers_Curtos_k6` | 0.3799 [0.332, 0.439] | 0.4753 | 0.3239 | 0.6284 | **0.6761** | **0.3716** | 0.2778 |
+| `B0_Classe_Majoritaria` | 0.3754 [0.296, 0.444] | 0.4824 | 0.0000 | 1.0000 | **1.0000** | **0.0000** | 0.2366 |
+| `B1_Regras_CARD_AMRFinder` | 0.7112 [0.545, 0.852] | 0.7283 | 0.5652 | 0.9730 | **0.4348** | **0.0270** | 0.1485 |
+| `B2_LogReg_L1_F1_F2` | 0.7224 [0.543, 0.859] | 0.7083 | 0.5435 | 0.9459 | **0.4565** | **0.0541** | 0.1707 |
+| `B3_XGBoost_F1_F2` | 0.7463 [0.588, 0.865] | 0.7305 | 0.5217 | 0.8649 | **0.4783** | **0.1351** | 0.1799 |
+| `B4_XGBoost_F1_F2_F3` | 0.9185 [0.865, 0.967] | 0.9057 | 0.8043 | 0.9189 | **0.1957** | **0.0811** | 0.0940 |
+| `B5_Linear_Esparso_F3` | 0.6117 [0.542, 0.663] | 0.5943 | 0.5000 | 0.6892 | **0.5000** | **0.3108** | 0.2639 |
+| `B6_CNN1D_Sequencia` | 0.8301 [0.731, 0.899] | 0.8237 | 0.6957 | 0.9324 | **0.3043** | **0.0676** | 0.1492 |
+| `Controle_Kmers_Curtos_k6` | 0.3970 [0.341, 0.477] | 0.4559 | 0.2609 | 0.6081 | **0.7391** | **0.3919** | 0.3020 |
 
 #### Generalização entre Estratégias de Split (Q2 e REG-09)
 
 | Estratégia de Validação | AUPRC | AUROC | VME | ME | Observação |
 |---|---|---|---|---|---|
-| **Grupo Filogenético (Principal)** | 0.9335 | 0.9471 | 0.1408 | 0.0550 | Sem vazamento clonal |
-| **Leave-One-Lineage-Out (LOLO)** | 0.8852 | 0.9159 | 0.1500 | 0.0250 | Linhagens ST inteiras inéditas |
-| **Temporal (Treino <= 2022, Teste > 2022)** | 0.9495 | 0.9488 | 0.1111 | 0.0517 | Simula vigilância prospectiva |
-| **Geográfica (Países retidos)** | 0.9261 | 0.9332 | 0.1515 | 0.0545 | Robustez a epidemiologia local |
-| **Aleatória (Demonstração de Vazamento B5)** | 0.6842 | 0.7072 | 0.4437 | 0.2615 | Inflação por clones no treino e teste |
+| **Grupo Filogenético (Principal)** | 0.9185 | 0.9057 | 0.1957 | 0.0811 | Sem vazamento clonal |
+| **Leave-One-Lineage-Out (LOLO)** | 0.8627 | 0.8489 | 0.2857 | 0.0769 | Linhagens ST inteiras inéditas |
+| **Temporal (Treino <= 2022, Teste > 2022)** | 0.8271 | 0.8553 | 0.3750 | 0.0526 | Simula vigilância prospectiva |
+| **Geográfica (Países retidos)** | 0.8832 | 0.9141 | 0.2941 | 0.0541 | Robustez a epidemiologia local |
+| **Aleatória (Demonstração de Vazamento B5)** | 0.6412 | 0.6745 | 0.4565 | 0.3108 | Inflação por clones no treino e teste |
 
 #### Confiabilidade, Calibração e Abstenção Conformal (Q4 e REG-11)
 
-- **Brier Score**: `0.0726` | **ECE**: `0.0209`
-- **Cobertura Conformal**: `95.3%` (Taxa de Abstenção em casos duvidosos: `4.7%`)
-- **Redução de Erros Graves pós-abstenção**: VME cai de `0.1408` para `0.1212`, e ME cai de `0.0550` para `0.0474`.
+- **Brier Score**: `0.0940` | **ECE**: `0.0813`
+- **Cobertura Conformal**: `88.3%` (Taxa de Abstenção em casos duvidosos: `11.7%`)
+- **Redução de Erros Graves pós-abstenção**: VME cai de `0.1957` para `0.1667`, e ME cai de `0.0811` para `0.0156`.
 
 #### Avaliação de Explicabilidade TreeSHAP Agregada por Locus (Q3, Seção 8.2 e REG-10)
 
-- **Proporção do Top-6 presente no CARD/AMRFinderPlus**: `50.0%` (blaCTX-M-14, blaCTX-M-15, ampC:c.-42C>T)
-- **Candidatos novos identificados via k-mers/unitigs (F3)**: `ompF:c.-112del (unitig), ftsI (PBP3):ins333YRIN (unitig), locus_kmer31_poly_0032`
-- **Estabilidade entre dobras (Spearman $\rho$)**: `0.4167`
-- **Concordância com GWAS controlado por estrutura populacional**: `83.3%`
-- **Teste de remoção in silico do locus principal**: queda média de probabilidade = `-0.3545` (Coerente: `True`)
+- **Proporção do Top-6 presente no CARD/AMRFinderPlus**: `33.3%` (blaCTX-M-15, blaCTX-M-14)
+- **Candidatos novos identificados via k-mers/unitigs (F3)**: `ompF:c.-112del (unitig), locus_kmer31_poly_0063, locus_kmer31_poly_0100, locus_kmer31_poly_0024`
+- **Estabilidade entre dobras (Spearman $\rho$)**: `0.3548`
+- **Concordância com GWAS controlado por estrutura populacional**: `50.0%`
+- **Teste de remoção in silico do locus principal**: queda média de probabilidade = `-0.3986` (Coerente: `True`)
 
 | Locus Genômico | Tipo | Status | Fonte | Importância SHAP Média | Mecanismo Associado |
 |---|---|---|---|---|---|
-| `ompF:c.-112del (unitig)` | kmer_unitig | **candidata** | Descoberta ML (F3) | 0.9043 | Redução de permeabilidade de porina de membrana externa |
-| `blaCTX-M-14` | gene_amr | **conhecida** | CARD | 0.7801 | Beta-lactamase de espectro estendido (ESBL CTX-M-14) |
-| `blaCTX-M-15` | gene_amr | **conhecida** | CARD | 0.6904 | Beta-lactamase de espectro estendido (ESBL CTX-M-15) |
-| `ftsI (PBP3):ins333YRIN (unitig)` | kmer_unitig | **candidata** | Descoberta ML (F3) | 0.5812 | Redução de afinidade de PBP3 a cefalosporinas |
-| `ampC:c.-42C>T` | mutacao_pontual | **conhecida** | AMRFinderPlus | 0.5351 | Superexpressão de beta-lactamase cromossômica AmpC por mutação promotora |
-| `locus_kmer31_poly_0032` | kmer_unitig | **candidata** | Alinhamento Referência (k=31) | 0.2641 | Variante genômica não catalogada (hipótese) |
+| `blaCTX-M-15` | gene_amr | **conhecida** | CARD | 0.9116 | Beta-lactamase de espectro estendido (ESBL CTX-M-15) |
+| `ompF:c.-112del (unitig)` | kmer_unitig | **candidata** | Descoberta ML (F3) | 0.7475 | Redução de permeabilidade de porina de membrana externa |
+| `blaCTX-M-14` | gene_amr | **conhecida** | CARD | 0.5776 | Beta-lactamase de espectro estendido (ESBL CTX-M-14) |
+| `locus_kmer31_poly_0063` | kmer_unitig | **candidata** | Alinhamento Referência (k=31) | 0.4015 | Variante genômica não catalogada (hipótese) |
+| `locus_kmer31_poly_0100` | kmer_unitig | **candidata** | Alinhamento Referência (k=31) | 0.3404 | Variante genômica não catalogada (hipótese) |
+| `locus_kmer31_poly_0024` | kmer_unitig | **candidata** | Alinhamento Referência (k=31) | 0.3283 | Variante genômica não catalogada (hipótese) |
 
 
 ---
@@ -184,19 +184,19 @@
 
 | Espécie | Fármaco | Versão do Modelo | AUPRC Baseline B1 | AUPRC Modelo B4 ($\Delta$) | VME | Top Loci TreeSHAP |
 |---|---|---|---|---|---|---|
-| *Klebsiella pneumoniae* | `ciprofloxacina` | `kpneu-cip-1.2.0` | 0.9356 | **0.9939** (+0.0588) | 0.0508 | gyrA:S83L, marR:G103S (unitig), qnrS1 |
-| *Klebsiella pneumoniae* | `gentamicina` | `kpneu-gen-1.2.0` | 0.7784 | **0.8864** (+0.1030) | 0.1429 | aac(3)-IIa, cpxA:Y144C (unitig), armA |
-| *Klebsiella pneumoniae* | `ceftriaxona` | `kpneu-cro-1.2.0` | 0.8789 | **0.9206** (+0.0464) | 0.0492 | blaCTX-M-15, ompF:c.-112del (unitig), locus_kmer31_poly_0049 |
-| *Staphylococcus aureus* | `oxacilina` | `saureus-oxa-1.2.0` | 0.7910 | **0.8977** (+0.1066) | 0.0667 | mecA, pbp4:c.-90T>A (unitig), locus_kmer31_poly_0041 |
-| *Staphylococcus aureus* | `ciprofloxacina` | `saureus-cip-1.2.0` | 0.8067 | **0.9097** (+0.1048) | 0.0862 | grlA:S80F, norA:flqB_up (unitig), locus_kmer31_poly_0118 |
+| *Klebsiella pneumoniae* | `ciprofloxacina` | `kpneu-cip-1.2.0` | 0.8341 | **0.9600** (+0.1259) | 0.0476 | gyrA:S83L, marR:G103S (unitig), locus_kmer31_poly_0039 |
+| *Klebsiella pneumoniae* | `gentamicina` | `kpneu-gen-1.2.0` | 0.7501 | **0.8173** (+0.0614) | 0.2308 | aac(3)-IIa, cpxA:Y144C (unitig), blaCTX-M-15 |
+| *Klebsiella pneumoniae* | `ceftriaxona` | `kpneu-cro-1.2.0` | 0.7668 | **0.8927** (+0.1159) | 0.1795 | blaCTX-M-15, ompF:c.-112del (unitig), locus_kmer31_poly_0119 |
+| *Staphylococcus aureus* | `oxacilina` | `saureus-oxa-1.2.0` | 0.8529 | **0.9778** (+0.1280) | 0.0476 | mecA, pbp4:c.-90T>A (unitig), locus_kmer31_poly_0034 |
+| *Staphylococcus aureus* | `ciprofloxacina` | `saureus-cip-1.2.0` | 0.7685 | **0.9441** (+0.1676) | 0.1250 | grlA:S80F, norA:flqB_up (unitig), locus_kmer31_poly_0024 |
 
 ### 3.2 Validação Externa Independente — Padrão NCBI Pathogen Detection AST (Seção 3.1, 7.1 e Fase 6)
 
 | Fármaco (*E. coli*) | AUPRC B1 (Externo) | AUPRC B4 (Externo) | Ganho $\Delta\text{AUPRC}$ Externo | VME Externo | ME Externo |
 |---|---|---|---|---|---|
-| `ciprofloxacina` | 0.8542 | **0.9778** | **+0.1236** | 0.0465 | 0.1228 |
-| `gentamicina` | 0.7878 | **0.9395** | **+0.1517** | 0.1875 | 0.1154 |
-| `cefuroxima` | 0.7315 | **0.9215** | **+0.1900** | 0.2553 | 0.0000 |
+| `ciprofloxacina` | 0.8542 | **0.9836** | **+0.1294** | 0.0465 | 0.0877 |
+| `gentamicina` | 0.7878 | **0.8762** | **+0.0884** | 0.1458 | 0.2115 |
+| `cefuroxima` | 0.7315 | **0.9296** | **+0.1981** | 0.2128 | 0.0566 |
 
 ---
 

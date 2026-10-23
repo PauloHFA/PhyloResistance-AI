@@ -1360,19 +1360,15 @@ def gerar_todos_documentos_e_dashboards(
         relatorio, stats_epi, diretorio_figuras=diretorio_reports / "figuras"
     )
     cam_html_docs = diretorio_docs / "dashboard_resultados_completos.html"
-    cam_html_rep = diretorio_reports / "dashboard_resultados_completos.html"
     cam_html_docs.write_text(html_str, encoding="utf-8")
-    cam_html_rep.write_text(html_str, encoding="utf-8")
 
     # 3) Relatório e Dashboard Multipágina (.pdf)
     pdf_bytes = gerar_relatorio_pdf_multipagina(relatorio, stats_epi)
     cam_pdf_docs = diretorio_docs / "Relatorio_Cientifico_e_Dashboard_PhyloResistance_AI.pdf"
-    cam_pdf_rep = diretorio_reports / "Relatorio_Cientifico_e_Dashboard_PhyloResistance_AI.pdf"
     cam_pdf_docs.write_bytes(pdf_bytes)
-    cam_pdf_rep.write_bytes(pdf_bytes)
 
     # 4) Estudo Científico Completo (Fundamentação, Literatura, Metodologia, Resultados e Conclusão em .md, .html e .pdf)
-    from phyloresistance.monografia_academica import gerar_documentos_estudo_completo
+    from phyloresistance.estudo_cientifico import gerar_documentos_estudo_completo
 
     caminhos_estudo = gerar_documentos_estudo_completo(
         relatorio, stats_epi, diretorio_docs=diretorio_docs, diretorio_reports=diretorio_reports
@@ -1381,8 +1377,6 @@ def gerar_todos_documentos_e_dashboards(
     return {
         "documento_escrito_md": str(cam_md_docs),
         "dashboard_html_docs": str(cam_html_docs),
-        "dashboard_html_reports": str(cam_html_rep),
         "relatorio_pdf_docs": str(cam_pdf_docs),
-        "relatorio_pdf_reports": str(cam_pdf_rep),
         **caminhos_estudo,
     }

@@ -135,7 +135,7 @@ def test_rastreador_mlflow_cliente_bvbrc_e_cli_demo(tmp_path: Path) -> None:
     assert cam_dl.exists()
     assert len(hash_dl) == 64
 
-    cod_saida = cli_main(["demo", "--especie", "Escherichia coli", "--output-dir", "data/processed"])
+    cod_saida = cli_main(["demo", "--especie", "Escherichia coli", "--output-dir", str(tmp_path)])
     assert cod_saida == 0
 
 

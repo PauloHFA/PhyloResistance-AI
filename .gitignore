@@ -35,6 +35,9 @@ data/raw/*.fasta
 data/raw/*.fna
 data/interim/*
 data/processed/*.npz
+data/processed/demo_isolado/
+data/processed/mlruns_fallback/
+mlruns/
 !data/raw/.gitkeep
 !data/interim/.gitkeep
 !data/processed/.gitkeep
