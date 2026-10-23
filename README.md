@@ -141,7 +141,7 @@ Este projeto foi idealizado e construído pelo autor principal com foco em padr�
 
 | Contribuidor | Função no Projeto | GitHub | Contato |
 | :--- | :--- | :---: | :---: |
-| **Paulo H. F. A.** | **Lead Researcher & Creator**<br>Arquitetura de bioinformática, pipelines genômicos, modelagem de XAI e rigor científico | [@PauloHFA](https://github.com/PauloHFA) | `paulo@academica.com` |
+| **Paulo H. F. A.** | **Lead Researcher & Creator**<br>Arquitetura de bioinformática, pipelines genômicos, modelagem de XAI e rigor científico | [@PauloHFA](https://github.com/PauloHFA) | `rickphtb@gmail.com` |
 
 Para mais detalhes sobre governança e diretrizes de contribuição, consulte o documento **[CONTRIBUTORS.md](CONTRIBUTORS.md)**.
 

@@ -8,7 +8,7 @@ Agradecemos a todos os pesquisadores, desenvolvedores e colaboradores que tornar
 
 | Foto / Avatar | Nome | GitHub | E-mail / Contato | Papel |
 | :---: | :--- | :--- | :--- | :--- |
-| <img src="https://github.com/PauloHFA.png?size=100" width="80" height="80" style="border-radius:50%" alt="PauloHFA"/> | **Paulo H. F. A.** | [@PauloHFA](https://github.com/PauloHFA) | `paulo@academica.com` | **Autor Principal / Pesquisador Líder**<br>Concepção, arquitetura de bioinformática, pipeline genômico e modelos de ML consciente de filogenia |
+| <img src="https://github.com/PauloHFA.png?size=100" width="80" height="80" style="border-radius:50%" alt="PauloHFA"/> | **Paulo H. F. A.** | [@PauloHFA](https://github.com/PauloHFA) | `rickphtb@gmail.com` | **Autor Principal / Pesquisador Líder**<br>Concepção, arquitetura de bioinformática, pipeline genômico e modelos de ML consciente de filogenia |
 
 ---
 
@@ -27,3 +27,4 @@ Contribuições são muito bem-vindas! Se você deseja colaborar com novas linha
    uv run pytest -v
    ```
 4. Submeta um **Pull Request** detalhando as alterações.
+
