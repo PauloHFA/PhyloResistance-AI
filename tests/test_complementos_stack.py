@@ -30,6 +30,7 @@ from phyloresistance.explicabilidade.mapeamento_genomico import (
 )
 from phyloresistance.genomica.anotacao import sintetizar_fasta_isolado
 from phyloresistance.modelos.escada import ModeloArvoreCuradoB3, PipelineCompletoB4
+from phyloresistance.relatorios_visuais import gerar_todos_documentos_e_dashboards
 from phyloresistance.validacao.experimentos import RastreadorExperimentosMLflow
 
 
@@ -136,3 +137,24 @@ def test_rastreador_mlflow_cliente_bvbrc_e_cli_demo(tmp_path: Path) -> None:
 
     cod_saida = cli_main(["demo", "--especie", "Escherichia coli", "--output-dir", "data/processed"])
     assert cod_saida == 0
+
+
+def test_geracao_documento_escrito_dashboard_html_e_pdf_multipagina() -> None:
+    """Valida que o documento escrito (.md), o dashboard interativo (.html) e o relatório multipágina (.pdf) são gerados."""
+    caminhos = gerar_todos_documentos_e_dashboards()
+    cam_md = Path(caminhos["documento_escrito_md"])
+    cam_html = Path(caminhos["dashboard_html_docs"])
+    cam_pdf = Path(caminhos["relatorio_pdf_docs"])
+
+    assert cam_md.exists() and cam_md.stat().st_size > 8_000
+    assert cam_html.exists() and cam_html.stat().st_size > 20_000
+    html_txt = cam_html.read_text(encoding="utf-8")
+    assert "<svg" in html_txt and "Mapa Epidemiológico Global" in html_txt
+    assert "NC_000913.3" in html_txt
+
+    assert cam_pdf.exists() and cam_pdf.stat().st_size > 10_000
+    pdf_bytes = cam_pdf.read_bytes()
+    assert pdf_bytes.startswith(b"%PDF-1.4")
+    assert b"/Count 4" in pdf_bytes
+    assert b"%%EOF" in pdf_bytes
+

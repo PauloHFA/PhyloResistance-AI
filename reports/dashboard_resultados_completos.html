@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PhyloResistance AI — Dashboard Científico, Estatístico e Mapas</title>
+  <style>
+    :root {
+      --bg: #f1f5f9;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --primary: #1d4ed8;
+      --accent: #059669;
+      --warn: #d97706;
+      --border: #e2e8f0;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 2rem 2.5rem;
+      border-bottom: 4px solid #38bdf8;
+    }
+    header h1 { margin: 0 0 0.4rem 0; font-size: 1.85rem; }
+    header p { margin: 0; color: #cbd5e1; font-size: 0.98rem; }
+    .banner-reg15 {
+      background: #fef3c7;
+      color: #92400e;
+      padding: 0.7rem 2.5rem;
+      font-weight: 700;
+      border-bottom: 1px solid #fde68a;
+      font-size: 0.92rem;
+    }
+    .container { max-width: 1360px; margin: 0 auto; padding: 1.75rem 2rem 3rem; }
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.75rem;
+    }
+    .kpi-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.15rem 1.3rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.06);
+    }
+    .kpi-card .label { font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; color: var(--muted); font-weight: 700; }
+    .kpi-card .val { font-size: 1.75rem; font-weight: 800; color: var(--primary); margin: 0.25rem 0; }
+    .kpi-card .sub { font-size: 0.82rem; color: var(--muted); }
+    .nav-tabs {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 0.75rem;
+    }
+    .tab-btn {
+      background: #e2e8f0;
+      color: #1e293b;
+      border: none;
+      padding: 0.65rem 1.15rem;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.92rem;
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .tab-btn.active {
+      background: var(--primary);
+      color: #ffffff;
+      box-shadow: 0 2px 6px rgba(29, 78, 216, 0.3);
+    }
+    .tab-pane { display: none; }
+    .tab-pane.active { display: block; }
+    .section-card {
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      box-shadow: 0 1px 3px rgba(15, 23, 42, 0.05);
+    }
+    .section-card h2 { margin-top: 0; font-size: 1.3rem; color: #0f172a; border-bottom: 1px solid var(--border); padding-bottom: 0.6rem; }
+    .section-card h3 { margin-top: 1.2rem; font-size: 1.08rem; color: #1e293b; }
+    table { width: 100%; border-collapse: collapse; margin-top: 0.75rem; font-size: 0.88rem; }
+    th, td { padding: 0.6rem 0.75rem; border-bottom: 1px solid var(--border); text-align: left; }
+    th { background: #f8fafc; font-weight: 700; color: #334155; }
+    tr:hover td { background: #f8fafc; }
+    .badge-gain { background: #dcfce7; color: #166534; padding: 0.2rem 0.5rem; border-radius: 6px; font-weight: 700; font-size: 0.82rem; }
+    .badge-conhecida { background: #dcfce7; color: #166534; padding: 0.18rem 0.5rem; border-radius: 4px; font-weight: 700; font-size: 0.78rem; }
+    .badge-candidata { background: #dbeafe; color: #1e40af; padding: 0.18rem 0.5rem; border-radius: 4px; font-weight: 700; font-size: 0.78rem; }
+    .selector-bar {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: #eff6ff;
+      padding: 0.85rem 1.2rem;
+      border-radius: 10px;
+      border: 1px solid #bfdbfe;
+      margin-bottom: 1.25rem;
+    }
+    .selector-bar select {
+      padding: 0.45rem 0.85rem;
+      border-radius: 6px;
+      border: 1px solid #93c5fd;
+      font-weight: 700;
+      font-size: 0.95rem;
+      background: #ffffff;
+      color: #1e3a8a;
+    }
+    .grid-2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(420px, 1fr)); gap: 1.25rem; }
+    footer { text-align: center; color: var(--muted); font-size: 0.85rem; margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--border); }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>PhyloResistance AI — Painel Consolidado de Resultados, Estatísticas e Mapas Genômicos</h1>
+    <p>Predição de Resistência Antimicrobiana (AMR), Estimativa de MIC (ISO 20776-2) e Descoberta de Loci via TreeSHAP sob Validação Filogenética Estrita (REG-01 a REG-15)</p>
+  </header>
+  <div class="banner-reg15">
+    AVISO ÉTICO E REGULATÓRIO (REG-15): Uso em pesquisa. Não substitui o antibiograma.
+  </div>
+
+  <div class="container">
+    <!-- KPIs Executivos -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="label">Coorte Curada Pós-QC / Dedup</div>
+        <div class="val">1.080 AST</div>
+        <div class="sub">360 genomas únicos E. coli + 240 K. pneumoniae / S. aureus</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">AUPRC Ciprofloxacina (B4 vs B1)</div>
+        <div class="val">0.9621</div>
+        <div class="sub">+0.0875 sobre CARD/AMRFinderPlus (IC95% [+0.040, +0.140])</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">AUPRC Cefuroxima (B4 vs B1)</div>
+        <div class="val">0.9335</div>
+        <div class="sub">+0.2023 sobre B1 (IC95% [+0.121, +0.304])</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Redução de VME (Ciprofloxacina)</div>
+        <div class="val">3.70%</div>
+        <div class="sub">Cai de 25.29% (B1) para 7.47% (B4) e 3.70% pós-abstenção</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Concordância GWAS / TreeSHAP</div>
+        <div class="val">83.3%</div>
+        <div class="sub">100% dos determinantes canônicos CARD recuperados</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">Validação Externa (NCBI AST)</div>
+        <div class="val">+15.5%</div>
+        <div class="sub">Ganho médio de AUPRC (B4 vs B1) em coorte independente</div>
+      </div>
+    </div>
+
+    <!-- Abas de Navegação -->
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="abrirAba('aba-mapas', this)">1. Mapas Geográficos, Linhagens e Funil QC</button>
+      <button class="tab-btn" onclick="abrirAba('aba-escada', this)">2. Escada de Modelos (B0–B6), Splits e Calibração</button>
+      <button class="tab-btn" onclick="abrirAba('aba-xai', this)">3. Mapa Cromossômico GFF3 e Explicabilidade TreeSHAP</button>
+      <button class="tab-btn" onclick="abrirAba('aba-extensoes', this)">4. Multi-Espécie, Regressão MIC e Validação Externa</button>
+    </div>
+
+    <!-- ABA 1: Mapas Geográficos e Epidemiologia -->
+    <div id="aba-mapas" class="tab-pane active">
+      <div class="section-card">
+        <h2>1.1 Mapa Mundial de Vigilância Genômica e Holdout Geográfico (REG-09)</h2>
+        <svg viewBox="0 0 960 430" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background:#0f172a;border-radius:12px;border:1px solid #1e293b;">
+  <defs>
+    <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
+      <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#1e293b" stroke-width="1"/>
+    </pattern>
+  </defs>
+  <rect width="960" height="430" fill="url(#grid)" />
+  <text x="24" y="32" fill="#f8fafc" font-size="16" font-weight="700">Mapa Epidemiológico Global da Coorte (360 Genomas / 1.080 Testes AST) e Holdout Geográfico (REG-09)</text>
+  <text x="24" y="52" fill="#94a3b8" font-size="12">Passe o cursor sobre cada país para inspecionar tamanho amostral, prevalência de resistência e partição de validação</text>
+
+  <!-- Silhuetas Continentais Estilizadas -->
+  <!-- América do Norte -->
+  <path d="M 85 85 L 265 75 L 295 145 L 235 205 L 165 215 L 110 160 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+  <!-- América do Sul -->
+  <path d="M 245 230 L 355 245 L 365 325 L 305 395 L 255 350 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+  <!-- Europa -->
+  <path d="M 425 75 L 555 70 L 565 160 L 440 165 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+  <!-- África -->
+  <path d="M 435 180 L 565 185 L 580 345 L 495 375 L 435 275 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+  <!-- Ásia -->
+  <path d="M 570 75 L 835 85 L 845 245 L 690 265 L 575 185 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+  <!-- Oceania -->
+  <path d="M 735 290 L 855 290 L 865 375 L 745 375 Z" fill="#1e293b" stroke="#334155" stroke-width="1.5" />
+
+  <!-- Conexões Filogenéticas / Vigilância Internacional -->
+  <path d="M 215 145 Q 345 190 315 295" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.55" />
+  <path d="M 215 145 Q 340 90 455 112" fill="none" stroke="#38bdf8" stroke-width="1.2" stroke-dasharray="4,4" opacity="0.55" />
+  <path d="M 488 122 Q 580 140 665 205" fill="none" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="4,4" opacity="0.65" />
+  <path d="M 665 205 Q 740 180 795 155" fill="none" stroke="#fbbf24" stroke-width="1.4" stroke-dasharray="4,4" opacity="0.65" />
+
+  <g class="node-pais"><circle cx="315" cy="295" r="20" fill="#2563eb" fill-opacity="0.18" /><circle cx="315" cy="295" r="15" fill="#2563eb" fill-opacity="0.85" stroke="#1d4ed8" stroke-width="2"><title>Brasil (BR): 45 genomas únicos (135 testes AST) | Prevalência R: 47.4% | Treino</title></circle><text x="315" y="299" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="700">BR</text><rect x="269" y="314" width="92" height="30" rx="4" fill="#0f172a" fill-opacity="0.82" /><text x="315" y="327" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600">Brasil (n=45)</text><text x="315" y="339" text-anchor="middle" fill="#93c5fd" font-size="9">R: 47.4%</text></g><g class="node-pais"><circle cx="488" cy="122" r="20" fill="#2563eb" fill-opacity="0.18" /><circle cx="488" cy="122" r="15" fill="#2563eb" fill-opacity="0.85" stroke="#1d4ed8" stroke-width="2"><title>Alemanha (DE): 45 genomas únicos (135 testes AST) | Prevalência R: 46.7% | Treino</title></circle><text x="488" y="126" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="700">DE</text><rect x="442" y="141" width="92" height="30" rx="4" fill="#0f172a" fill-opacity="0.82" /><text x="488" y="154" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600">Alemanha (n=45)</text><text x="488" y="166" text-anchor="middle" fill="#93c5fd" font-size="9">R: 46.7%</text></g><g class="node-pais"><circle cx="470" cy="136" r="23" fill="#f59e0b" fill-opacity="0.18" /><circle cx="470" cy="136" r="18" fill="#f59e0b" fill-opacity="0.85" stroke="#b45309" stroke-width="2"><title>França (FR): 55 genomas únicos (165 testes AST) | Prevalência R: 42.4% | Holdout Geográfico (REG-09)</title></circle><text x="470" y="140" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="700">FR</text><rect x="424" y="158" width="92" height="30" rx="4" fill="#0f172a" fill-opacity="0.82" /><text x="470" y="171" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600">França (n=55)</text><text x="470" y="183" text-anchor="middle" fill="#93c5fd" font-size="9">R: 42.4%</text></g><g class="node-pais"><circle cx="665" cy="205" r="27" fill="#f59e0b" fill-opacity="0.18" /><circle cx="665" cy="205" r="22" fill="#f59e0b" fill-opacity="0.85" stroke="#b45309" stroke-width="2"><title>Índia (IN): 66 genomas únicos (198 testes AST) | Prevalência R: 46.5% | Holdout Geográfico (REG-09)</title></circle><text x="665" y="209" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="700">IN</text><rect x="619" y="231" width="92" height="30" rx="4" fill="#0f172a" fill-opacity="0.82" /><text x="665" y="244" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600">Índia (n=66)</text><text x="665" y="256" text-anchor="middle" fill="#93c5fd" font-size="9">R: 46.5%</text></g><g class="node-pais"><circle cx="795" cy="155" r="23" fill="#f59e0b" fill-opacity="0.18" /><circle cx="795" cy="155" r="18" fill="#f59e0b" fill-opacity="0.85" stroke="#b45309" stroke-width="2"><title>Japão (JP): 55 genomas únicos (165 testes AST) | Prevalência R: 41.8% | Holdout Geográfico (REG-09)</title></circle><text x="795" y="159" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="700">JP</text><rect x="749" y="177" width="92" height="30" rx="4" fill="#0f172a" fill-opacity="0.82" /><text x="795" y="190" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600">Japão (n=55)</text><text x="795" y="202" text-anchor="middle" fill="#93c5fd" font-size="9">R: 41.8%</text></g><g class="node-pais"><circle cx="455" cy="112" r="22" fill="#2563eb" fill-opacity="0.18" /><circle cx="455" cy="112" r="17" fill="#2563eb" fill-opacity="0.85" stroke="#1d4ed8" stroke-width="2"><title>Reino Unido (UK): 51 genomas únicos (153 testes AST) | Prevalência R: 47.1% | Treino</title></circle><text x="455" y="116" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="700">UK</text><rect x="409" y="133" width="92" height="30" rx="4" fill="#0f172a" fill-opacity="0.82" /><text x="455" y="146" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600">Reino Unido (n=51)</text><text x="455" y="158" text-anchor="middle" fill="#93c5fd" font-size="9">R: 47.1%</text></g><g class="node-pais"><circle cx="215" cy="145" r="19" fill="#2563eb" fill-opacity="0.18" /><circle cx="215" cy="145" r="14" fill="#2563eb" fill-opacity="0.85" stroke="#1d4ed8" stroke-width="2"><title>Estados Unidos (US): 43 genomas únicos (129 testes AST) | Prevalência R: 47.3% | Treino</title></circle><text x="215" y="149" text-anchor="middle" fill="#ffffff" font-size="10" font-weight="700">US</text><rect x="169" y="163" width="92" height="30" rx="4" fill="#0f172a" fill-opacity="0.82" /><text x="215" y="176" text-anchor="middle" fill="#f8fafc" font-size="9.5" font-weight="600">Estados Unidos (n=43)</text><text x="215" y="188" text-anchor="middle" fill="#93c5fd" font-size="9">R: 47.3%</text></g>
+
+  <!-- Legenda -->
+  <rect x="24" y="372" width="530" height="42" rx="8" fill="#020617" fill-opacity="0.85" stroke="#334155" />
+  <circle cx="48" cy="393" r="8" fill="#2563eb" stroke="#1d4ed8" stroke-width="2" />
+  <text x="64" y="397" fill="#e2e8f0" font-size="11.5" font-weight="600">Países de Treino (BR, US, UK, DE — 184 genomas / 552 testes)</text>
+  <circle cx="325" cy="393" r="8" fill="#f59e0b" stroke="#b45309" stroke-width="2" />
+  <text x="341" y="397" fill="#fcd34d" font-size="11.5" font-weight="600">Holdout Geográfico REG-09 (FR, IN, JP — 176 genomas)</text>
+</svg>
+      </div>
+
+      <div class="section-card">
+        <h2>1.2 Estrutura Populacional por Linhagem (MLST ST) e Série Temporal (2016–2025)</h2>
+        <svg viewBox="0 0 960 355" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff;border-radius:12px;border:1px solid #e2e8f0;">
+  <text x="20" y="28" fill="#0f172a" font-size="14.5" font-weight="700">Prevalência por Linhagem Clonal MLST (ST) — Estrutura Populacional</text>
+  <text x="85" y="68" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST131</text><rect x="95" y="55" width="174" height="17" rx="3" fill="#dc2626" /><text x="276" y="68" fill="#0f172a" font-size="10.5" font-weight="600">62.2% (n=30)</text><text x="85" y="92" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST410</text><rect x="95" y="79" width="158" height="17" rx="3" fill="#dc2626" /><text x="260" y="92" fill="#0f172a" font-size="10.5" font-weight="600">56.7% (n=30)</text><text x="85" y="116" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST1193</text><rect x="95" y="103" width="149" height="17" rx="3" fill="#dc2626" /><text x="251" y="116" fill="#0f172a" font-size="10.5" font-weight="600">53.3% (n=30)</text><text x="85" y="140" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST648</text><rect x="95" y="127" width="140" height="17" rx="3" fill="#dc2626" /><text x="242" y="140" fill="#0f172a" font-size="10.5" font-weight="600">50.0% (n=30)</text><text x="85" y="164" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST38</text><rect x="95" y="151" width="136" height="17" rx="3" fill="#2563eb" /><text x="238" y="164" fill="#0f172a" font-size="10.5" font-weight="600">48.9% (n=30)</text><text x="85" y="188" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST405</text><rect x="95" y="175" width="133" height="17" rx="3" fill="#2563eb" /><text x="235" y="188" fill="#0f172a" font-size="10.5" font-weight="600">47.8% (n=30)</text><text x="85" y="212" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST73</text><rect x="95" y="199" width="133" height="17" rx="3" fill="#2563eb" /><text x="235" y="212" fill="#0f172a" font-size="10.5" font-weight="600">47.8% (n=30)</text><text x="85" y="236" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST10</text><rect x="95" y="223" width="118" height="17" rx="3" fill="#2563eb" /><text x="220" y="236" fill="#0f172a" font-size="10.5" font-weight="600">42.2% (n=30)</text><text x="85" y="260" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST69</text><rect x="95" y="247" width="115" height="17" rx="3" fill="#2563eb" /><text x="217" y="260" fill="#0f172a" font-size="10.5" font-weight="600">41.1% (n=30)</text><text x="85" y="284" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST12</text><rect x="95" y="271" width="99" height="17" rx="3" fill="#2563eb" /><text x="201" y="284" fill="#0f172a" font-size="10.5" font-weight="600">35.6% (n=30)</text><text x="85" y="308" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST95</text><rect x="95" y="295" width="90" height="17" rx="3" fill="#2563eb" /><text x="192" y="308" fill="#0f172a" font-size="10.5" font-weight="600">32.2% (n=30)</text><text x="85" y="332" text-anchor="end" fill="#1e293b" font-size="11" font-weight="600">ST127</text><rect x="95" y="319" width="77" height="17" rx="3" fill="#2563eb" /><text x="179" y="332" fill="#0f172a" font-size="10.5" font-weight="600">27.8% (n=30)</text>
+  <line x1="470" y1="20" x2="470" y2="335" stroke="#e2e8f0" stroke-width="1.5" />
+  <text x="500" y="28" fill="#0f172a" font-size="14.5" font-weight="700">Série Temporal (2016–2025) e Corte Prospectivo (&gt; 2022)</text>
+  <rect x="795" y="45" width="140" height="250" fill="#fef3c7" fill-opacity="0.45" stroke="#f59e0b" stroke-dasharray="4,4" rx="6" />
+  <text x="865" y="65" text-anchor="middle" fill="#b45309" font-size="10.5" font-weight="700">Holdout Temporal (&gt;2022)</text>
+  <line x1="515" y1="295" x2="935" y2="295" stroke="#94a3b8" stroke-width="1.2" />
+  <polyline fill="none" stroke="#0284c7" stroke-width="2.5" points="530,191 572,197 614,194 656,180 698,203 740,209 782,203 824,216 866,174 908,185" />
+  <circle cx="530" cy="191" r="5.5" fill="#0284c7" stroke="#ffffff" stroke-width="1.5"><title>Ano 2016: 47.3% resistência (31 genomas)</title></circle><text x="530" y="181" text-anchor="middle" fill="#1e293b" font-size="9.5" font-weight="600">47%</text><text x="530" y="315" text-anchor="middle" fill="#475569" font-size="10">2016</text><circle cx="572" cy="197" r="5.5" fill="#0284c7" stroke="#ffffff" stroke-width="1.5"><title>Ano 2017: 44.7% resistência (41 genomas)</title></circle><text x="572" y="187" text-anchor="middle" fill="#1e293b" font-size="9.5" font-weight="600">45%</text><text x="572" y="315" text-anchor="middle" fill="#475569" font-size="10">2017</text><circle cx="614" cy="194" r="5.5" fill="#0284c7" stroke="#ffffff" stroke-width="1.5"><title>Ano 2018: 45.8% resistência (32 genomas)</title></circle><text x="614" y="184" text-anchor="middle" fill="#1e293b" font-size="9.5" font-weight="600">46%</text><text x="614" y="315" text-anchor="middle" fill="#475569" font-size="10">2018</text><circle cx="656" cy="180" r="5.5" fill="#0284c7" stroke="#ffffff" stroke-width="1.5"><title>Ano 2019: 52.7% resistência (50 genomas)</title></circle><text x="656" y="170" text-anchor="middle" fill="#1e293b" font-size="9.5" font-weight="600">53%</text><text x="656" y="315" text-anchor="middle" fill="#475569" font-size="10">2019</text><circle cx="698" cy="203" r="5.5" fill="#0284c7" stroke="#ffffff" stroke-width="1.5"><title>Ano 2020: 41.7% resistência (44 genomas)</title></circle><text x="698" y="193" text-anchor="middle" fill="#1e293b" font-size="9.5" font-weight="600">42%</text><text x="698" y="315" text-anchor="middle" fill="#475569" font-size="10">2020</text><circle cx="740" cy="209" r="5.5" fill="#0284c7" stroke="#ffffff" stroke-width="1.5"><title>Ano 2021: 38.7% resistência (31 genomas)</title></circle><text x="740" y="199" text-anchor="middle" fill="#1e293b" font-size="9.5" font-weight="600">39%</text><text x="740" y="315" text-anchor="middle" fill="#475569" font-size="10">2021</text><circle cx="782" cy="203" r="5.5" fill="#0284c7" stroke="#ffffff" stroke-width="1.5"><title>Ano 2022: 41.4% resistência (37 genomas)</title></circle><text x="782" y="193" text-anchor="middle" fill="#1e293b" font-size="9.5" font-weight="600">41%</text><text x="782" y="315" text-anchor="middle" fill="#475569" font-size="10">2022</text><circle cx="824" cy="216" r="5.5" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5"><title>Ano 2023: 35.4% resistência (33 genomas)</title></circle><text x="824" y="206" text-anchor="middle" fill="#1e293b" font-size="9.5" font-weight="600">35%</text><text x="824" y="315" text-anchor="middle" fill="#475569" font-size="10">2023</text><circle cx="866" cy="174" r="5.5" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5"><title>Ano 2024: 55.2% resistência (35 genomas)</title></circle><text x="866" y="164" text-anchor="middle" fill="#1e293b" font-size="9.5" font-weight="600">55%</text><text x="866" y="315" text-anchor="middle" fill="#475569" font-size="10">2024</text><circle cx="908" cy="185" r="5.5" fill="#f59e0b" stroke="#ffffff" stroke-width="1.5"><title>Ano 2025: 50.0% resistência (26 genomas)</title></circle><text x="908" y="175" text-anchor="middle" fill="#1e293b" font-size="9.5" font-weight="600">50%</text><text x="908" y="315" text-anchor="middle" fill="#475569" font-size="10">2025</text>
+</svg>
+      </div>
+
+      <div class="section-card">
+        <h2>1.3 Funil de Exclusão, Curadoria de MIC e Desduplicação Clonal Mash (REG-02, REG-06, REG-07)</h2>
+        <table>
+          <thead>
+            <tr><th>Etapa do Funil</th><th>Registros</th><th>Critério / Regra Científica</th></tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Registros brutos ingeridos (BV-BRC)</strong></td><td><code>1.089</code></td><td>Coorte inicial multicêntrica</td></tr>
+            <tr><td>Removidos por espécie/fármaco fora do escopo piloto</td><td><code>-2</code></td><td>Isolado <code>KLEB_9001</code> e teste de <code>meropenem</code></td></tr>
+            <tr><td>Removidos por categoria Intermediária (<code>I</code>)</td><td><code>-1</code></td><td><code>REG-06</code>: <code>ECOLI_INT_9002</code> (MIC = 0.5 mg/L ciprofloxacina)</td></tr>
+            <tr><td>Removidos por conflito irreconciliável (<code>R</code> vs <code>S</code>)</td><td><code>-2</code></td><td><code>REG-06</code>: <code>ECOLI_CONF_9003</code> (leituras discordantes 16.0 vs 0.5 mg/L)</td></tr>
+            <tr><td>Removidos por reprovação no QC genômico</td><td><code>-1</code></td><td><code>REG-07</code>: <code>ECOLI_LOWQC_9004</code> (1.250 contigs, N50 = 4.5 kb, completude 78%)</td></tr>
+            <tr><td>Removidos por desduplicação clonal Mash (&le; 0.0005)</td><td><code>-3</code></td><td><code>REG-02</code>: Clone <code>ECOLI_DUP_1000</code> colapsado em <code>ECOLI_1000</code> antes do split</td></tr>
+            <tr><td><strong>Total aprovado para modelagem e validação</strong></td><td><strong><code>1.080</code></strong></td><td><strong>360 genomas únicos &times; 3 antimicrobianos</strong></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ABA 2: Escada de Modelos e Splits -->
+    <div id="aba-escada" class="tab-pane">
+      <div class="selector-bar">
+        <label for="seletor-farmaco"><strong>Inspecionar Fármaco (E. coli):</strong></label>
+        <select id="seletor-farmaco" onchange="atualizarTabelasFarmaco()">
+          <option value="ciprofloxacina">Ciprofloxacina (Fluoroquinolona — ecoli-cip-1.2.0)</option>
+          <option value="gentamicina">Gentamicina (Aminoglicosídeo — ecoli-gen-1.2.0)</option>
+          <option value="cefuroxima">Cefuroxima (Cefalosporina 2ª Geração — ecoli-cxm-1.2.0)</option>
+        </select>
+        <span id="resumo-hipotese-q1" style="font-weight:600;color:#1e40af;"></span>
+      </div>
+
+      <div class="grid-2">
+        <div class="section-card">
+          <h2>2.1 Gráfico da Escada de Modelos (AUPRC com IC 95% em Blocos)</h2>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 393" width="100%" height="393">
+<rect width="100%" height="100%" fill="#ffffff" rx="8" stroke="#e5e7eb" />
+<text x="24" y="34" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#111827">Q1: Escada de Modelos — AUPRC em Grupos Filogenéticos Não Vistos (Ciprofloxacina)</text>
+<text x="24" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#6b7280">Verde = Baseline B1 (CARD/AMRFinderPlus) | Azul = B4 (XGBoost F1+F2+F3) | Vermelho = Controle Negativo (k=6)</text>
+<text x="24" y="93" font-family="monospace" font-size="12" fill="#374151">B0_Classe_Majoritaria</text>
+<rect x="240" y="79" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="79" width="192" height="20" fill="#64748b" rx="4" />
+<text x="440" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.4486</text>
+<text x="24" y="129" font-family="monospace" font-size="12" fill="#374151">B1_Regras_CARD_AMRFinder</text>
+<rect x="240" y="115" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="115" width="376" height="20" fill="#16a34a" rx="4" />
+<text x="624" y="129" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.8763</text>
+<text x="24" y="165" font-family="monospace" font-size="12" fill="#374151">B2_LogReg_L1_F1_F2</text>
+<rect x="240" y="151" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="151" width="387" height="20" fill="#64748b" rx="4" />
+<text x="635" y="165" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.9005</text>
+<text x="24" y="201" font-family="monospace" font-size="12" fill="#374151">B3_XGBoost_F1_F2</text>
+<rect x="240" y="187" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="187" width="386" height="20" fill="#64748b" rx="4" />
+<text x="634" y="201" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.8987</text>
+<text x="24" y="237" font-family="monospace" font-size="12" fill="#374151">B4_XGBoost_F1_F2_F3</text>
+<rect x="240" y="223" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="223" width="413" height="20" fill="#2563eb" rx="4" />
+<text x="661" y="237" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.9621</text>
+<text x="24" y="273" font-family="monospace" font-size="12" fill="#374151">B5_Linear_Esparso_F3</text>
+<rect x="240" y="259" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="259" width="326" height="20" fill="#64748b" rx="4" />
+<text x="574" y="273" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.7602</text>
+<text x="24" y="309" font-family="monospace" font-size="12" fill="#374151">B6_CNN1D_Sequencia</text>
+<rect x="240" y="295" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="295" width="410" height="20" fill="#64748b" rx="4" />
+<text x="658" y="309" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.9556</text>
+<text x="24" y="345" font-family="monospace" font-size="12" fill="#374151">Controle_Kmers_Curtos_k6</text>
+<rect x="240" y="331" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="331" width="209" height="20" fill="#dc2626" rx="4" />
+<text x="457" y="345" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.4862</text>
+</svg>
+        </div>
+        <div class="section-card">
+          <h2>2.2 Calibração e Redução de VME Pós-Abstenção Conformal (Q4)</h2>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 321" width="100%" height="321">
+<rect width="100%" height="100%" fill="#ffffff" rx="8" stroke="#e5e7eb" />
+<text x="24" y="34" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#111827">Q4: Redução de Erro Muito Grave (VME) por Abstenção Conformal</text>
+<text x="24" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#6b7280">Comparação da taxa de falsos sensíveis antes (laranja) e depois (verde) de abster-se na zona de dúvida</text>
+<text x="24" y="93" font-family="monospace" font-size="12" fill="#374151">ciprofloxaci (VME bruto)</text>
+<rect x="240" y="79" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="79" width="80" height="20" fill="#f59e0b" rx="4" />
+<text x="328" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.0747</text>
+<text x="24" y="129" font-family="monospace" font-size="12" fill="#374151">ciprofloxaci (VME pós-abst)</text>
+<rect x="240" y="115" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="115" width="39" height="20" fill="#10b981" rx="4" />
+<text x="287" y="129" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.0370</text>
+<text x="24" y="165" font-family="monospace" font-size="12" fill="#374151">gentamicina (VME bruto)</text>
+<rect x="240" y="151" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="151" width="153" height="20" fill="#f59e0b" rx="4" />
+<text x="401" y="165" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.1429</text>
+<text x="24" y="201" font-family="monospace" font-size="12" fill="#374151">gentamicina (VME pós-abst)</text>
+<rect x="240" y="187" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="187" width="120" height="20" fill="#10b981" rx="4" />
+<text x="368" y="201" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.1118</text>
+<text x="24" y="237" font-family="monospace" font-size="12" fill="#374151">cefuroxima (VME bruto)</text>
+<rect x="240" y="223" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="223" width="151" height="20" fill="#f59e0b" rx="4" />
+<text x="399" y="237" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.1408</text>
+<text x="24" y="273" font-family="monospace" font-size="12" fill="#374151">cefuroxima (VME pós-abst)</text>
+<rect x="240" y="259" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="259" width="130" height="20" fill="#10b981" rx="4" />
+<text x="378" y="273" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.1212</text>
+</svg>
+        </div>
+      </div>
+
+      <div class="section-card">
+        <h2>2.3 Tabela Completa da Escada de Modelos (Validação por Grupo Filogenético — REG-01, REG-04, REG-05)</h2>
+        <table id="tabela-escada-dinamica">
+          <thead>
+            <tr>
+              <th>Modelo</th><th>AUPRC (IC 95% Bloco)</th><th>AUROC</th><th>Sensibilidade</th>
+              <th>Especificidade</th><th>VME (Erro Muito Grave)</th><th>ME (Erro Grave)</th><th>Brier Score</th><th>ECE</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+      <div class="section-card">
+        <h2>2.4 Generalização entre as 5 Estratégias de Validação (Q2 e REG-09)</h2>
+        <table id="tabela-splits-dinamica">
+          <thead>
+            <tr>
+              <th>Estratégia de Validação</th><th>AUPRC</th><th>AUROC</th><th>Sensibilidade</th>
+              <th>Especificidade</th><th>VME</th><th>ME</th><th>Brier Score</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ABA 3: Mapa Genômico e XAI TreeSHAP -->
+    <div id="aba-xai" class="tab-pane">
+      <div class="section-card">
+        <h2>3.1 Mapa Físico Circular do Cromossomo (NC_000913.3 GFF3) e Plasmídeo Conjugativo</h2>
+        <svg viewBox="0 0 960 430" width="100%" height="auto" xmlns="http://www.w3.org/2000/svg" style="background:#ffffff;border-radius:12px;border:1px solid #e2e8f0;">
+  <text x="24" y="30" fill="#0f172a" font-size="16" font-weight="700">Mapa Físico Genômico de Loci AMR (Cromossomo RefSeq NC_000913.3 + Plasmídeo Conjugativo)</text>
+  <text x="24" y="48" fill="#475569" font-size="12">Mapeamento GFF3 (Bakta / Prokka) cruzado com importâncias globais TreeSHAP (Verde = CARD/AMRFinderPlus | Azul = Descoberta F3)</text>
+
+  <!-- Cromossomo Principal -->
+  <circle cx="275" cy="225" r="128" fill="none" stroke="#cbd5e1" stroke-width="18" />
+  <circle cx="275" cy="225" r="128" fill="none" stroke="#0f172a" stroke-width="1.5" stroke-dasharray="6,6" />
+  <text x="275" y="215" text-anchor="middle" fill="#0f172a" font-size="13" font-weight="700">Cromossomo E. coli</text>
+  <text x="275" y="233" text-anchor="middle" fill="#475569" font-size="11">NC_000913.3 (4.64 Mb)</text>
+  <text x="275" y="250" text-anchor="middle" fill="#64748b" font-size="10">Alvos QRDR, Porinas e Reguladores</text>
+  <g><line x1="315.4" y1="114.1" x2="323.6" y2="91.6" stroke="#16a34a" stroke-width="3.5" /><circle cx="323.6" cy="91.6" r="5" fill="#16a34a"><title>Alvo QRDR DNA Girase (CIP) | SHAP=1.425</title></circle><text x="330.4" y="72.8" text-anchor="start" fill="#1e293b" font-size="10.5" font-weight="700">gyrA:S83L / D87N</text></g><g><line x1="384.4" y1="180.8" x2="406.7" y2="171.8" stroke="#16a34a" stroke-width="3.5" /><circle cx="406.7" cy="171.8" r="5" fill="#16a34a"><title>Alvo QRDR Topoisomerase IV (CIP) | SHAP=0.427</title></circle><text x="425.2" y="164.3" text-anchor="start" fill="#1e293b" font-size="10.5" font-weight="700">parC:S80I</text></g><g><line x1="379.2" y1="280.4" x2="400.4" y2="291.7" stroke="#2563eb" stroke-width="3.5" /><circle cx="400.4" cy="291.7" r="5" fill="#2563eb"><title>Candidato F3: Regulador marAB/AcrAB | SHAP=0.742</title></circle><text x="418.0" y="301.1" text-anchor="start" fill="#1e293b" font-size="10.5" font-weight="700">marR:G103S (unitig)</text></g><g><line x1="299.5" y1="340.4" x2="304.5" y2="363.9" stroke="#2563eb" stroke-width="3.5" /><circle cx="304.5" cy="363.9" r="5" fill="#2563eb"><title>Candidato F3: Repressor efluxo AcrAB | SHAP=1.340</title></circle><text x="308.7" y="383.5" text-anchor="start" fill="#1e293b" font-size="10.5" font-weight="700">acrR:fs*45 (unitig)</text></g><g><line x1="207.3" y1="321.7" x2="193.6" y2="341.3" stroke="#2563eb" stroke-width="3.5" /><circle cx="193.6" cy="341.3" r="5" fill="#2563eb"><title>Candidato F3: Porina membrana externa | SHAP=0.904</title></circle><text x="182.1" y="357.7" text-anchor="end" fill="#1e293b" font-size="10.5" font-weight="700">ompF:c.-112del (unitig)</text></g><g><line x1="157.4" y1="235.3" x2="133.5" y2="237.4" stroke="#2563eb" stroke-width="3.5" /><circle cx="133.5" cy="237.4" r="5" fill="#2563eb"><title>Candidato F3: PBP3 alvo cefalosporinas | SHAP=0.581</title></circle><text x="113.6" y="239.1" text-anchor="end" fill="#1e293b" font-size="10.5" font-weight="700">ftsI (PBP3):insYRIN</text></g><g><line x1="184.6" y1="149.2" x2="166.2" y2="133.7" stroke="#2563eb" stroke-width="3.5" /><circle cx="166.2" cy="133.7" r="5" fill="#2563eb"><title>Candidato F3: Sensor envelope (GEN) | SHAP=0.623</title></circle><text x="150.9" y="120.9" text-anchor="end" fill="#1e293b" font-size="10.5" font-weight="700">cpxA:Y144C (unitig)</text></g><g><line x1="244.5" y1="111.0" x2="238.2" y2="87.8" stroke="#16a34a" stroke-width="3.5" /><circle cx="238.2" cy="87.8" r="5" fill="#16a34a"><title>Promotor beta-lactamase AmpC (CXM) | SHAP=0.535</title></circle><text x="233.1" y="68.5" text-anchor="end" fill="#1e293b" font-size="10.5" font-weight="700">ampC:c.-42C>T</text></g>
+
+  <!-- Plasmídeo Conjugativo MDR -->
+  <circle cx="735" cy="220" r="82" fill="none" stroke="#fde68a" stroke-width="16" />
+  <circle cx="735" cy="220" r="82" fill="none" stroke="#d97706" stroke-width="2" />
+  <text x="735" y="214" text-anchor="middle" fill="#92400e" font-size="12.5" font-weight="700">Plasmídeo IncF / MDR</text>
+  <text x="735" y="232" text-anchor="middle" fill="#b45309" font-size="10.5">Resistência Adquirida (F1)</text>
+
+  <!-- Genes Plasmidiais -->
+  <circle cx="735" cy="138" r="6" fill="#16a34a" />
+  <text x="735" y="120" text-anchor="middle" fill="#166534" font-size="11" font-weight="700">blaCTX-M-15 (SHAP=0.690)</text>
+  <circle cx="817" cy="220" r="6" fill="#16a34a" />
+  <text x="830" y="224" text-anchor="start" fill="#166534" font-size="11" font-weight="700">blaCTX-M-14 (0.780)</text>
+  <circle cx="735" cy="302" r="6" fill="#16a34a" />
+  <text x="735" y="324" text-anchor="middle" fill="#166534" font-size="11" font-weight="700">aac(3)-IIa (SHAP=0.658)</text>
+  <circle cx="653" cy="220" r="6" fill="#16a34a" />
+  <text x="640" y="224" text-anchor="end" fill="#166534" font-size="11" font-weight="700">ant(2'')-Ia / armA</text>
+
+  <!-- Legenda Inferior -->
+  <rect x="24" y="382" width="912" height="34" rx="6" fill="#f8fafc" stroke="#e2e8f0" />
+  <rect x="40" y="393" width="12" height="12" rx="3" fill="#16a34a" />
+  <text x="58" y="403" fill="#1e293b" font-size="11.5" font-weight="600">Determinante Conhecido (CARD / AMRFinderPlus — F1 e F2)</text>
+  <rect x="415" y="393" width="12" height="12" rx="3" fill="#2563eb" />
+  <text x="433" y="403" fill="#1e293b" font-size="11.5" font-weight="600">Locus Candidato Descoberto via Unitigs 31-mers (F3 — Regulação / Efluxo / Permeabilidade)</text>
+</svg>
+      </div>
+
+      <div class="section-card">
+        <h2>3.2 Importância Global TreeSHAP Agregada por Locus (Ciprofloxacina, Gentamicina e Cefuroxima)</h2>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 321" width="100%" height="321">
+<rect width="100%" height="100%" fill="#ffffff" rx="8" stroke="#e5e7eb" />
+<text x="24" y="34" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#111827">Q3: Top-6 Loci por Importância TreeSHAP Agregada (E. coli - Ciprofloxacina)</text>
+<text x="24" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#6b7280">Verde = Determinante Conhecido (CARD/AMRFinderPlus) | Azul = Variante Candidata Descoberta em F3 (k=31)</text>
+<text x="24" y="93" font-family="monospace" font-size="12" fill="#374151">gyrA:S83L (conh)</text>
+<rect x="240" y="79" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="79" width="390" height="20" fill="#16a34a" rx="4" />
+<text x="638" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">1.4252</text>
+<text x="24" y="129" font-family="monospace" font-size="12" fill="#374151">acrR:fs*45 (unitig) (cand)</text>
+<rect x="240" y="115" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="115" width="367" height="20" fill="#3b82f6" rx="4" />
+<text x="615" y="129" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">1.3396</text>
+<text x="24" y="165" font-family="monospace" font-size="12" fill="#374151">marR:G103S (unitig) (cand)</text>
+<rect x="240" y="151" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="151" width="203" height="20" fill="#3b82f6" rx="4" />
+<text x="451" y="165" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.7420</text>
+<text x="24" y="201" font-family="monospace" font-size="12" fill="#374151">gyrA:D87N (conh)</text>
+<rect x="240" y="187" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="187" width="120" height="20" fill="#16a34a" rx="4" />
+<text x="368" y="201" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.4377</text>
+<text x="24" y="237" font-family="monospace" font-size="12" fill="#374151">parC:S80I (conh)</text>
+<rect x="240" y="223" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="223" width="117" height="20" fill="#16a34a" rx="4" />
+<text x="365" y="237" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.4272</text>
+<text x="24" y="273" font-family="monospace" font-size="12" fill="#374151">locus_kmer31_poly_0029 (cand)</text>
+<rect x="240" y="259" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="259" width="80" height="20" fill="#3b82f6" rx="4" />
+<text x="328" y="273" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.2917</text>
+</svg>
+      </div>
+
+      <div class="section-card">
+        <h2>3.3 Ranking de Loci TreeSHAP e Testes de Validação XAI (Seção 8.2 e REG-10)</h2>
+        <div id="resumo-testes-xai" style="margin-bottom:0.8rem;font-weight:600;color:#0f172a;"></div>
+        <table id="tabela-xai-dinamica">
+          <thead>
+            <tr>
+              <th>Locus Genômico</th><th>Gene</th><th>Alteração</th><th>Tipo</th>
+              <th>Status</th><th>Fonte</th><th>SHAP Médio</th><th>Mecanismo Biológico</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ABA 4: Extensões Fase 6 -->
+    <div id="aba-extensoes" class="tab-pane">
+      <div class="section-card">
+        <h2>4.1 Painel Visual: Expansão Multi-Espécie e Regressão Quantitativa de MIC (ISO 20776-2)</h2>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 393" width="100%" height="393">
+<rect width="100%" height="100%" fill="#ffffff" rx="8" stroke="#e5e7eb" />
+<text x="24" y="34" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#111827">Fase 6: Desempenho Multi-Espécie (K. pneumoniae, S. aureus) e Concordância Essencial MIC</text>
+<text x="24" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#6b7280">Roxo = AUPRC em grupos filogenéticos inéditos | Turquesa = Concordância Essencial ISO 20776-2 (+-1 diluição)</text>
+<text x="24" y="93" font-family="monospace" font-size="12" fill="#374151">Klebsiella:ciprofloxa AUPRC</text>
+<rect x="240" y="79" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="79" width="427" height="20" fill="#6366f1" rx="4" />
+<text x="675" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.9939</text>
+<text x="24" y="129" font-family="monospace" font-size="12" fill="#374151">Klebsiella:gentamicin AUPRC</text>
+<rect x="240" y="115" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="115" width="381" height="20" fill="#6366f1" rx="4" />
+<text x="629" y="129" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.8864</text>
+<text x="24" y="165" font-family="monospace" font-size="12" fill="#374151">Klebsiella:ceftriaxon AUPRC</text>
+<rect x="240" y="151" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="151" width="395" height="20" fill="#6366f1" rx="4" />
+<text x="643" y="165" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.9206</text>
+<text x="24" y="201" font-family="monospace" font-size="12" fill="#374151">Staphyloco:oxacilina AUPRC</text>
+<rect x="240" y="187" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="187" width="386" height="20" fill="#6366f1" rx="4" />
+<text x="634" y="201" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.8977</text>
+<text x="24" y="237" font-family="monospace" font-size="12" fill="#374151">Staphyloco:ciprofloxa AUPRC</text>
+<rect x="240" y="223" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="223" width="391" height="20" fill="#6366f1" rx="4" />
+<text x="639" y="237" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.9097</text>
+<text x="24" y="273" font-family="monospace" font-size="12" fill="#374151">MIC ciprofloxa Conc.Ess.</text>
+<rect x="240" y="259" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="259" width="252" height="20" fill="#0d9488" rx="4" />
+<text x="500" y="273" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.5861</text>
+<text x="24" y="309" font-family="monospace" font-size="12" fill="#374151">MIC gentamicin Conc.Ess.</text>
+<rect x="240" y="295" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="295" width="266" height="20" fill="#0d9488" rx="4" />
+<text x="514" y="309" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.6194</text>
+<text x="24" y="345" font-family="monospace" font-size="12" fill="#374151">MIC cefuroxima Conc.Ess.</text>
+<rect x="240" y="331" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="331" width="328" height="20" fill="#0d9488" rx="4" />
+<text x="576" y="345" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.7639</text>
+</svg>
+      </div>
+
+      <div class="section-card">
+        <h2>4.2 Desempenho Multi-Espécie: Klebsiella pneumoniae e Staphylococcus aureus (MRSA)</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Espécie</th><th>Fármaco</th><th>Versão</th><th>Isolados</th>
+              <th>AUPRC B1</th><th>AUPRC B4</th><th>Ganho &Delta;AUPRC</th><th>VME B4</th><th>ME B4</th><th>Top Loci TreeSHAP</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><em>Klebsiella pneumoniae</em></td><td><strong>ciprofloxacina</strong></td><td><code>kpneu-cip-1.2.0</code></td><td>120</td><td>0.9356</td><td><strong>0.9939</strong></td><td><span class='badge-gain'>+0.0588</span></td><td>0.0508</td><td>0.0328</td><td>gyrA:S83L, marR:G103S (unitig), qnrS1</td></tr><tr><td><em>Klebsiella pneumoniae</em></td><td><strong>gentamicina</strong></td><td><code>kpneu-gen-1.2.0</code></td><td>120</td><td>0.7784</td><td><strong>0.8864</strong></td><td><span class='badge-gain'>+0.1030</span></td><td>0.1429</td><td>0.1250</td><td>aac(3)-IIa, cpxA:Y144C (unitig), armA</td></tr><tr><td><em>Klebsiella pneumoniae</em></td><td><strong>ceftriaxona</strong></td><td><code>kpneu-cro-1.2.0</code></td><td>120</td><td>0.8789</td><td><strong>0.9206</strong></td><td><span class='badge-gain'>+0.0464</span></td><td>0.0492</td><td>0.0678</td><td>blaCTX-M-15, ompF:c.-112del (unitig), locus_kmer31_poly_0049</td></tr><tr><td><em>Staphylococcus aureus</em></td><td><strong>oxacilina</strong></td><td><code>saureus-oxa-1.2.0</code></td><td>120</td><td>0.7910</td><td><strong>0.8977</strong></td><td><span class='badge-gain'>+0.1066</span></td><td>0.0667</td><td>0.1167</td><td>mecA, pbp4:c.-90T>A (unitig), locus_kmer31_poly_0041</td></tr><tr><td><em>Staphylococcus aureus</em></td><td><strong>ciprofloxacina</strong></td><td><code>saureus-cip-1.2.0</code></td><td>120</td><td>0.8067</td><td><strong>0.9097</strong></td><td><span class='badge-gain'>+0.1048</span></td><td>0.0862</td><td>0.1129</td><td>grlA:S80F, norA:flqB_up (unitig), locus_kmer31_poly_0118</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="section-card">
+        <h2>4.3 Validação Externa Independente — Padrão NCBI Pathogen Detection AST (n = 100 isolados)</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Fármaco (E. coli)</th><th>AUPRC B1 (Externo)</th><th>AUPRC B4 (Externo)</th>
+              <th>Ganho &Delta;AUPRC Externo</th><th>VME Externo</th><th>ME Externo</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>ciprofloxacina</strong></td><td>0.8542</td><td><strong>0.9778</strong></td><td><span class='badge-gain'>+0.1236</span></td><td>0.0465</td><td>0.1228</td></tr><tr><td><strong>gentamicina</strong></td><td>0.7878</td><td><strong>0.9395</strong></td><td><span class='badge-gain'>+0.1517</span></td><td>0.1875</td><td>0.1154</td></tr><tr><td><strong>cefuroxima</strong></td><td>0.7315</td><td><strong>0.9215</strong></td><td><span class='badge-gain'>+0.1900</span></td><td>0.2553</td><td>0.0000</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <footer>
+      PhyloResistance AI v1.2.0 — Pipeline Reproduzível de Predição Genômica de AMR &amp; XAI | Relatório gerado automaticamente a partir de artefatos verificados por SHA-256.
+    </footer>
+  </div>
+
+  <script>
+    const DADOS_FARMACOS = {"ciprofloxacina": {"versao_modelo": "ecoli-cip-1.2.0", "total_isolados": 360, "prevalencia_resistencia": 0.4833, "escada_modelos_grupo_filogenetico": {"B0_Classe_Majoritaria": {"nome_modelo": "B0_Classe_Majoritaria", "estrategia_split": "grupo_filogenetico", "auroc": 0.4323, "auprc": 0.4486, "sensibilidade": 0.0, "especificidade": 1.0, "acuracia_balanceada": 0.5, "concordancia_categorica": 0.5167, "vme": 1.0, "me": 0.0, "brier_score": 0.2525, "ece": 0.0033, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 1.0, "me_pos_abstencao": 0.0, "auprc_ic95": {"estimativa": 0.4486, "ic95_inferior": 0.3988, "ic95_superior": 0.5081}, "auroc_ic95": {"estimativa": 0.4323, "ic95_inferior": 0.397, "ic95_superior": 0.4753}, "vme_ic95": {"estimativa": 1.0, "ic95_inferior": 1.0, "ic95_superior": 1.0}}, "B1_Regras_CARD_AMRFinder": {"nome_modelo": "B1_Regras_CARD_AMRFinder", "estrategia_split": "grupo_filogenetico", "auroc": 0.8499, "auprc": 0.8763, "sensibilidade": 0.7471, "especificidade": 0.9677, "acuracia_balanceada": 0.8574, "concordancia_categorica": 0.8611, "vme": 0.2529, "me": 0.0323, "brier_score": 0.1143, "ece": 0.0224, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.2529, "me_pos_abstencao": 0.0323, "auprc_ic95": {"estimativa": 0.8763, "ic95_inferior": 0.8198, "ic95_superior": 0.9223}, "auroc_ic95": {"estimativa": 0.8499, "ic95_inferior": 0.8094, "ic95_superior": 0.8991}, "vme_ic95": {"estimativa": 0.2529, "ic95_inferior": 0.1615, "ic95_superior": 0.3466}}, "B2_LogReg_L1_F1_F2": {"nome_modelo": "B2_LogReg_L1_F1_F2", "estrategia_split": "grupo_filogenetico", "auroc": 0.8691, "auprc": 0.9005, "sensibilidade": 0.7356, "especificidade": 0.9731, "acuracia_balanceada": 0.8544, "concordancia_categorica": 0.8583, "vme": 0.2644, "me": 0.0269, "brier_score": 0.1118, "ece": 0.0332, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.2644, "me_pos_abstencao": 0.0269, "auprc_ic95": {"estimativa": 0.9005, "ic95_inferior": 0.8523, "ic95_superior": 0.9433}, "auroc_ic95": {"estimativa": 0.8691, "ic95_inferior": 0.8281, "ic95_superior": 0.9083}, "vme_ic95": {"estimativa": 0.2644, "ic95_inferior": 0.1836, "ic95_superior": 0.3377}}, "B3_XGBoost_F1_F2": {"nome_modelo": "B3_XGBoost_F1_F2", "estrategia_split": "grupo_filogenetico", "auroc": 0.8665, "auprc": 0.8987, "sensibilidade": 0.7356, "especificidade": 0.957, "acuracia_balanceada": 0.8463, "concordancia_categorica": 0.85, "vme": 0.2644, "me": 0.043, "brier_score": 0.1163, "ece": 0.0282, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.2644, "me_pos_abstencao": 0.043, "auprc_ic95": {"estimativa": 0.8987, "ic95_inferior": 0.8443, "ic95_superior": 0.9346}, "auroc_ic95": {"estimativa": 0.8665, "ic95_inferior": 0.8181, "ic95_superior": 0.9034}, "vme_ic95": {"estimativa": 0.2644, "ic95_inferior": 0.1836, "ic95_superior": 0.3377}}, "B4_XGBoost_F1_F2_F3": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "grupo_filogenetico", "auroc": 0.9644, "auprc": 0.9621, "sensibilidade": 0.9253, "especificidade": 0.9247, "acuracia_balanceada": 0.925, "concordancia_categorica": 0.925, "vme": 0.0747, "me": 0.0753, "brier_score": 0.0553, "ece": 0.0205, "cobertura_conformal": 0.9444, "taxa_abstencao": 0.0556, "vme_pos_abstencao": 0.037, "me_pos_abstencao": 0.0506, "auprc_ic95": {"estimativa": 0.9621, "ic95_inferior": 0.9461, "ic95_superior": 0.9775}, "auroc_ic95": {"estimativa": 0.9644, "ic95_inferior": 0.9481, "ic95_superior": 0.9799}, "vme_ic95": {"estimativa": 0.0747, "ic95_inferior": 0.0291, "ic95_superior": 0.1207}}, "B5_Linear_Esparso_F3": {"nome_modelo": "B5_Linear_Esparso_F3", "estrategia_split": "grupo_filogenetico", "auroc": 0.7249, "auprc": 0.7602, "sensibilidade": 0.5747, "especificidade": 0.8011, "acuracia_balanceada": 0.6879, "concordancia_categorica": 0.6917, "vme": 0.4253, "me": 0.1989, "brier_score": 0.2126, "ece": 0.0834, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.4253, "me_pos_abstencao": 0.1989, "auprc_ic95": {"estimativa": 0.7602, "ic95_inferior": 0.7063, "ic95_superior": 0.8027}, "auroc_ic95": {"estimativa": 0.7249, "ic95_inferior": 0.6548, "ic95_superior": 0.7836}, "vme_ic95": {"estimativa": 0.4253, "ic95_inferior": 0.3448, "ic95_superior": 0.557}}, "B6_CNN1D_Sequencia": {"nome_modelo": "B6_CNN1D_Sequencia", "estrategia_split": "grupo_filogenetico", "auroc": 0.9529, "auprc": 0.9556, "sensibilidade": 0.8793, "especificidade": 0.9086, "acuracia_balanceada": 0.894, "concordancia_categorica": 0.8944, "vme": 0.1207, "me": 0.0914, "brier_score": 0.0872, "ece": 0.0794, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.1207, "me_pos_abstencao": 0.0914, "auprc_ic95": {"estimativa": 0.9556, "ic95_inferior": 0.9416, "ic95_superior": 0.9696}, "auroc_ic95": {"estimativa": 0.9529, "ic95_inferior": 0.94, "ic95_superior": 0.9679}, "vme_ic95": {"estimativa": 0.1207, "ic95_inferior": 0.0983, "ic95_superior": 0.1689}}, "Controle_Kmers_Curtos_k6": {"nome_modelo": "Controle_Kmers_Curtos_k6", "estrategia_split": "grupo_filogenetico", "auroc": 0.484, "auprc": 0.4862, "sensibilidade": 0.4483, "especificidade": 0.4946, "acuracia_balanceada": 0.4714, "concordancia_categorica": 0.4722, "vme": 0.5517, "me": 0.5054, "brier_score": 0.276, "ece": 0.1515, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.5517, "me_pos_abstencao": 0.5054, "auprc_ic95": {"estimativa": 0.4862, "ic95_inferior": 0.413, "ic95_superior": 0.5579}, "auroc_ic95": {"estimativa": 0.484, "ic95_inferior": 0.4449, "ic95_superior": 0.5192}, "vme_ic95": {"estimativa": 0.5517, "ic95_inferior": 0.5176, "ic95_superior": 0.5967}}}, "comparacao_pareada_vs_b1": {"B3_vs_B1": {"nome_modelo": "B3_XGBoost_F1_F2", "delta_auprc_medio": 0.0218, "delta_auprc_ic95_inf": 0.0046, "delta_auprc_ic95_sup": 0.0375, "delta_vme_medio": 0.012, "supera_b1_com_ic95": true, "conclusao_q1": "B3_XGBoost_F1_F2 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.0218, IC95% [+0.0046, +0.0375], Delta VME = +0.0120)."}, "B4_vs_B1": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "delta_auprc_medio": 0.0875, "delta_auprc_ic95_inf": 0.0402, "delta_auprc_ic95_sup": 0.1396, "delta_vme_medio": -0.1782, "supera_b1_com_ic95": true, "conclusao_q1": "B4_XGBoost_F1_F2_F3 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.0875, IC95% [+0.0402, +0.1396], Delta VME = -0.1782)."}}, "generalizacao_q2": {"grupo_filogenetico": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "grupo_filogenetico", "auroc": 0.9644, "auprc": 0.9621, "sensibilidade": 0.9253, "especificidade": 0.9247, "acuracia_balanceada": 0.925, "concordancia_categorica": 0.925, "vme": 0.0747, "me": 0.0753, "brier_score": 0.0553, "ece": 0.0205, "cobertura_conformal": 0.9444, "taxa_abstencao": 0.0556, "vme_pos_abstencao": 0.037, "me_pos_abstencao": 0.0506, "auprc_ic95": {"estimativa": 0.9621, "ic95_inferior": 0.9461, "ic95_superior": 0.9775}, "auroc_ic95": {"estimativa": 0.9644, "ic95_inferior": 0.9481, "ic95_superior": 0.9799}, "vme_ic95": {"estimativa": 0.0747, "ic95_inferior": 0.0291, "ic95_superior": 0.1207}}, "leave_one_lineage_out": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "leave_one_lineage_out", "auroc": 0.953, "auprc": 0.9496, "sensibilidade": 0.9091, "especificidade": 0.9077, "acuracia_balanceada": 0.9084, "concordancia_categorica": 0.9083, "vme": 0.0909, "me": 0.0923, "brier_score": 0.0648, "ece": 0.0581, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.0909, "me_pos_abstencao": 0.0923, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}, "temporal": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "temporal", "auroc": 0.9918, "auprc": 0.9921, "sensibilidade": 0.9167, "especificidade": 0.9783, "acuracia_balanceada": 0.9475, "concordancia_categorica": 0.9468, "vme": 0.0833, "me": 0.0217, "brier_score": 0.042, "ece": 0.064, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.0833, "me_pos_abstencao": 0.0217, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}, "geografica": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "geografica", "auroc": 0.9652, "auprc": 0.9569, "sensibilidade": 0.9487, "especificidade": 0.9286, "acuracia_balanceada": 0.9386, "concordancia_categorica": 0.9375, "vme": 0.0513, "me": 0.0714, "brier_score": 0.05, "ece": 0.0441, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.0513, "me_pos_abstencao": 0.0714, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}, "demonstracao_vazamento_aleatorio_b5": {"nome_modelo": "B5_Linear_Esparso_F3 (Split Aleatório com Vazamento)", "estrategia_split": "aleatoria_vazamento", "auroc": 0.7414, "auprc": 0.7597, "sensibilidade": 0.6264, "especificidade": 0.6989, "acuracia_balanceada": 0.6627, "concordancia_categorica": 0.6639, "vme": 0.3736, "me": 0.3011, "brier_score": 0.2116, "ece": 0.1019, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.3736, "me_pos_abstencao": 0.3011, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}}, "explicabilidade_q3": {"farmaco": "ciprofloxacina", "proporcao_top_k_no_card": 0.5, "determinantes_card_recuperados": ["gyrA:S83L", "gyrA:D87N", "parC:S80I"], "candidatos_novos_top_k": ["acrR:fs*45 (unitig)", "marR:G103S (unitig)", "locus_kmer31_poly_0029"], "correlacao_estabilidade_entre_dobras": 0.4184, "concordancia_gwas_populacional": 0.8333, "queda_media_probabilidade_remocao_locus": 0.5608, "remocao_coerente": true, "principais_loci_globais": [{"locus": "gyrA:S83L", "gene": "gyrA", "alteracao": "S83L", "tipo": "mutacao_pontual", "status": "conhecida", "fonte": "AMRFinderPlus", "importancia_shap_media": 1.4252, "mecanismo": "Alteração do alvo DNA girase subunidade A (QRDR S83L)"}, {"locus": "acrR:fs*45 (unitig)", "gene": "acrR", "alteracao": "fs*45 (unitig)", "tipo": "kmer_unitig", "status": "candidata", "fonte": "Descoberta ML (F3)", "importancia_shap_media": 1.3396, "mecanismo": "Desrepressão de bomba de efluxo multidroga AcrAB"}, {"locus": "marR:G103S (unitig)", "gene": "marR", "alteracao": "G103S (unitig)", "tipo": "kmer_unitig", "status": "candidata", "fonte": "Descoberta ML (F3)", "importancia_shap_media": 0.742, "mecanismo": "Regulador reprimido de marAB / bomba de efluxo AcrAB-TolC"}, {"locus": "gyrA:D87N", "gene": "gyrA", "alteracao": "D87N", "tipo": "mutacao_pontual", "status": "conhecida", "fonte": "AMRFinderPlus", "importancia_shap_media": 0.4377, "mecanismo": "Alteração do alvo DNA girase subunidade A (QRDR D87N)"}, {"locus": "parC:S80I", "gene": "parC", "alteracao": "S80I", "tipo": "mutacao_pontual", "status": "conhecida", "fonte": "AMRFinderPlus", "importancia_shap_media": 0.4272, "mecanismo": "Alteração da topoisomerase IV subunidade A (QRDR S80I)"}, {"locus": "locus_kmer31_poly_0029", "gene": "kmer31_poly_0029", "alteracao": "k31_variant", "tipo": "kmer_unitig", "status": "candidata", "fonte": "Alinhamento Referência (k=31)", "importancia_shap_media": 0.2917, "mecanismo": "Variante genômica não catalogada (hipótese)"}]}, "regressao_mic_iso20776": {"farmaco": "ciprofloxacina", "concordancia_essencial_1_diluicao": 0.5861, "concordancia_categorica": 0.8861, "rmse_log2_mic": 2.2398, "mae_log2_mic": 1.6618}}, "gentamicina": {"versao_modelo": "ecoli-gen-1.2.0", "total_isolados": 360, "prevalencia_resistencia": 0.4861, "escada_modelos_grupo_filogenetico": {"B0_Classe_Majoritaria": {"nome_modelo": "B0_Classe_Majoritaria", "estrategia_split": "grupo_filogenetico", "auroc": 0.4189, "auprc": 0.4397, "sensibilidade": 0.2686, "especificidade": 0.6054, "acuracia_balanceada": 0.437, "concordancia_categorica": 0.4417, "vme": 0.7314, "me": 0.3946, "brier_score": 0.2529, "ece": 0.0798, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.7314, "me_pos_abstencao": 0.3946, "auprc_ic95": {"estimativa": 0.4397, "ic95_inferior": 0.3491, "ic95_superior": 0.5054}, "auroc_ic95": {"estimativa": 0.4189, "ic95_inferior": 0.3205, "ic95_superior": 0.5064}, "vme_ic95": {"estimativa": 0.7314, "ic95_inferior": 0.421, "ic95_superior": 0.9084}}, "B1_Regras_CARD_AMRFinder": {"nome_modelo": "B1_Regras_CARD_AMRFinder", "estrategia_split": "grupo_filogenetico", "auroc": 0.7812, "auprc": 0.8174, "sensibilidade": 0.6457, "especificidade": 0.9135, "acuracia_balanceada": 0.7796, "concordancia_categorica": 0.7833, "vme": 0.3543, "me": 0.0865, "brier_score": 0.164, "ece": 0.0303, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.3543, "me_pos_abstencao": 0.0865, "auprc_ic95": {"estimativa": 0.8174, "ic95_inferior": 0.7006, "ic95_superior": 0.8919}, "auroc_ic95": {"estimativa": 0.7812, "ic95_inferior": 0.7093, "ic95_superior": 0.8487}, "vme_ic95": {"estimativa": 0.3543, "ic95_inferior": 0.2375, "ic95_superior": 0.5}}, "B2_LogReg_L1_F1_F2": {"nome_modelo": "B2_LogReg_L1_F1_F2", "estrategia_split": "grupo_filogenetico", "auroc": 0.7941, "auprc": 0.8344, "sensibilidade": 0.6171, "especificidade": 0.9081, "acuracia_balanceada": 0.7626, "concordancia_categorica": 0.7667, "vme": 0.3829, "me": 0.0919, "brier_score": 0.1674, "ece": 0.0514, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.3829, "me_pos_abstencao": 0.0919, "auprc_ic95": {"estimativa": 0.8344, "ic95_inferior": 0.7069, "ic95_superior": 0.8894}, "auroc_ic95": {"estimativa": 0.7941, "ic95_inferior": 0.7137, "ic95_superior": 0.8511}, "vme_ic95": {"estimativa": 0.3829, "ic95_inferior": 0.3106, "ic95_superior": 0.5005}}, "B3_XGBoost_F1_F2": {"nome_modelo": "B3_XGBoost_F1_F2", "estrategia_split": "grupo_filogenetico", "auroc": 0.7862, "auprc": 0.8282, "sensibilidade": 0.6343, "especificidade": 0.8811, "acuracia_balanceada": 0.7577, "concordancia_categorica": 0.7611, "vme": 0.3657, "me": 0.1189, "brier_score": 0.1728, "ece": 0.0505, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.3657, "me_pos_abstencao": 0.1189, "auprc_ic95": {"estimativa": 0.8282, "ic95_inferior": 0.6969, "ic95_superior": 0.8885}, "auroc_ic95": {"estimativa": 0.7862, "ic95_inferior": 0.6999, "ic95_superior": 0.8447}, "vme_ic95": {"estimativa": 0.3657, "ic95_inferior": 0.2784, "ic95_superior": 0.4749}}, "B4_XGBoost_F1_F2_F3": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "grupo_filogenetico", "auroc": 0.9157, "auprc": 0.9065, "sensibilidade": 0.8571, "especificidade": 0.8649, "acuracia_balanceada": 0.861, "concordancia_categorica": 0.8611, "vme": 0.1429, "me": 0.1351, "brier_score": 0.1086, "ece": 0.0356, "cobertura_conformal": 0.9333, "taxa_abstencao": 0.0667, "vme_pos_abstencao": 0.1118, "me_pos_abstencao": 0.1257, "auprc_ic95": {"estimativa": 0.9065, "ic95_inferior": 0.8373, "ic95_superior": 0.9436}, "auroc_ic95": {"estimativa": 0.9157, "ic95_inferior": 0.8768, "ic95_superior": 0.9436}, "vme_ic95": {"estimativa": 0.1429, "ic95_inferior": 0.0812, "ic95_superior": 0.2013}}, "B5_Linear_Esparso_F3": {"nome_modelo": "B5_Linear_Esparso_F3", "estrategia_split": "grupo_filogenetico", "auroc": 0.6935, "auprc": 0.7119, "sensibilidade": 0.6057, "especificidade": 0.6811, "acuracia_balanceada": 0.6434, "concordancia_categorica": 0.6444, "vme": 0.3943, "me": 0.3189, "brier_score": 0.2304, "ece": 0.0982, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.3943, "me_pos_abstencao": 0.3189, "auprc_ic95": {"estimativa": 0.7119, "ic95_inferior": 0.6582, "ic95_superior": 0.7714}, "auroc_ic95": {"estimativa": 0.6935, "ic95_inferior": 0.6453, "ic95_superior": 0.7565}, "vme_ic95": {"estimativa": 0.3943, "ic95_inferior": 0.2967, "ic95_superior": 0.4596}}, "B6_CNN1D_Sequencia": {"nome_modelo": "B6_CNN1D_Sequencia", "estrategia_split": "grupo_filogenetico", "auroc": 0.8938, "auprc": 0.892, "sensibilidade": 0.8171, "especificidade": 0.8054, "acuracia_balanceada": 0.8113, "concordancia_categorica": 0.8111, "vme": 0.1829, "me": 0.1946, "brier_score": 0.1567, "ece": 0.1388, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.1829, "me_pos_abstencao": 0.1946, "auprc_ic95": {"estimativa": 0.892, "ic95_inferior": 0.8096, "ic95_superior": 0.9302}, "auroc_ic95": {"estimativa": 0.8938, "ic95_inferior": 0.8578, "ic95_superior": 0.9233}, "vme_ic95": {"estimativa": 0.1829, "ic95_inferior": 0.1219, "ic95_superior": 0.2557}}, "Controle_Kmers_Curtos_k6": {"nome_modelo": "Controle_Kmers_Curtos_k6", "estrategia_split": "grupo_filogenetico", "auroc": 0.5112, "auprc": 0.5205, "sensibilidade": 0.4457, "especificidade": 0.5568, "acuracia_balanceada": 0.5012, "concordancia_categorica": 0.5028, "vme": 0.5543, "me": 0.4432, "brier_score": 0.2767, "ece": 0.1429, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.5543, "me_pos_abstencao": 0.4432, "auprc_ic95": {"estimativa": 0.5205, "ic95_inferior": 0.3849, "ic95_superior": 0.6236}, "auroc_ic95": {"estimativa": 0.5112, "ic95_inferior": 0.4375, "ic95_superior": 0.5895}, "vme_ic95": {"estimativa": 0.5543, "ic95_inferior": 0.4862, "ic95_superior": 0.6391}}}, "comparacao_pareada_vs_b1": {"B3_vs_B1": {"nome_modelo": "B3_XGBoost_F1_F2", "delta_auprc_medio": 0.0126, "delta_auprc_ic95_inf": -0.0042, "delta_auprc_ic95_sup": 0.0278, "delta_vme_medio": 0.0057, "supera_b1_com_ic95": false, "conclusao_q1": "B3_XGBoost_F1_F2 NÃO supera com significância estatística o Baseline B1 (Delta AUPRC = +0.0126, IC95% [-0.0042, +0.0278]). Resultado reportado conforme REG-04."}, "B4_vs_B1": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "delta_auprc_medio": 0.0973, "delta_auprc_ic95_inf": 0.0393, "delta_auprc_ic95_sup": 0.1689, "delta_vme_medio": -0.2181, "supera_b1_com_ic95": true, "conclusao_q1": "B4_XGBoost_F1_F2_F3 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.0973, IC95% [+0.0393, +0.1689], Delta VME = -0.2181)."}}, "generalizacao_q2": {"grupo_filogenetico": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "grupo_filogenetico", "auroc": 0.9157, "auprc": 0.9065, "sensibilidade": 0.8571, "especificidade": 0.8649, "acuracia_balanceada": 0.861, "concordancia_categorica": 0.8611, "vme": 0.1429, "me": 0.1351, "brier_score": 0.1086, "ece": 0.0356, "cobertura_conformal": 0.9333, "taxa_abstencao": 0.0667, "vme_pos_abstencao": 0.1118, "me_pos_abstencao": 0.1257, "auprc_ic95": {"estimativa": 0.9065, "ic95_inferior": 0.8373, "ic95_superior": 0.9436}, "auroc_ic95": {"estimativa": 0.9157, "ic95_inferior": 0.8768, "ic95_superior": 0.9436}, "vme_ic95": {"estimativa": 0.1429, "ic95_inferior": 0.0812, "ic95_superior": 0.2013}}, "leave_one_lineage_out": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "leave_one_lineage_out", "auroc": 0.9186, "auprc": 0.8958, "sensibilidade": 0.8305, "especificidade": 0.8689, "acuracia_balanceada": 0.8497, "concordancia_categorica": 0.85, "vme": 0.1695, "me": 0.1311, "brier_score": 0.0995, "ece": 0.0548, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.1695, "me_pos_abstencao": 0.1311, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}, "temporal": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "temporal", "auroc": 0.9257, "auprc": 0.9381, "sensibilidade": 0.875, "especificidade": 0.913, "acuracia_balanceada": 0.894, "concordancia_categorica": 0.8936, "vme": 0.125, "me": 0.087, "brier_score": 0.087, "ece": 0.0661, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.125, "me_pos_abstencao": 0.087, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}, "geografica": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "geografica", "auroc": 0.9046, "auprc": 0.896, "sensibilidade": 0.8046, "especificidade": 0.8652, "acuracia_balanceada": 0.8349, "concordancia_categorica": 0.8352, "vme": 0.1954, "me": 0.1348, "brier_score": 0.1253, "ece": 0.0692, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.1954, "me_pos_abstencao": 0.1348, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}, "demonstracao_vazamento_aleatorio_b5": {"nome_modelo": "B5_Linear_Esparso_F3 (Split Aleatório com Vazamento)", "estrategia_split": "aleatoria_vazamento", "auroc": 0.7518, "auprc": 0.7408, "sensibilidade": 0.6686, "especificidade": 0.7027, "acuracia_balanceada": 0.6856, "concordancia_categorica": 0.6861, "vme": 0.3314, "me": 0.2973, "brier_score": 0.2059, "ece": 0.0709, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.3314, "me_pos_abstencao": 0.2973, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}}, "explicabilidade_q3": {"farmaco": "gentamicina", "proporcao_top_k_no_card": 0.6667, "determinantes_card_recuperados": ["aac(3)-IIa", "ant(2'')-Ia", "armA", "aac(3)-IId"], "candidatos_novos_top_k": ["acrR:fs*45 (unitig)", "cpxA:Y144C (unitig)"], "correlacao_estabilidade_entre_dobras": 0.42, "concordancia_gwas_populacional": 0.8333, "queda_media_probabilidade_remocao_locus": 0.3262, "remocao_coerente": true, "principais_loci_globais": [{"locus": "acrR:fs*45 (unitig)", "gene": "acrR", "alteracao": "fs*45 (unitig)", "tipo": "kmer_unitig", "status": "candidata", "fonte": "Descoberta ML (F3)", "importancia_shap_media": 0.9693, "mecanismo": "Desrepressão de bomba de efluxo multidroga AcrAB"}, {"locus": "aac(3)-IIa", "gene": "aac(3)-IIa", "alteracao": "-", "tipo": "gene_amr", "status": "conhecida", "fonte": "CARD", "importancia_shap_media": 0.6578, "mecanismo": "Aminoglicosídeo 3-N-acetiltransferase"}, {"locus": "cpxA:Y144C (unitig)", "gene": "cpxA", "alteracao": "Y144C (unitig)", "tipo": "kmer_unitig", "status": "candidata", "fonte": "Descoberta ML (F3)", "importancia_shap_media": 0.6226, "mecanismo": "Sensor quinase de envelope associado a tolerância a aminoglicosídeos"}, {"locus": "ant(2'')-Ia", "gene": "ant(2'')-Ia", "alteracao": "-", "tipo": "gene_amr", "status": "conhecida", "fonte": "CARD", "importancia_shap_media": 0.6169, "mecanismo": "Aminoglicosídeo 2''-O-nucleotidiltransferase"}, {"locus": "armA", "gene": "armA", "alteracao": "-", "tipo": "gene_amr", "status": "conhecida", "fonte": "CARD", "importancia_shap_media": 0.3557, "mecanismo": "Metiltransferase de rRNA 16S"}, {"locus": "aac(3)-IId", "gene": "aac(3)-IId", "alteracao": "-", "tipo": "gene_amr", "status": "conhecida", "fonte": "AMRFinderPlus", "importancia_shap_media": 0.3373, "mecanismo": "Aminoglicosídeo 3-N-acetiltransferase variante IId"}]}, "regressao_mic_iso20776": {"farmaco": "gentamicina", "concordancia_essencial_1_diluicao": 0.6194, "concordancia_categorica": 0.8167, "rmse_log2_mic": 2.236, "mae_log2_mic": 1.6464}}, "cefuroxima": {"versao_modelo": "ecoli-cxm-1.2.0", "total_isolados": 360, "prevalencia_resistencia": 0.3944, "escada_modelos_grupo_filogenetico": {"B0_Classe_Majoritaria": {"nome_modelo": "B0_Classe_Majoritaria", "estrategia_split": "grupo_filogenetico", "auroc": 0.4845, "auprc": 0.387, "sensibilidade": 0.0, "especificidade": 1.0, "acuracia_balanceada": 0.5, "concordancia_categorica": 0.6056, "vme": 1.0, "me": 0.0, "brier_score": 0.239, "ece": 0.0004, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 1.0, "me_pos_abstencao": 0.0, "auprc_ic95": {"estimativa": 0.387, "ic95_inferior": 0.3398, "ic95_superior": 0.4565}, "auroc_ic95": {"estimativa": 0.4845, "ic95_inferior": 0.4222, "ic95_superior": 0.5371}, "vme_ic95": {"estimativa": 1.0, "ic95_inferior": 1.0, "ic95_superior": 1.0}}, "B1_Regras_CARD_AMRFinder": {"nome_modelo": "B1_Regras_CARD_AMRFinder", "estrategia_split": "grupo_filogenetico", "auroc": 0.7382, "auprc": 0.7364, "sensibilidade": 0.5352, "especificidade": 0.9358, "acuracia_balanceada": 0.7355, "concordancia_categorica": 0.7778, "vme": 0.4648, "me": 0.0642, "brier_score": 0.1699, "ece": 0.0192, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.4648, "me_pos_abstencao": 0.0642, "auprc_ic95": {"estimativa": 0.7364, "ic95_inferior": 0.6096, "ic95_superior": 0.8249}, "auroc_ic95": {"estimativa": 0.7382, "ic95_inferior": 0.6654, "ic95_superior": 0.804}, "vme_ic95": {"estimativa": 0.4648, "ic95_inferior": 0.301, "ic95_superior": 0.6308}}, "B2_LogReg_L1_F1_F2": {"nome_modelo": "B2_LogReg_L1_F1_F2", "estrategia_split": "grupo_filogenetico", "auroc": 0.7052, "auprc": 0.7328, "sensibilidade": 0.493, "especificidade": 0.9358, "acuracia_balanceada": 0.7144, "concordancia_categorica": 0.7611, "vme": 0.507, "me": 0.0642, "brier_score": 0.1763, "ece": 0.0906, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.507, "me_pos_abstencao": 0.0642, "auprc_ic95": {"estimativa": 0.7328, "ic95_inferior": 0.5602, "ic95_superior": 0.8507}, "auroc_ic95": {"estimativa": 0.7052, "ic95_inferior": 0.5784, "ic95_superior": 0.8017}, "vme_ic95": {"estimativa": 0.507, "ic95_inferior": 0.3223, "ic95_superior": 0.6943}}, "B3_XGBoost_F1_F2": {"nome_modelo": "B3_XGBoost_F1_F2", "estrategia_split": "grupo_filogenetico", "auroc": 0.7115, "auprc": 0.7379, "sensibilidade": 0.5423, "especificidade": 0.8853, "acuracia_balanceada": 0.7138, "concordancia_categorica": 0.75, "vme": 0.4577, "me": 0.1147, "brier_score": 0.1834, "ece": 0.1061, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.4577, "me_pos_abstencao": 0.1147, "auprc_ic95": {"estimativa": 0.7379, "ic95_inferior": 0.5833, "ic95_superior": 0.8526}, "auroc_ic95": {"estimativa": 0.7115, "ic95_inferior": 0.6057, "ic95_superior": 0.8095}, "vme_ic95": {"estimativa": 0.4577, "ic95_inferior": 0.2798, "ic95_superior": 0.6616}}, "B4_XGBoost_F1_F2_F3": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "grupo_filogenetico", "auroc": 0.9471, "auprc": 0.9335, "sensibilidade": 0.8592, "especificidade": 0.945, "acuracia_balanceada": 0.9021, "concordancia_categorica": 0.9111, "vme": 0.1408, "me": 0.055, "brier_score": 0.0726, "ece": 0.0209, "cobertura_conformal": 0.9528, "taxa_abstencao": 0.0472, "vme_pos_abstencao": 0.1212, "me_pos_abstencao": 0.0474, "auprc_ic95": {"estimativa": 0.9335, "ic95_inferior": 0.9036, "ic95_superior": 0.9577}, "auroc_ic95": {"estimativa": 0.9471, "ic95_inferior": 0.9318, "ic95_superior": 0.9629}, "vme_ic95": {"estimativa": 0.1408, "ic95_inferior": 0.1006, "ic95_superior": 0.1855}}, "B5_Linear_Esparso_F3": {"nome_modelo": "B5_Linear_Esparso_F3", "estrategia_split": "grupo_filogenetico", "auroc": 0.6884, "auprc": 0.6887, "sensibilidade": 0.5986, "especificidade": 0.6468, "acuracia_balanceada": 0.6227, "concordancia_categorica": 0.6278, "vme": 0.4014, "me": 0.3532, "brier_score": 0.2275, "ece": 0.1623, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.4014, "me_pos_abstencao": 0.3532, "auprc_ic95": {"estimativa": 0.6887, "ic95_inferior": 0.6435, "ic95_superior": 0.7399}, "auroc_ic95": {"estimativa": 0.6884, "ic95_inferior": 0.6248, "ic95_superior": 0.7562}, "vme_ic95": {"estimativa": 0.4014, "ic95_inferior": 0.3138, "ic95_superior": 0.4873}}, "B6_CNN1D_Sequencia": {"nome_modelo": "B6_CNN1D_Sequencia", "estrategia_split": "grupo_filogenetico", "auroc": 0.9345, "auprc": 0.9176, "sensibilidade": 0.838, "especificidade": 0.8853, "acuracia_balanceada": 0.8617, "concordancia_categorica": 0.8667, "vme": 0.162, "me": 0.1147, "brier_score": 0.1142, "ece": 0.1071, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.162, "me_pos_abstencao": 0.1147, "auprc_ic95": {"estimativa": 0.9176, "ic95_inferior": 0.8808, "ic95_superior": 0.9445}, "auroc_ic95": {"estimativa": 0.9345, "ic95_inferior": 0.9174, "ic95_superior": 0.956}, "vme_ic95": {"estimativa": 0.162, "ic95_inferior": 0.1023, "ic95_superior": 0.2261}}, "Controle_Kmers_Curtos_k6": {"nome_modelo": "Controle_Kmers_Curtos_k6", "estrategia_split": "grupo_filogenetico", "auroc": 0.4753, "auprc": 0.3799, "sensibilidade": 0.3239, "especificidade": 0.6284, "acuracia_balanceada": 0.4762, "concordancia_categorica": 0.5083, "vme": 0.6761, "me": 0.3716, "brier_score": 0.2778, "ece": 0.1644, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.6761, "me_pos_abstencao": 0.3716, "auprc_ic95": {"estimativa": 0.3799, "ic95_inferior": 0.3324, "ic95_superior": 0.4385}, "auroc_ic95": {"estimativa": 0.4753, "ic95_inferior": 0.4176, "ic95_superior": 0.5464}, "vme_ic95": {"estimativa": 0.6761, "ic95_inferior": 0.5907, "ic95_superior": 0.7501}}}, "comparacao_pareada_vs_b1": {"B3_vs_B1": {"nome_modelo": "B3_XGBoost_F1_F2", "delta_auprc_medio": 0.0066, "delta_auprc_ic95_inf": -0.0276, "delta_auprc_ic95_sup": 0.0337, "delta_vme_medio": -0.0093, "supera_b1_com_ic95": false, "conclusao_q1": "B3_XGBoost_F1_F2 NÃO supera com significância estatística o Baseline B1 (Delta AUPRC = +0.0066, IC95% [-0.0276, +0.0337]). Resultado reportado conforme REG-04."}, "B4_vs_B1": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "delta_auprc_medio": 0.2023, "delta_auprc_ic95_inf": 0.121, "delta_auprc_ic95_sup": 0.3041, "delta_vme_medio": -0.3197, "supera_b1_com_ic95": true, "conclusao_q1": "B4_XGBoost_F1_F2_F3 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.2023, IC95% [+0.1210, +0.3041], Delta VME = -0.3197)."}}, "generalizacao_q2": {"grupo_filogenetico": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "grupo_filogenetico", "auroc": 0.9471, "auprc": 0.9335, "sensibilidade": 0.8592, "especificidade": 0.945, "acuracia_balanceada": 0.9021, "concordancia_categorica": 0.9111, "vme": 0.1408, "me": 0.055, "brier_score": 0.0726, "ece": 0.0209, "cobertura_conformal": 0.9528, "taxa_abstencao": 0.0472, "vme_pos_abstencao": 0.1212, "me_pos_abstencao": 0.0474, "auprc_ic95": {"estimativa": 0.9335, "ic95_inferior": 0.9036, "ic95_superior": 0.9577}, "auroc_ic95": {"estimativa": 0.9471, "ic95_inferior": 0.9318, "ic95_superior": 0.9629}, "vme_ic95": {"estimativa": 0.1408, "ic95_inferior": 0.1006, "ic95_superior": 0.1855}}, "leave_one_lineage_out": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "leave_one_lineage_out", "auroc": 0.9159, "auprc": 0.8852, "sensibilidade": 0.85, "especificidade": 0.975, "acuracia_balanceada": 0.9125, "concordancia_categorica": 0.9333, "vme": 0.15, "me": 0.025, "brier_score": 0.0602, "ece": 0.0443, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.15, "me_pos_abstencao": 0.025, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}, "temporal": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "temporal", "auroc": 0.9488, "auprc": 0.9495, "sensibilidade": 0.8889, "especificidade": 0.9483, "acuracia_balanceada": 0.9186, "concordancia_categorica": 0.9255, "vme": 0.1111, "me": 0.0517, "brier_score": 0.0679, "ece": 0.0615, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.1111, "me_pos_abstencao": 0.0517, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}, "geografica": {"nome_modelo": "B4_XGBoost_F1_F2_F3", "estrategia_split": "geografica", "auroc": 0.9332, "auprc": 0.9261, "sensibilidade": 0.8485, "especificidade": 0.9455, "acuracia_balanceada": 0.897, "concordancia_categorica": 0.9091, "vme": 0.1515, "me": 0.0545, "brier_score": 0.0752, "ece": 0.0493, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.1515, "me_pos_abstencao": 0.0545, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}, "demonstracao_vazamento_aleatorio_b5": {"nome_modelo": "B5_Linear_Esparso_F3 (Split Aleatório com Vazamento)", "estrategia_split": "aleatoria_vazamento", "auroc": 0.7072, "auprc": 0.6842, "sensibilidade": 0.5563, "especificidade": 0.7385, "acuracia_balanceada": 0.6474, "concordancia_categorica": 0.6667, "vme": 0.4437, "me": 0.2615, "brier_score": 0.2171, "ece": 0.1354, "cobertura_conformal": 1.0, "taxa_abstencao": 0.0, "vme_pos_abstencao": 0.4437, "me_pos_abstencao": 0.2615, "auprc_ic95": null, "auroc_ic95": null, "vme_ic95": null}}, "explicabilidade_q3": {"farmaco": "cefuroxima", "proporcao_top_k_no_card": 0.5, "determinantes_card_recuperados": ["blaCTX-M-14", "blaCTX-M-15", "ampC:c.-42C>T"], "candidatos_novos_top_k": ["ompF:c.-112del (unitig)", "ftsI (PBP3):ins333YRIN (unitig)", "locus_kmer31_poly_0032"], "correlacao_estabilidade_entre_dobras": 0.4167, "concordancia_gwas_populacional": 0.8333, "queda_media_probabilidade_remocao_locus": 0.3545, "remocao_coerente": true, "principais_loci_globais": [{"locus": "ompF:c.-112del (unitig)", "gene": "ompF", "alteracao": "c.-112del (unitig)", "tipo": "kmer_unitig", "status": "candidata", "fonte": "Descoberta ML (F3)", "importancia_shap_media": 0.9043, "mecanismo": "Redução de permeabilidade de porina de membrana externa"}, {"locus": "blaCTX-M-14", "gene": "blaCTX-M-14", "alteracao": "-", "tipo": "gene_amr", "status": "conhecida", "fonte": "CARD", "importancia_shap_media": 0.7801, "mecanismo": "Beta-lactamase de espectro estendido (ESBL CTX-M-14)"}, {"locus": "blaCTX-M-15", "gene": "blaCTX-M-15", "alteracao": "-", "tipo": "gene_amr", "status": "conhecida", "fonte": "CARD", "importancia_shap_media": 0.6904, "mecanismo": "Beta-lactamase de espectro estendido (ESBL CTX-M-15)"}, {"locus": "ftsI (PBP3):ins333YRIN (unitig)", "gene": "ftsI (PBP3)", "alteracao": "ins333YRIN (unitig)", "tipo": "kmer_unitig", "status": "candidata", "fonte": "Descoberta ML (F3)", "importancia_shap_media": 0.5812, "mecanismo": "Redução de afinidade de PBP3 a cefalosporinas"}, {"locus": "ampC:c.-42C>T", "gene": "ampC", "alteracao": "c.-42C>T", "tipo": "mutacao_pontual", "status": "conhecida", "fonte": "AMRFinderPlus", "importancia_shap_media": 0.5351, "mecanismo": "Superexpressão de beta-lactamase cromossômica AmpC por mutação promotora"}, {"locus": "locus_kmer31_poly_0032", "gene": "kmer31_poly_0032", "alteracao": "k31_variant", "tipo": "kmer_unitig", "status": "candidata", "fonte": "Alinhamento Referência (k=31)", "importancia_shap_media": 0.2641, "mecanismo": "Variante genômica não catalogada (hipótese)"}]}, "regressao_mic_iso20776": {"farmaco": "cefuroxima", "concordancia_essencial_1_diluicao": 0.7639, "concordancia_categorica": 0.9, "rmse_log2_mic": 1.5922, "mae_log2_mic": 1.1462}}};
+
+    function abrirAba(idAba, btn) {
+      document.querySelectorAll('.tab-pane').forEach(el => el.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+      document.getElementById(idAba).classList.add('active');
+      btn.classList.add('active');
+    }
+
+    function atualizarTabelasFarmaco() {
+      const farmaco = document.getElementById('seletor-farmaco').value;
+      const d = DADOS_FARMACOS[farmaco];
+      if (!d) return;
+
+      const comp = d.comparacao_pareada_vs_b1.B4_vs_B1;
+      document.getElementById('resumo-hipotese-q1').textContent = comp.conclusao_q1;
+
+      const tbodyEsc = document.querySelector('#tabela-escada-dinamica tbody');
+      tbodyEsc.innerHTML = '';
+      for (const [nomeMod, m] of Object.entries(d.escada_modelos_grupo_filogenetico)) {
+        const ic = m.auprc_ic95 ? ` [${m.auprc_ic95.ic95_inferior.toFixed(3)}, ${m.auprc_ic95.ic95_superior.toFixed(3)}]` : '';
+        const destaque = nomeMod === 'B4_XGBoost_F1_F2_F3' ? 'style="background:#eff6ff;font-weight:700;"' : '';
+        tbodyEsc.innerHTML += `<tr ${destaque}>
+          <td><code>${nomeMod}</code></td>
+          <td>${m.auprc.toFixed(4)}${ic}</td>
+          <td>${m.auroc.toFixed(4)}</td>
+          <td>${m.sensibilidade.toFixed(4)}</td>
+          <td>${m.especificidade.toFixed(4)}</td>
+          <td>${m.vme.toFixed(4)}</td>
+          <td>${m.me.toFixed(4)}</td>
+          <td>${m.brier_score.toFixed(4)}</td>
+          <td>${m.ece.toFixed(4)}</td>
+        </tr>`;
+      }
+
+      const tbodySp = document.querySelector('#tabela-splits-dinamica tbody');
+      tbodySp.innerHTML = '';
+      const nomesSplits = {
+        grupo_filogenetico: 'Grupo Filogenético (Principal — REG-01)',
+        leave_one_lineage_out: 'Leave-One-Lineage-Out (LOLO — ST inédito)',
+        temporal: 'Temporal (Treino <= 2022, Teste > 2022)',
+        geografica: 'Geográfica (Holdout FR, IN, JP — REG-09)',
+        demonstracao_vazamento_aleatorio_b5: 'Aleatória (Demonstração de Vazamento B5)'
+      };
+      for (const [ch, m] of Object.entries(d.generalizacao_q2)) {
+        tbodySp.innerHTML += `<tr>
+          <td><strong>${nomesSplits[ch] || ch}</strong></td>
+          <td><strong>${m.auprc.toFixed(4)}</strong></td>
+          <td>${m.auroc.toFixed(4)}</td>
+          <td>${m.sensibilidade.toFixed(4)}</td>
+          <td>${m.especificidade.toFixed(4)}</td>
+          <td>${m.vme.toFixed(4)}</td>
+          <td>${m.me.toFixed(4)}</td>
+          <td>${m.brier_score.toFixed(4)}</td>
+        </tr>`;
+      }
+
+      const xai = d.explicabilidade_q3;
+      document.getElementById('resumo-testes-xai').innerHTML =
+        `Fármaco: <code>${farmaco}</code> | Recuperação CARD Top-6: <strong>${(xai.proporcao_top_k_no_card*100).toFixed(1)}%</strong> | ` +
+        `Estabilidade Spearman &rho;: <strong>${xai.correlacao_estabilidade_entre_dobras.toFixed(4)}</strong> | ` +
+        `Concordância GWAS: <strong>${(xai.concordancia_gwas_populacional*100).toFixed(1)}%</strong> | ` +
+        `Queda ablação in silico: <strong>-${xai.queda_media_probabilidade_remocao_locus.toFixed(4)}</strong>`;
+
+      const tbodyXai = document.querySelector('#tabela-xai-dinamica tbody');
+      tbodyXai.innerHTML = '';
+      for (const loc of xai.principais_loci_globais) {
+        const clsBadge = loc.status === 'conhecida' ? 'badge-conhecida' : 'badge-candidata';
+        tbodyXai.innerHTML += `<tr>
+          <td><code>${loc.locus}</code></td>
+          <td><strong>${loc.gene}</strong></td>
+          <td>${loc.alteracao}</td>
+          <td>${loc.tipo}</td>
+          <td><span class="${clsBadge}">${loc.status}</span></td>
+          <td>${loc.fonte}</td>
+          <td><strong>${loc.importancia_shap_media.toFixed(4)}</strong></td>
+          <td>${loc.mecanismo}</td>
+        </tr>`;
+      }
+    }
+
+    atualizarTabelasFarmaco();
+  </script>
+</body>
+</html>
