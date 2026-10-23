@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 321" width="100%" height="321">
+<rect width="100%" height="100%" fill="#ffffff" rx="8" stroke="#e5e7eb" />
+<text x="24" y="34" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#111827">Q3: Top-6 Loci por Importância TreeSHAP Agregada (E. coli - Ciprofloxacina)</text>
+<text x="24" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#6b7280">Verde = Determinante Conhecido (CARD/AMRFinderPlus) | Azul = Variante Candidata Descoberta em F3 (k=31)</text>
+<text x="24" y="93" font-family="monospace" font-size="12" fill="#374151">gyrA:S83L (conh)</text>
+<rect x="240" y="79" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="79" width="390" height="20" fill="#16a34a" rx="4" />
+<text x="638" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">1.4252</text>
+<text x="24" y="129" font-family="monospace" font-size="12" fill="#374151">acrR:fs*45 (unitig) (cand)</text>
+<rect x="240" y="115" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="115" width="367" height="20" fill="#3b82f6" rx="4" />
+<text x="615" y="129" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">1.3396</text>
+<text x="24" y="165" font-family="monospace" font-size="12" fill="#374151">marR:G103S (unitig) (cand)</text>
+<rect x="240" y="151" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="151" width="203" height="20" fill="#3b82f6" rx="4" />
+<text x="451" y="165" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.7420</text>
+<text x="24" y="201" font-family="monospace" font-size="12" fill="#374151">gyrA:D87N (conh)</text>
+<rect x="240" y="187" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="187" width="120" height="20" fill="#16a34a" rx="4" />
+<text x="368" y="201" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.4377</text>
+<text x="24" y="237" font-family="monospace" font-size="12" fill="#374151">parC:S80I (conh)</text>
+<rect x="240" y="223" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="223" width="117" height="20" fill="#16a34a" rx="4" />
+<text x="365" y="237" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.4272</text>
+<text x="24" y="273" font-family="monospace" font-size="12" fill="#374151">locus_kmer31_poly_0029 (cand)</text>
+<rect x="240" y="259" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="259" width="80" height="20" fill="#3b82f6" rx="4" />
+<text x="328" y="273" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.2917</text>
+</svg>

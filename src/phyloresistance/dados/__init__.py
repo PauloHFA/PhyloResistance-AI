@@ -3,6 +3,8 @@
 from phyloresistance.dados.bvbrc import (
     calcular_sha256_arquivo,
     carregar_tabela_bvbrc,
+    gerar_coorte_especie_extensao,
+    gerar_coorte_externa_ncbi_pathogen,
     gerar_coorte_piloto_ecoli,
     gerar_manifesto_dados,
 )
@@ -25,6 +27,8 @@ __all__ = [
     "calcular_sha256_arquivo",
     "carregar_tabela_bvbrc",
     "curar_rotulos",
+    "gerar_coorte_especie_extensao",
+    "gerar_coorte_externa_ncbi_pathogen",
     "gerar_coorte_piloto_ecoli",
     "gerar_manifesto_dados",
     "normalizar_categoria_fenotipo",

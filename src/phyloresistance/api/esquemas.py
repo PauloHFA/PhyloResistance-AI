@@ -1,4 +1,4 @@
-"""Esquemas Pydantic de entrada e saída da API FastAPI (Seção 9.2, 9.3, REG-14, REG-15)."""
+"""Esquemas Pydantic de entrada, saída, MIC e observabilidade/drift da API FastAPI (Seção 9.2, 9.3, 9.4, REG-14, REG-15)."""
 
 from __future__ import annotations
 
@@ -14,6 +14,7 @@ class RespostaJobCriado(BaseModel):
 
     job_id: str
     status: Literal["em_fila", "processando", "concluido"] = "em_fila"
+    formato_entrada: Literal["FASTA", "FASTQ"] = "FASTA"
 
 
 class ResumoQCResposta(BaseModel):
@@ -38,12 +39,13 @@ class ItemEvidenciaAPI(BaseModel):
 
 
 class ItemPredicaoFarmacoAPI(BaseModel):
-    """Predição por fármaco para um isolado."""
+    """Predição por fármaco para um isolado, incluindo estimativa quantitativa opcional de MIC."""
 
     farmaco: str
     probabilidade_resistencia: float | None = None
     classe: Literal["resistente", "sensivel", "indeterminado", "nao_suportado"]
     confianca: Literal["alta", "media", "baixa", "n/a"] = "alta"
+    mic_estimado_mg_l: float | None = None
     evidencias: list[ItemEvidenciaAPI] = Field(default_factory=list)
     mensagem: str | None = None
 
@@ -56,6 +58,7 @@ class RespostaPredicaoCompleta(BaseModel):
         "concluido"
     )
     especie: str
+    formato_entrada: Literal["FASTA", "FASTQ"] = "FASTA"
     qc: ResumoQCResposta
     predicoes: list[ItemPredicaoFarmacoAPI] = Field(default_factory=list)
     versao_modelo: str
@@ -77,3 +80,18 @@ class InfoModeloCardAPI(BaseModel):
     versoes_bancos: dict[str, str]
     aviso: str = AVISO_USO_PESQUISA
 
+
+class RespostaObservabilidadeAPI(BaseModel):
+    """Métricas de fila, latência (p50/p95) e monitoramento de drift (Seção 9.4)."""
+
+    total_jobs_processados: int
+    latencia_p50_ms: float
+    latencia_p95_ms: float
+    meta_latencia_p95_ms: float = 120_000.0
+    dentro_meta_sla: bool = True
+    distribuicao_especies: dict[str, int]
+    taxa_aprovacao_qc: float
+    probabilidade_resistencia_media: float
+    taxa_abstencao_recente: float
+    alerta_drift: bool = False
+    aviso: str = AVISO_USO_PESQUISA

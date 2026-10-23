@@ -11,7 +11,7 @@ from sklearn.metrics import (
     roc_auc_score,
 )
 
-from phyloresistance.config import GLOBAL_RANDOM_SEED
+from phyloresistance.config import GLOBAL_RANDOM_SEED, PontoCorteMIC
 from phyloresistance.modelos.calibracao import PredicaoComIncerteza
 
 
@@ -318,4 +318,55 @@ def comparar_modelo_vs_baseline_pareado(
         supera_b1_com_ic95=supera,
         conclusao_q1=conclusao,
     )
+
+
+class ResultadoAvaliacaoMIC(BaseModel):
+    """Métricas de avaliação de regressão log2(MIC) segundo ISO 20776-2 (Seção 6.2 e 7.2)."""
+
+    farmaco: str
+    concordancia_essencial_1_diluicao: float
+    concordancia_categorica: float
+    rmse_log2_mic: float
+    mae_log2_mic: float
+
+
+def calcular_metricas_mic_iso20776(
+    farmaco: str,
+    mic_real_mg_l: np.ndarray,
+    log2_mic_pred: np.ndarray,
+    ponto_corte: PontoCorteMIC | None = None,
+) -> ResultadoAvaliacaoMIC:
+    """
+    Calcula a Concordância Essencial (proporção de isolados com erro <= 1.0 diluição em log2(MIC))
+    e a Concordância Categórica ISO 20776-2 (Seção 6.2 e 7.2).
+    """
+    mic_real = np.clip(np.asarray(mic_real_mg_l, dtype=np.float64), 1e-4, 1024.0)
+    log2_real = np.log2(mic_real)
+    log2_p = np.asarray(log2_mic_pred, dtype=np.float64)
+
+    dif_abs = np.abs(log2_p - log2_real)
+    # Em diluições seriadas duplas, arredonda-se log2_p para o inteiro mais próximo ou avalia-se |diff| <= 1.0
+    dif_diluicao = np.abs(np.round(log2_p) - np.round(log2_real))
+    conc_essencial = float(np.mean(dif_diluicao <= 1.0))
+    rmse = float(np.sqrt(np.mean((log2_p - log2_real) ** 2)))
+    mae = float(np.mean(dif_abs))
+
+    if ponto_corte is not None:
+        mic_pred_arred = np.power(2.0, np.round(log2_p))
+        cats_reais = [ponto_corte.classificar(float(m)) for m in mic_real]
+        cats_preds = [ponto_corte.classificar(float(m)) for m in mic_pred_arred]
+        conc_cat = float(
+            np.mean([1.0 if cr == cp else 0.0 for cr, cp in zip(cats_reais, cats_preds, strict=False)])
+        )
+    else:
+        conc_cat = conc_essencial
+
+    return ResultadoAvaliacaoMIC(
+        farmaco=farmaco,
+        concordancia_essencial_1_diluicao=round(conc_essencial, 4),
+        concordancia_categorica=round(conc_cat, 4),
+        rmse_log2_mic=round(rmse, 4),
+        mae_log2_mic=round(mae, 4),
+    )
+
 

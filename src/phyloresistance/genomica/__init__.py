@@ -5,6 +5,13 @@ from phyloresistance.genomica.anotacao import (
     construir_matrizes_atributos_coorte,
     sintetizar_fasta_isolado,
 )
+from phyloresistance.genomica.fastq import (
+    ErroValidacaoFASTQ,
+    ResultadoTrimagemMontagemFASTQ,
+    ler_registros_fastq,
+    sintetizar_fastq_isolado,
+    trimar_e_montar_fastq_para_fasta,
+)
 from phyloresistance.genomica.kmers import (
     FiltroSelecaoKmersDobra,
     agrupar_kmers_equivalentes_unitigs,
@@ -23,8 +30,10 @@ from phyloresistance.genomica.qc import (
 
 __all__ = [
     "ErroValidacaoFASTA",
+    "ErroValidacaoFASTQ",
     "FiltroSelecaoKmersDobra",
     "ResultadoQCGenoma",
+    "ResultadoTrimagemMontagemFASTQ",
     "agrupar_kmers_equivalentes_unitigs",
     "anotar_isolado_fasta",
     "avaliar_qc_coorte",
@@ -34,7 +43,10 @@ __all__ = [
     "construir_matrizes_atributos_coorte",
     "extrair_frequencias_kmers_curtos",
     "extrair_kmers_canonicos",
+    "ler_registros_fastq",
     "sintetizar_fasta_isolado",
+    "sintetizar_fastq_isolado",
+    "trimar_e_montar_fastq_para_fasta",
     "validar_fasta_entrada",
 ]
 

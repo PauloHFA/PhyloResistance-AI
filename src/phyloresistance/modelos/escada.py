@@ -12,6 +12,8 @@ from sklearn.model_selection import StratifiedGroupKFold
 
 from phyloresistance.config import (
     CATALOGO_DETERMINANTES_ECOLI,
+    CATALOGO_DETERMINANTES_POR_ESPECIE,
+    ESPECIE_PILOTO,
     GLOBAL_RANDOM_SEED,
 )
 from phyloresistance.genomica.kmers import FiltroSelecaoKmersDobra
@@ -58,17 +60,24 @@ class BaselineRegrasB1:
     catalogado para o fármaco avaliado.
     """
 
-    def __init__(self, farmaco: str, nomes_atributos_f1_f2: list[str]) -> None:
+    def __init__(
+        self,
+        farmaco: str,
+        nomes_atributos_f1_f2: list[str],
+        especie: str = ESPECIE_PILOTO,
+    ) -> None:
         self.farmaco = farmaco
         self.nomes_atributos_f1_f2 = list(nomes_atributos_f1_f2)
+        self.especie = especie
         self.indices_determinantes_farmaco_: list[int] = []
         self.taxa_base_sem_det_: float = 0.05
         self.taxa_com_det_: float = 0.92
 
     def fit(self, X_f1_f2: np.ndarray, y: np.ndarray) -> BaselineRegrasB1:
+        catalogo = CATALOGO_DETERMINANTES_POR_ESPECIE.get(self.especie, CATALOGO_DETERMINANTES_ECOLI)
         determinantes_validos = {
             d.id_atributo
-            for d in CATALOGO_DETERMINANTES_ECOLI
+            for d in catalogo
             if self.farmaco in d.farmacos_associados
         }
         self.indices_determinantes_farmaco_ = [

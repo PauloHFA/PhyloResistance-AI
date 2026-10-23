@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 393" width="100%" height="393">
+<rect width="100%" height="100%" fill="#ffffff" rx="8" stroke="#e5e7eb" />
+<text x="24" y="34" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#111827">Fase 6: Desempenho Multi-Espécie (K. pneumoniae, S. aureus) e Concordância Essencial MIC</text>
+<text x="24" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#6b7280">Roxo = AUPRC em grupos filogenéticos inéditos | Turquesa = Concordância Essencial ISO 20776-2 (+-1 diluição)</text>
+<text x="24" y="93" font-family="monospace" font-size="12" fill="#374151">Klebsiella:ciprofloxa AUPRC</text>
+<rect x="240" y="79" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="79" width="427" height="20" fill="#6366f1" rx="4" />
+<text x="675" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.9939</text>
+<text x="24" y="129" font-family="monospace" font-size="12" fill="#374151">Klebsiella:gentamicin AUPRC</text>
+<rect x="240" y="115" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="115" width="381" height="20" fill="#6366f1" rx="4" />
+<text x="629" y="129" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.8864</text>
+<text x="24" y="165" font-family="monospace" font-size="12" fill="#374151">Klebsiella:ceftriaxon AUPRC</text>
+<rect x="240" y="151" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="151" width="395" height="20" fill="#6366f1" rx="4" />
+<text x="643" y="165" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.9206</text>
+<text x="24" y="201" font-family="monospace" font-size="12" fill="#374151">Staphyloco:oxacilina AUPRC</text>
+<rect x="240" y="187" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="187" width="386" height="20" fill="#6366f1" rx="4" />
+<text x="634" y="201" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.8977</text>
+<text x="24" y="237" font-family="monospace" font-size="12" fill="#374151">Staphyloco:ciprofloxa AUPRC</text>
+<rect x="240" y="223" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="223" width="391" height="20" fill="#6366f1" rx="4" />
+<text x="639" y="237" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.9097</text>
+<text x="24" y="273" font-family="monospace" font-size="12" fill="#374151">MIC ciprofloxa Conc.Ess.</text>
+<rect x="240" y="259" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="259" width="252" height="20" fill="#0d9488" rx="4" />
+<text x="500" y="273" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.5861</text>
+<text x="24" y="309" font-family="monospace" font-size="12" fill="#374151">MIC gentamicin Conc.Ess.</text>
+<rect x="240" y="295" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="295" width="266" height="20" fill="#0d9488" rx="4" />
+<text x="514" y="309" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.6194</text>
+<text x="24" y="345" font-family="monospace" font-size="12" fill="#374151">MIC cefuroxima Conc.Ess.</text>
+<rect x="240" y="331" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="331" width="328" height="20" fill="#0d9488" rx="4" />
+<text x="576" y="345" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.7639</text>
+</svg>

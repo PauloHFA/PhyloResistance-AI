@@ -15,6 +15,11 @@ from phyloresistance.modelos.escada import (
     calcular_peso_classe_balanceado,
     otimizar_xgb_optuna_por_grupo,
 )
+from phyloresistance.modelos.extensoes import (
+    ModeloMultiSaidaAMR,
+    ModeloSequenciaConvolucionalB6,
+    RegressorMICLog2,
+)
 
 __all__ = [
     "BaselineRegrasB1",
@@ -24,8 +29,11 @@ __all__ = [
     "ModeloControleKmersCurtos",
     "ModeloLinearEsparsoKmersB5",
     "ModeloLogisticoRegularizadoB2",
+    "ModeloMultiSaidaAMR",
+    "ModeloSequenciaConvolucionalB6",
     "PipelineCompletoB4",
     "PredicaoComIncerteza",
+    "RegressorMICLog2",
     "calcular_peso_classe_balanceado",
     "otimizar_xgb_optuna_por_grupo",
 ]

@@ -17,24 +17,26 @@
 
 ---
 
-## 2. Resultados por Fármaco (Perguntas Científicas Q1, Q2, Q3 e Q4)
+## 2. Resultados do Escopo Principal (*Escherichia coli* — Q1, Q2, Q3 e Q4)
 
 ### Fármaco: `ciprofloxacina` (`ecoli-cip-1.2.0`)
 
 - **Isolados únicos pós-QC/desduplicação**: `360` (Prevalência de Resistência: `48.3%`)
 - **Conclusão Q1 (ML vs Baseline B1 em grupos filogenéticos não vistos)**: B4_XGBoost_F1_F2_F3 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.0875, IC95% [+0.0402, +0.1396], Delta VME = -0.1782).
+- **Regressão Quantitativa de $\log_2(\text{MIC})$ (ISO 20776-2)**: Concordância Essencial ($\pm 1$ diluição) = `58.6%` | Concordância Categórica = `88.6%` | RMSE $\log_2(\text{MIC})$ = `2.240`
 
 #### Escada de Modelos (Validação Principal: Grupo Filogenético — REG-01, REG-04, REG-05)
 
 | Modelo | AUPRC (IC 95% Bloco) | AUROC | Sensibilidade | Especificidade | VME (Erro Muito Grave) | ME (Erro Grave) | Brier Score |
 |---|---|---|---|---|---|---|---|
-| `B0_Classe_Majoritaria` | 0.4486 [0.404, 0.510] | 0.4323 | 0.0000 | 1.0000 | **1.0000** | **0.0000** | 0.2525 |
+| `B0_Classe_Majoritaria` | 0.4486 [0.399, 0.508] | 0.4323 | 0.0000 | 1.0000 | **1.0000** | **0.0000** | 0.2525 |
 | `B1_Regras_CARD_AMRFinder` | 0.8763 [0.820, 0.922] | 0.8499 | 0.7471 | 0.9677 | **0.2529** | **0.0323** | 0.1143 |
-| `B2_LogReg_L1_F1_F2` | 0.9005 [0.843, 0.944] | 0.8691 | 0.7356 | 0.9731 | **0.2644** | **0.0269** | 0.1118 |
-| `B3_XGBoost_F1_F2` | 0.8987 [0.837, 0.941] | 0.8665 | 0.7356 | 0.9570 | **0.2644** | **0.0430** | 0.1163 |
+| `B2_LogReg_L1_F1_F2` | 0.9005 [0.852, 0.943] | 0.8691 | 0.7356 | 0.9731 | **0.2644** | **0.0269** | 0.1118 |
+| `B3_XGBoost_F1_F2` | 0.8987 [0.844, 0.935] | 0.8665 | 0.7356 | 0.9570 | **0.2644** | **0.0430** | 0.1163 |
 | `B4_XGBoost_F1_F2_F3` | 0.9621 [0.946, 0.978] | 0.9644 | 0.9253 | 0.9247 | **0.0747** | **0.0753** | 0.0553 |
-| `B5_Linear_Esparso_F3` | 0.7602 [0.704, 0.816] | 0.7249 | 0.5747 | 0.8011 | **0.4253** | **0.1989** | 0.2126 |
-| `Controle_Kmers_Curtos_k6` | 0.4862 [0.417, 0.562] | 0.4840 | 0.4483 | 0.4946 | **0.5517** | **0.5054** | 0.2760 |
+| `B5_Linear_Esparso_F3` | 0.7602 [0.706, 0.803] | 0.7249 | 0.5747 | 0.8011 | **0.4253** | **0.1989** | 0.2126 |
+| `B6_CNN1D_Sequencia` | 0.9556 [0.942, 0.970] | 0.9529 | 0.8793 | 0.9086 | **0.1207** | **0.0914** | 0.0872 |
+| `Controle_Kmers_Curtos_k6` | 0.4862 [0.413, 0.558] | 0.4840 | 0.4483 | 0.4946 | **0.5517** | **0.5054** | 0.2760 |
 
 #### Generalização entre Estratégias de Split (Q2 e REG-09)
 
@@ -73,18 +75,20 @@
 
 - **Isolados únicos pós-QC/desduplicação**: `360` (Prevalência de Resistência: `48.6%`)
 - **Conclusão Q1 (ML vs Baseline B1 em grupos filogenéticos não vistos)**: B4_XGBoost_F1_F2_F3 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.0973, IC95% [+0.0393, +0.1689], Delta VME = -0.2181).
+- **Regressão Quantitativa de $\log_2(\text{MIC})$ (ISO 20776-2)**: Concordância Essencial ($\pm 1$ diluição) = `61.9%` | Concordância Categórica = `81.7%` | RMSE $\log_2(\text{MIC})$ = `2.236`
 
 #### Escada de Modelos (Validação Principal: Grupo Filogenético — REG-01, REG-04, REG-05)
 
 | Modelo | AUPRC (IC 95% Bloco) | AUROC | Sensibilidade | Especificidade | VME (Erro Muito Grave) | ME (Erro Grave) | Brier Score |
 |---|---|---|---|---|---|---|---|
-| `B0_Classe_Majoritaria` | 0.4397 [0.365, 0.531] | 0.4189 | 0.2686 | 0.6054 | **0.7314** | **0.3946** | 0.2529 |
+| `B0_Classe_Majoritaria` | 0.4397 [0.349, 0.505] | 0.4189 | 0.2686 | 0.6054 | **0.7314** | **0.3946** | 0.2529 |
 | `B1_Regras_CARD_AMRFinder` | 0.8174 [0.701, 0.892] | 0.7812 | 0.6457 | 0.9135 | **0.3543** | **0.0865** | 0.1640 |
-| `B2_LogReg_L1_F1_F2` | 0.8344 [0.712, 0.909] | 0.7941 | 0.6171 | 0.9081 | **0.3829** | **0.0919** | 0.1674 |
-| `B3_XGBoost_F1_F2` | 0.8282 [0.705, 0.896] | 0.7862 | 0.6343 | 0.8811 | **0.3657** | **0.1189** | 0.1728 |
+| `B2_LogReg_L1_F1_F2` | 0.8344 [0.707, 0.889] | 0.7941 | 0.6171 | 0.9081 | **0.3829** | **0.0919** | 0.1674 |
+| `B3_XGBoost_F1_F2` | 0.8282 [0.697, 0.888] | 0.7862 | 0.6343 | 0.8811 | **0.3657** | **0.1189** | 0.1728 |
 | `B4_XGBoost_F1_F2_F3` | 0.9065 [0.837, 0.944] | 0.9157 | 0.8571 | 0.8649 | **0.1429** | **0.1351** | 0.1086 |
-| `B5_Linear_Esparso_F3` | 0.7119 [0.646, 0.780] | 0.6935 | 0.6057 | 0.6811 | **0.3943** | **0.3189** | 0.2304 |
-| `Controle_Kmers_Curtos_k6` | 0.5205 [0.407, 0.642] | 0.5112 | 0.4457 | 0.5568 | **0.5543** | **0.4432** | 0.2767 |
+| `B5_Linear_Esparso_F3` | 0.7119 [0.658, 0.771] | 0.6935 | 0.6057 | 0.6811 | **0.3943** | **0.3189** | 0.2304 |
+| `B6_CNN1D_Sequencia` | 0.8920 [0.810, 0.930] | 0.8938 | 0.8171 | 0.8054 | **0.1829** | **0.1946** | 0.1567 |
+| `Controle_Kmers_Curtos_k6` | 0.5205 [0.385, 0.624] | 0.5112 | 0.4457 | 0.5568 | **0.5543** | **0.4432** | 0.2767 |
 
 #### Generalização entre Estratégias de Split (Q2 e REG-09)
 
@@ -123,18 +127,20 @@
 
 - **Isolados únicos pós-QC/desduplicação**: `360` (Prevalência de Resistência: `39.4%`)
 - **Conclusão Q1 (ML vs Baseline B1 em grupos filogenéticos não vistos)**: B4_XGBoost_F1_F2_F3 supera significativamente o Baseline B1 em grupos não vistos (Delta AUPRC = +0.2023, IC95% [+0.1210, +0.3041], Delta VME = -0.3197).
+- **Regressão Quantitativa de $\log_2(\text{MIC})$ (ISO 20776-2)**: Concordância Essencial ($\pm 1$ diluição) = `76.4%` | Concordância Categórica = `90.0%` | RMSE $\log_2(\text{MIC})$ = `1.592`
 
 #### Escada de Modelos (Validação Principal: Grupo Filogenético — REG-01, REG-04, REG-05)
 
 | Modelo | AUPRC (IC 95% Bloco) | AUROC | Sensibilidade | Especificidade | VME (Erro Muito Grave) | ME (Erro Grave) | Brier Score |
 |---|---|---|---|---|---|---|---|
-| `B0_Classe_Majoritaria` | 0.3870 [0.327, 0.458] | 0.4845 | 0.0000 | 1.0000 | **1.0000** | **0.0000** | 0.2390 |
+| `B0_Classe_Majoritaria` | 0.3870 [0.340, 0.457] | 0.4845 | 0.0000 | 1.0000 | **1.0000** | **0.0000** | 0.2390 |
 | `B1_Regras_CARD_AMRFinder` | 0.7364 [0.610, 0.825] | 0.7382 | 0.5352 | 0.9358 | **0.4648** | **0.0642** | 0.1699 |
-| `B2_LogReg_L1_F1_F2` | 0.7328 [0.595, 0.846] | 0.7052 | 0.4930 | 0.9358 | **0.5070** | **0.0642** | 0.1763 |
-| `B3_XGBoost_F1_F2` | 0.7379 [0.601, 0.846] | 0.7115 | 0.5423 | 0.8853 | **0.4577** | **0.1147** | 0.1834 |
+| `B2_LogReg_L1_F1_F2` | 0.7328 [0.560, 0.851] | 0.7052 | 0.4930 | 0.9358 | **0.5070** | **0.0642** | 0.1763 |
+| `B3_XGBoost_F1_F2` | 0.7379 [0.583, 0.853] | 0.7115 | 0.5423 | 0.8853 | **0.4577** | **0.1147** | 0.1834 |
 | `B4_XGBoost_F1_F2_F3` | 0.9335 [0.904, 0.958] | 0.9471 | 0.8592 | 0.9450 | **0.1408** | **0.0550** | 0.0726 |
-| `B5_Linear_Esparso_F3` | 0.6887 [0.639, 0.744] | 0.6884 | 0.5986 | 0.6468 | **0.4014** | **0.3532** | 0.2275 |
-| `Controle_Kmers_Curtos_k6` | 0.3799 [0.322, 0.453] | 0.4753 | 0.3239 | 0.6284 | **0.6761** | **0.3716** | 0.2778 |
+| `B5_Linear_Esparso_F3` | 0.6887 [0.643, 0.740] | 0.6884 | 0.5986 | 0.6468 | **0.4014** | **0.3532** | 0.2275 |
+| `B6_CNN1D_Sequencia` | 0.9176 [0.881, 0.945] | 0.9345 | 0.8380 | 0.8853 | **0.1620** | **0.1147** | 0.1142 |
+| `Controle_Kmers_Curtos_k6` | 0.3799 [0.332, 0.439] | 0.4753 | 0.3239 | 0.6284 | **0.6761** | **0.3716** | 0.2778 |
 
 #### Generalização entre Estratégias de Split (Q2 e REG-09)
 
@@ -172,8 +178,39 @@
 
 ---
 
-## 3. Limitações e Uso Responsável (Seção 15)
+## 3. Extensões da Fase 6: Multi-Espécie (*K. pneumoniae* e *S. aureus*) e Validação Externa
 
-1. **Associação vs. Causalidade (REG-10)**: Os valores TreeSHAP medem contribuição preditiva ao modelo; loci classificados como `candidata` representam hipóteses biológicas para validação experimental (ex.: mutagênese sítio-dirigida ou ensaio funcional).
-2. **Domínio de Aplicação**: Os modelos avaliados aplicam-se exclusivamente a isolados montados de *Escherichia coli* aprovados pelos critérios de QC da Seção 3.4 para os fármacos `ciprofloxacina`, `gentamicina` e `cefuroxima`.
+### 3.1 Expansão Multi-Espécie (Seção 3.2 — Fases 2 e 3)
+
+| Espécie | Fármaco | Versão do Modelo | AUPRC Baseline B1 | AUPRC Modelo B4 ($\Delta$) | VME | Top Loci TreeSHAP |
+|---|---|---|---|---|---|---|
+| *Klebsiella pneumoniae* | `ciprofloxacina` | `kpneu-cip-1.2.0` | 0.9356 | **0.9939** (+0.0588) | 0.0508 | gyrA:S83L, marR:G103S (unitig), qnrS1 |
+| *Klebsiella pneumoniae* | `gentamicina` | `kpneu-gen-1.2.0` | 0.7784 | **0.8864** (+0.1030) | 0.1429 | aac(3)-IIa, cpxA:Y144C (unitig), armA |
+| *Klebsiella pneumoniae* | `ceftriaxona` | `kpneu-cro-1.2.0` | 0.8789 | **0.9206** (+0.0464) | 0.0492 | blaCTX-M-15, ompF:c.-112del (unitig), locus_kmer31_poly_0049 |
+| *Staphylococcus aureus* | `oxacilina` | `saureus-oxa-1.2.0` | 0.7910 | **0.8977** (+0.1066) | 0.0667 | mecA, pbp4:c.-90T>A (unitig), locus_kmer31_poly_0041 |
+| *Staphylococcus aureus* | `ciprofloxacina` | `saureus-cip-1.2.0` | 0.8067 | **0.9097** (+0.1048) | 0.0862 | grlA:S80F, norA:flqB_up (unitig), locus_kmer31_poly_0118 |
+
+### 3.2 Validação Externa Independente — Padrão NCBI Pathogen Detection AST (Seção 3.1, 7.1 e Fase 6)
+
+| Fármaco (*E. coli*) | AUPRC B1 (Externo) | AUPRC B4 (Externo) | Ganho $\Delta\text{AUPRC}$ Externo | VME Externo | ME Externo |
+|---|---|---|---|---|---|
+| `ciprofloxacina` | 0.8542 | **0.9778** | **+0.1236** | 0.0465 | 0.1228 |
+| `gentamicina` | 0.7878 | **0.9395** | **+0.1517** | 0.1875 | 0.1154 |
+| `cefuroxima` | 0.7315 | **0.9215** | **+0.1900** | 0.2553 | 0.0000 |
+
+---
+
+## 4. Figuras Científicas Geradas (Fase 7)
+
+- `reports/figuras/escada_auprc_ecoli.svg`
+- `reports/figuras/calibracao_e_abstencao.svg`
+- `reports/figuras/importancia_shap_loci.svg`
+- `reports/figuras/extensoes_multiespecie_e_mic.svg`
+
+---
+
+## 5. Limitações e Uso Responsável (Seção 15)
+
+1. **Associação vs. Causalidade (REG-10)**: Os valores TreeSHAP medem contribuição preditiva ao modelo; loci classificados como `candidata` representam hipóteses biológicas para validação experimental.
+2. **Domínio de Aplicação**: Os modelos avaliados aplicam-se exclusivamente a isolados das espécies treinadas (*Escherichia coli*, *Klebsiella pneumoniae* e *Staphylococcus aureus*) aprovados pelos critérios de QC da Seção 3.4.
 3. **Pesquisa Científica (REG-15)**: Este sistema não é um dispositivo médico e não deve orientar conduta clínica.

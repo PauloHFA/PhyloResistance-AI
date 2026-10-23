@@ -1,6 +1,11 @@
 {
   "projeto": "PhyloResistance AI",
   "especie_piloto": "Escherichia coli",
+  "especies_suportadas": [
+    "Escherichia coli",
+    "Klebsiella pneumoniae",
+    "Staphylococcus aureus"
+  ],
   "farmacos_piloto": [
     "ciprofloxacina",
     "gentamicina",
@@ -9,7 +14,9 @@
   "versoes_bancos": {
     "amrfinderplus": "3.12.8",
     "card": "3.2.9",
-    "refseq_ecoli": "NC_000913.3"
+    "refseq_ecoli": "NC_000913.3",
+    "refseq_kpneumoniae": "NC_016845.1",
+    "refseq_saureus": "NC_007795.1"
   },
   "funil_exclusao": {
     "total_registros_brutos": 1089,
@@ -455,13 +462,13 @@
           "me_pos_abstencao": 0.0,
           "auprc_ic95": {
             "estimativa": 0.4486,
-            "ic95_inferior": 0.4042,
-            "ic95_superior": 0.5104
+            "ic95_inferior": 0.3988,
+            "ic95_superior": 0.5081
           },
           "auroc_ic95": {
             "estimativa": 0.4323,
-            "ic95_inferior": 0.4003,
-            "ic95_superior": 0.4846
+            "ic95_inferior": 0.397,
+            "ic95_superior": 0.4753
           },
           "vme_ic95": {
             "estimativa": 1.0,
@@ -521,18 +528,18 @@
           "me_pos_abstencao": 0.0269,
           "auprc_ic95": {
             "estimativa": 0.9005,
-            "ic95_inferior": 0.8433,
-            "ic95_superior": 0.944
+            "ic95_inferior": 0.8523,
+            "ic95_superior": 0.9433
           },
           "auroc_ic95": {
             "estimativa": 0.8691,
-            "ic95_inferior": 0.8158,
-            "ic95_superior": 0.9167
+            "ic95_inferior": 0.8281,
+            "ic95_superior": 0.9083
           },
           "vme_ic95": {
             "estimativa": 0.2644,
-            "ic95_inferior": 0.1683,
-            "ic95_superior": 0.3537
+            "ic95_inferior": 0.1836,
+            "ic95_superior": 0.3377
           }
         },
         "B3_XGBoost_F1_F2": {
@@ -554,18 +561,18 @@
           "me_pos_abstencao": 0.043,
           "auprc_ic95": {
             "estimativa": 0.8987,
-            "ic95_inferior": 0.8372,
-            "ic95_superior": 0.941
+            "ic95_inferior": 0.8443,
+            "ic95_superior": 0.9346
           },
           "auroc_ic95": {
             "estimativa": 0.8665,
-            "ic95_inferior": 0.809,
-            "ic95_superior": 0.9178
+            "ic95_inferior": 0.8181,
+            "ic95_superior": 0.9034
           },
           "vme_ic95": {
             "estimativa": 0.2644,
-            "ic95_inferior": 0.1683,
-            "ic95_superior": 0.3537
+            "ic95_inferior": 0.1836,
+            "ic95_superior": 0.3377
           }
         },
         "B4_XGBoost_F1_F2_F3": {
@@ -620,18 +627,51 @@
           "me_pos_abstencao": 0.1989,
           "auprc_ic95": {
             "estimativa": 0.7602,
-            "ic95_inferior": 0.7035,
-            "ic95_superior": 0.8155
+            "ic95_inferior": 0.7063,
+            "ic95_superior": 0.8027
           },
           "auroc_ic95": {
             "estimativa": 0.7249,
-            "ic95_inferior": 0.661,
-            "ic95_superior": 0.7936
+            "ic95_inferior": 0.6548,
+            "ic95_superior": 0.7836
           },
           "vme_ic95": {
             "estimativa": 0.4253,
-            "ic95_inferior": 0.3003,
-            "ic95_superior": 0.5568
+            "ic95_inferior": 0.3448,
+            "ic95_superior": 0.557
+          }
+        },
+        "B6_CNN1D_Sequencia": {
+          "nome_modelo": "B6_CNN1D_Sequencia",
+          "estrategia_split": "grupo_filogenetico",
+          "auroc": 0.9529,
+          "auprc": 0.9556,
+          "sensibilidade": 0.8793,
+          "especificidade": 0.9086,
+          "acuracia_balanceada": 0.894,
+          "concordancia_categorica": 0.8944,
+          "vme": 0.1207,
+          "me": 0.0914,
+          "brier_score": 0.0872,
+          "ece": 0.0794,
+          "cobertura_conformal": 1.0,
+          "taxa_abstencao": 0.0,
+          "vme_pos_abstencao": 0.1207,
+          "me_pos_abstencao": 0.0914,
+          "auprc_ic95": {
+            "estimativa": 0.9556,
+            "ic95_inferior": 0.9416,
+            "ic95_superior": 0.9696
+          },
+          "auroc_ic95": {
+            "estimativa": 0.9529,
+            "ic95_inferior": 0.94,
+            "ic95_superior": 0.9679
+          },
+          "vme_ic95": {
+            "estimativa": 0.1207,
+            "ic95_inferior": 0.0983,
+            "ic95_superior": 0.1689
           }
         },
         "Controle_Kmers_Curtos_k6": {
@@ -653,18 +693,18 @@
           "me_pos_abstencao": 0.5054,
           "auprc_ic95": {
             "estimativa": 0.4862,
-            "ic95_inferior": 0.417,
-            "ic95_superior": 0.5624
+            "ic95_inferior": 0.413,
+            "ic95_superior": 0.5579
           },
           "auroc_ic95": {
             "estimativa": 0.484,
-            "ic95_inferior": 0.4447,
-            "ic95_superior": 0.5287
+            "ic95_inferior": 0.4449,
+            "ic95_superior": 0.5192
           },
           "vme_ic95": {
             "estimativa": 0.5517,
-            "ic95_inferior": 0.5027,
-            "ic95_superior": 0.6079
+            "ic95_inferior": 0.5176,
+            "ic95_superior": 0.5967
           }
         }
       },
@@ -886,6 +926,13 @@
             "mecanismo": "Variante genômica não catalogada (hipótese)"
           }
         ]
+      },
+      "regressao_mic_iso20776": {
+        "farmaco": "ciprofloxacina",
+        "concordancia_essencial_1_diluicao": 0.5861,
+        "concordancia_categorica": 0.8861,
+        "rmse_log2_mic": 2.2398,
+        "mae_log2_mic": 1.6618
       }
     },
     "gentamicina": {
@@ -912,18 +959,18 @@
           "me_pos_abstencao": 0.3946,
           "auprc_ic95": {
             "estimativa": 0.4397,
-            "ic95_inferior": 0.3649,
-            "ic95_superior": 0.5308
+            "ic95_inferior": 0.3491,
+            "ic95_superior": 0.5054
           },
           "auroc_ic95": {
             "estimativa": 0.4189,
-            "ic95_inferior": 0.3253,
-            "ic95_superior": 0.5104
+            "ic95_inferior": 0.3205,
+            "ic95_superior": 0.5064
           },
           "vme_ic95": {
             "estimativa": 0.7314,
-            "ic95_inferior": 0.4311,
-            "ic95_superior": 0.9066
+            "ic95_inferior": 0.421,
+            "ic95_superior": 0.9084
           }
         },
         "B1_Regras_CARD_AMRFinder": {
@@ -978,18 +1025,18 @@
           "me_pos_abstencao": 0.0919,
           "auprc_ic95": {
             "estimativa": 0.8344,
-            "ic95_inferior": 0.7121,
-            "ic95_superior": 0.9088
+            "ic95_inferior": 0.7069,
+            "ic95_superior": 0.8894
           },
           "auroc_ic95": {
             "estimativa": 0.7941,
-            "ic95_inferior": 0.7142,
-            "ic95_superior": 0.8597
+            "ic95_inferior": 0.7137,
+            "ic95_superior": 0.8511
           },
           "vme_ic95": {
             "estimativa": 0.3829,
-            "ic95_inferior": 0.2827,
-            "ic95_superior": 0.5
+            "ic95_inferior": 0.3106,
+            "ic95_superior": 0.5005
           }
         },
         "B3_XGBoost_F1_F2": {
@@ -1011,18 +1058,18 @@
           "me_pos_abstencao": 0.1189,
           "auprc_ic95": {
             "estimativa": 0.8282,
-            "ic95_inferior": 0.7048,
-            "ic95_superior": 0.8957
+            "ic95_inferior": 0.6969,
+            "ic95_superior": 0.8885
           },
           "auroc_ic95": {
             "estimativa": 0.7862,
-            "ic95_inferior": 0.704,
-            "ic95_superior": 0.8586
+            "ic95_inferior": 0.6999,
+            "ic95_superior": 0.8447
           },
           "vme_ic95": {
             "estimativa": 0.3657,
-            "ic95_inferior": 0.2644,
-            "ic95_superior": 0.4804
+            "ic95_inferior": 0.2784,
+            "ic95_superior": 0.4749
           }
         },
         "B4_XGBoost_F1_F2_F3": {
@@ -1077,18 +1124,51 @@
           "me_pos_abstencao": 0.3189,
           "auprc_ic95": {
             "estimativa": 0.7119,
-            "ic95_inferior": 0.6458,
-            "ic95_superior": 0.7805
+            "ic95_inferior": 0.6582,
+            "ic95_superior": 0.7714
           },
           "auroc_ic95": {
             "estimativa": 0.6935,
-            "ic95_inferior": 0.6197,
-            "ic95_superior": 0.7595
+            "ic95_inferior": 0.6453,
+            "ic95_superior": 0.7565
           },
           "vme_ic95": {
             "estimativa": 0.3943,
-            "ic95_inferior": 0.2875,
-            "ic95_superior": 0.4895
+            "ic95_inferior": 0.2967,
+            "ic95_superior": 0.4596
+          }
+        },
+        "B6_CNN1D_Sequencia": {
+          "nome_modelo": "B6_CNN1D_Sequencia",
+          "estrategia_split": "grupo_filogenetico",
+          "auroc": 0.8938,
+          "auprc": 0.892,
+          "sensibilidade": 0.8171,
+          "especificidade": 0.8054,
+          "acuracia_balanceada": 0.8113,
+          "concordancia_categorica": 0.8111,
+          "vme": 0.1829,
+          "me": 0.1946,
+          "brier_score": 0.1567,
+          "ece": 0.1388,
+          "cobertura_conformal": 1.0,
+          "taxa_abstencao": 0.0,
+          "vme_pos_abstencao": 0.1829,
+          "me_pos_abstencao": 0.1946,
+          "auprc_ic95": {
+            "estimativa": 0.892,
+            "ic95_inferior": 0.8096,
+            "ic95_superior": 0.9302
+          },
+          "auroc_ic95": {
+            "estimativa": 0.8938,
+            "ic95_inferior": 0.8578,
+            "ic95_superior": 0.9233
+          },
+          "vme_ic95": {
+            "estimativa": 0.1829,
+            "ic95_inferior": 0.1219,
+            "ic95_superior": 0.2557
           }
         },
         "Controle_Kmers_Curtos_k6": {
@@ -1110,18 +1190,18 @@
           "me_pos_abstencao": 0.4432,
           "auprc_ic95": {
             "estimativa": 0.5205,
-            "ic95_inferior": 0.4069,
-            "ic95_superior": 0.6423
+            "ic95_inferior": 0.3849,
+            "ic95_superior": 0.6236
           },
           "auroc_ic95": {
             "estimativa": 0.5112,
-            "ic95_inferior": 0.4392,
-            "ic95_superior": 0.5893
+            "ic95_inferior": 0.4375,
+            "ic95_superior": 0.5895
           },
           "vme_ic95": {
             "estimativa": 0.5543,
-            "ic95_inferior": 0.4782,
-            "ic95_superior": 0.6491
+            "ic95_inferior": 0.4862,
+            "ic95_superior": 0.6391
           }
         }
       },
@@ -1343,6 +1423,13 @@
             "mecanismo": "Aminoglicosídeo 3-N-acetiltransferase variante IId"
           }
         ]
+      },
+      "regressao_mic_iso20776": {
+        "farmaco": "gentamicina",
+        "concordancia_essencial_1_diluicao": 0.6194,
+        "concordancia_categorica": 0.8167,
+        "rmse_log2_mic": 2.236,
+        "mae_log2_mic": 1.6464
       }
     },
     "cefuroxima": {
@@ -1369,13 +1456,13 @@
           "me_pos_abstencao": 0.0,
           "auprc_ic95": {
             "estimativa": 0.387,
-            "ic95_inferior": 0.3274,
-            "ic95_superior": 0.4575
+            "ic95_inferior": 0.3398,
+            "ic95_superior": 0.4565
           },
           "auroc_ic95": {
             "estimativa": 0.4845,
-            "ic95_inferior": 0.437,
-            "ic95_superior": 0.5385
+            "ic95_inferior": 0.4222,
+            "ic95_superior": 0.5371
           },
           "vme_ic95": {
             "estimativa": 1.0,
@@ -1435,18 +1522,18 @@
           "me_pos_abstencao": 0.0642,
           "auprc_ic95": {
             "estimativa": 0.7328,
-            "ic95_inferior": 0.5946,
-            "ic95_superior": 0.8463
+            "ic95_inferior": 0.5602,
+            "ic95_superior": 0.8507
           },
           "auroc_ic95": {
             "estimativa": 0.7052,
-            "ic95_inferior": 0.6118,
-            "ic95_superior": 0.8016
+            "ic95_inferior": 0.5784,
+            "ic95_superior": 0.8017
           },
           "vme_ic95": {
             "estimativa": 0.507,
-            "ic95_inferior": 0.3392,
-            "ic95_superior": 0.6667
+            "ic95_inferior": 0.3223,
+            "ic95_superior": 0.6943
           }
         },
         "B3_XGBoost_F1_F2": {
@@ -1468,18 +1555,18 @@
           "me_pos_abstencao": 0.1147,
           "auprc_ic95": {
             "estimativa": 0.7379,
-            "ic95_inferior": 0.6007,
-            "ic95_superior": 0.8459
+            "ic95_inferior": 0.5833,
+            "ic95_superior": 0.8526
           },
           "auroc_ic95": {
             "estimativa": 0.7115,
-            "ic95_inferior": 0.6148,
-            "ic95_superior": 0.8021
+            "ic95_inferior": 0.6057,
+            "ic95_superior": 0.8095
           },
           "vme_ic95": {
             "estimativa": 0.4577,
-            "ic95_inferior": 0.2872,
-            "ic95_superior": 0.6264
+            "ic95_inferior": 0.2798,
+            "ic95_superior": 0.6616
           }
         },
         "B4_XGBoost_F1_F2_F3": {
@@ -1534,18 +1621,51 @@
           "me_pos_abstencao": 0.3532,
           "auprc_ic95": {
             "estimativa": 0.6887,
-            "ic95_inferior": 0.6394,
-            "ic95_superior": 0.7436
+            "ic95_inferior": 0.6435,
+            "ic95_superior": 0.7399
           },
           "auroc_ic95": {
             "estimativa": 0.6884,
-            "ic95_inferior": 0.6123,
-            "ic95_superior": 0.7534
+            "ic95_inferior": 0.6248,
+            "ic95_superior": 0.7562
           },
           "vme_ic95": {
             "estimativa": 0.4014,
-            "ic95_inferior": 0.3089,
-            "ic95_superior": 0.4839
+            "ic95_inferior": 0.3138,
+            "ic95_superior": 0.4873
+          }
+        },
+        "B6_CNN1D_Sequencia": {
+          "nome_modelo": "B6_CNN1D_Sequencia",
+          "estrategia_split": "grupo_filogenetico",
+          "auroc": 0.9345,
+          "auprc": 0.9176,
+          "sensibilidade": 0.838,
+          "especificidade": 0.8853,
+          "acuracia_balanceada": 0.8617,
+          "concordancia_categorica": 0.8667,
+          "vme": 0.162,
+          "me": 0.1147,
+          "brier_score": 0.1142,
+          "ece": 0.1071,
+          "cobertura_conformal": 1.0,
+          "taxa_abstencao": 0.0,
+          "vme_pos_abstencao": 0.162,
+          "me_pos_abstencao": 0.1147,
+          "auprc_ic95": {
+            "estimativa": 0.9176,
+            "ic95_inferior": 0.8808,
+            "ic95_superior": 0.9445
+          },
+          "auroc_ic95": {
+            "estimativa": 0.9345,
+            "ic95_inferior": 0.9174,
+            "ic95_superior": 0.956
+          },
+          "vme_ic95": {
+            "estimativa": 0.162,
+            "ic95_inferior": 0.1023,
+            "ic95_superior": 0.2261
           }
         },
         "Controle_Kmers_Curtos_k6": {
@@ -1567,18 +1687,18 @@
           "me_pos_abstencao": 0.3716,
           "auprc_ic95": {
             "estimativa": 0.3799,
-            "ic95_inferior": 0.322,
-            "ic95_superior": 0.4525
+            "ic95_inferior": 0.3324,
+            "ic95_superior": 0.4385
           },
           "auroc_ic95": {
             "estimativa": 0.4753,
-            "ic95_inferior": 0.3896,
-            "ic95_superior": 0.5641
+            "ic95_inferior": 0.4176,
+            "ic95_superior": 0.5464
           },
           "vme_ic95": {
             "estimativa": 0.6761,
-            "ic95_inferior": 0.5695,
-            "ic95_superior": 0.7561
+            "ic95_inferior": 0.5907,
+            "ic95_superior": 0.7501
           }
         }
       },
@@ -1800,29 +1920,174 @@
             "mecanismo": "Variante genômica não catalogada (hipótese)"
           }
         ]
+      },
+      "regressao_mic_iso20776": {
+        "farmaco": "cefuroxima",
+        "concordancia_essencial_1_diluicao": 0.7639,
+        "concordancia_categorica": 0.9,
+        "rmse_log2_mic": 1.5922,
+        "mae_log2_mic": 1.1462
       }
     }
   },
+  "extensoes_fase6": {
+    "multiespecie": {
+      "Klebsiella pneumoniae": {
+        "ciprofloxacina": {
+          "versao_modelo": "kpneu-cip-1.2.0",
+          "total_isolados": 120,
+          "auprc_b1": 0.9356,
+          "auprc_b4": 0.9939,
+          "vme_b4": 0.0508,
+          "me_b4": 0.0328,
+          "delta_auprc_vs_b1": 0.0588,
+          "supera_b1": true,
+          "principais_loci_shap": [
+            "gyrA:S83L",
+            "marR:G103S (unitig)",
+            "qnrS1"
+          ]
+        },
+        "gentamicina": {
+          "versao_modelo": "kpneu-gen-1.2.0",
+          "total_isolados": 120,
+          "auprc_b1": 0.7784,
+          "auprc_b4": 0.8864,
+          "vme_b4": 0.1429,
+          "me_b4": 0.125,
+          "delta_auprc_vs_b1": 0.103,
+          "supera_b1": true,
+          "principais_loci_shap": [
+            "aac(3)-IIa",
+            "cpxA:Y144C (unitig)",
+            "armA"
+          ]
+        },
+        "ceftriaxona": {
+          "versao_modelo": "kpneu-cro-1.2.0",
+          "total_isolados": 120,
+          "auprc_b1": 0.8789,
+          "auprc_b4": 0.9206,
+          "vme_b4": 0.0492,
+          "me_b4": 0.0678,
+          "delta_auprc_vs_b1": 0.0464,
+          "supera_b1": false,
+          "principais_loci_shap": [
+            "blaCTX-M-15",
+            "ompF:c.-112del (unitig)",
+            "locus_kmer31_poly_0049"
+          ]
+        }
+      },
+      "Staphylococcus aureus": {
+        "oxacilina": {
+          "versao_modelo": "saureus-oxa-1.2.0",
+          "total_isolados": 120,
+          "auprc_b1": 0.791,
+          "auprc_b4": 0.8977,
+          "vme_b4": 0.0667,
+          "me_b4": 0.1167,
+          "delta_auprc_vs_b1": 0.1066,
+          "supera_b1": true,
+          "principais_loci_shap": [
+            "mecA",
+            "pbp4:c.-90T>A (unitig)",
+            "locus_kmer31_poly_0041"
+          ]
+        },
+        "ciprofloxacina": {
+          "versao_modelo": "saureus-cip-1.2.0",
+          "total_isolados": 120,
+          "auprc_b1": 0.8067,
+          "auprc_b4": 0.9097,
+          "vme_b4": 0.0862,
+          "me_b4": 0.1129,
+          "delta_auprc_vs_b1": 0.1048,
+          "supera_b1": true,
+          "principais_loci_shap": [
+            "grlA:S80F",
+            "norA:flqB_up (unitig)",
+            "locus_kmer31_poly_0118"
+          ]
+        }
+      }
+    },
+    "regressao_mic_iso20776": {
+      "ciprofloxacina": {
+        "farmaco": "ciprofloxacina",
+        "concordancia_essencial_1_diluicao": 0.5861,
+        "concordancia_categorica": 0.8861,
+        "rmse_log2_mic": 2.2398,
+        "mae_log2_mic": 1.6618
+      },
+      "gentamicina": {
+        "farmaco": "gentamicina",
+        "concordancia_essencial_1_diluicao": 0.6194,
+        "concordancia_categorica": 0.8167,
+        "rmse_log2_mic": 2.236,
+        "mae_log2_mic": 1.6464
+      },
+      "cefuroxima": {
+        "farmaco": "cefuroxima",
+        "concordancia_essencial_1_diluicao": 0.7639,
+        "concordancia_categorica": 0.9,
+        "rmse_log2_mic": 1.5922,
+        "mae_log2_mic": 1.1462
+      }
+    },
+    "validacao_externa_ncbi_pathogen": {
+      "ciprofloxacina": {
+        "auprc_b1_externo": 0.8542,
+        "auprc_b4_externo": 0.9778,
+        "ganho_auprc_b4_sobre_b1": 0.1236,
+        "vme_b4_externo": 0.0465,
+        "me_b4_externo": 0.1228
+      },
+      "gentamicina": {
+        "auprc_b1_externo": 0.7878,
+        "auprc_b4_externo": 0.9395,
+        "ganho_auprc_b4_sobre_b1": 0.1517,
+        "vme_b4_externo": 0.1875,
+        "me_b4_externo": 0.1154
+      },
+      "cefuroxima": {
+        "auprc_b1_externo": 0.7315,
+        "auprc_b4_externo": 0.9215,
+        "ganho_auprc_b4_sobre_b1": 0.19,
+        "vme_b4_externo": 0.2553,
+        "me_b4_externo": 0.0
+      }
+    },
+    "modelo_multisaida_auprc_medio": 0.8559
+  },
   "manifesto_dados": {
-    "gerado_em_utc": "2026-10-23T04:39:57.529168+00:00",
+    "gerado_em_utc": "2026-10-23T05:18:19.487228+00:00",
     "fonte_primaria": "BV-BRC / CARD / NCBI RefSeq",
     "versoes_bancos": {
       "amrfinderplus": "3.12.8",
       "card": "3.2.9",
-      "refseq_ecoli": "NC_000913.3"
+      "refseq_ecoli": "NC_000913.3",
+      "refseq_kpneumoniae": "NC_016845.1",
+      "refseq_saureus": "NC_007795.1"
     },
     "arquivos_hashes_sha256": {
       "curadoria_rotulos.parquet": "d734eaac17f25d61f693920ade93eea66b3d91424c41a1a6a435da663e91a6ed",
       "qc_genomas.parquet": "debf35089d01d77a12625ccce3bf6bc2e43de30ce2bcb706995c11893913ee9d",
       "clusters_filogeneticos.parquet": "6ad775e1e5c8e0595d073d381a89a0ae001765a2aa3845b8ffc548f69ac8fde2",
       "atributos_f1_f2.parquet": "0a3808ec11a6b1f9042dfc568bab2555c117efdbb76986a410117433f742a05f",
-      "atributos_f3_kmers.npz": "86c9bd4273664f5332bd7f8c45c32335203a97cb61f83aac243646db4ad9ca35",
+      "atributos_f3_kmers.npz": "df9d397ca035fc2f2fb43a13fa3733bb2de3c8ad1fdeb5b45f3014f4d69fb0b9",
       "funil_exclusao.json": "3057201c560c4606264d88c63346fdd2f50adace3fb021977ffc9341f8802596",
       "relatorio_desduplicacao.json": "c0fa2194d47c233671c659806e977a976d7136d5f90efe4c53ba64f04306189e",
-      "modelos_servico.pkl": "441d096e81bbb112debd3e203e23b8841ea73b99bef0ae2c4b9b6bc881e71f5d"
+      "modelos_servico.pkl": "53213cbb2cd354a2c879297349521d163863db5b762427cf279b3c15ea90da8e"
     },
     "termos_uso_confirmados": true,
     "aviso_regulatorio": "Uso exclusivo em pesquisa científica. Não substitui o antibiograma."
   },
-  "aviso": "Uso em pesquisa. Não substitui o antibiograma."
+  "aviso": "Uso em pesquisa. Não substitui o antibiograma.",
+  "figuras_svg_geradas": [
+    "reports\\figuras\\escada_auprc_ecoli.svg",
+    "reports\\figuras\\calibracao_e_abstencao.svg",
+    "reports\\figuras\\importancia_shap_loci.svg",
+    "reports\\figuras\\extensoes_multiespecie_e_mic.svg"
+  ]
 }

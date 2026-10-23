@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 321" width="100%" height="321">
+<rect width="100%" height="100%" fill="#ffffff" rx="8" stroke="#e5e7eb" />
+<text x="24" y="34" font-family="system-ui, sans-serif" font-size="16" font-weight="700" fill="#111827">Q4: Redução de Erro Muito Grave (VME) por Abstenção Conformal</text>
+<text x="24" y="54" font-family="system-ui, sans-serif" font-size="12" fill="#6b7280">Comparação da taxa de falsos sensíveis antes (laranja) e depois (verde) de abster-se na zona de dúvida</text>
+<text x="24" y="93" font-family="monospace" font-size="12" fill="#374151">ciprofloxaci (VME bruto)</text>
+<rect x="240" y="79" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="79" width="80" height="20" fill="#f59e0b" rx="4" />
+<text x="328" y="93" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.0747</text>
+<text x="24" y="129" font-family="monospace" font-size="12" fill="#374151">ciprofloxaci (VME pós-abst)</text>
+<rect x="240" y="115" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="115" width="39" height="20" fill="#10b981" rx="4" />
+<text x="287" y="129" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.0370</text>
+<text x="24" y="165" font-family="monospace" font-size="12" fill="#374151">gentamicina (VME bruto)</text>
+<rect x="240" y="151" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="151" width="153" height="20" fill="#f59e0b" rx="4" />
+<text x="401" y="165" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.1429</text>
+<text x="24" y="201" font-family="monospace" font-size="12" fill="#374151">gentamicina (VME pós-abst)</text>
+<rect x="240" y="187" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="187" width="120" height="20" fill="#10b981" rx="4" />
+<text x="368" y="201" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.1118</text>
+<text x="24" y="237" font-family="monospace" font-size="12" fill="#374151">cefuroxima (VME bruto)</text>
+<rect x="240" y="223" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="223" width="151" height="20" fill="#f59e0b" rx="4" />
+<text x="399" y="237" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.1408</text>
+<text x="24" y="273" font-family="monospace" font-size="12" fill="#374151">cefuroxima (VME pós-abst)</text>
+<rect x="240" y="259" width="430" height="20" fill="#f3f4f6" rx="4" />
+<rect x="240" y="259" width="130" height="20" fill="#10b981" rx="4" />
+<text x="378" y="273" font-family="system-ui, sans-serif" font-size="12" font-weight="600" fill="#111827">0.1212</text>
+</svg>

@@ -10,7 +10,10 @@ import pandas as pd
 
 from phyloresistance.config import (
     CATALOGO_DETERMINANTES_ECOLI,
+    CATALOGO_DETERMINANTES_POR_ESPECIE,
+    CRITERIOS_QC_POR_ESPECIE,
     ESPECIE_PILOTO,
+    FARMACOS_POR_ESPECIE,
     GLOBAL_RANDOM_SEED,
     VERSOES_BANCOS,
 )
@@ -22,7 +25,7 @@ from phyloresistance.dados.contratos import (
 # Catálogo de motivos nucleotídicos canônicos (31-mers) reais/sintéticos associados a cada determinante
 # Usados na síntese e anotação de sequências FASTA para testes ponta a ponta
 ASSINATURAS_NUCLEOTIDICAS_31MER: dict[str, str] = {
-    # Determinantes conhecidos (CARD / AMRFinderPlus)
+    # Determinantes conhecidos E. coli / K. pneumoniae (CARD / AMRFinderPlus)
     "mut_gyrA_S83L": "CATGGTGACGTATTGTATGCCATGTCogtCA".upper().replace("O", "G"),
     "mut_gyrA_D87N": "GTCATAGTCGGTCGTGCGCTGCCAGACGTGC",
     "mut_parC_S80I": "Ccatggcgatgtcttatatgctatgtcgatt".upper(),
@@ -36,12 +39,19 @@ ASSINATURAS_NUCLEOTIDICAS_31MER: dict[str, str] = {
     "gene_blaCMY_2": "ATGATGAAAAAATCGTTATGCTGCGCTCTGC",
     "gene_blaCTX_M_14": "ATGGTGACAAAGAGAGTGCAACGGATGATGT",
     "mut_ampC_C42T": "TGACAGTTGTCACGCTGATTGGTGTCGTTAC",
+    # Determinantes conhecidos S. aureus (MRSA mecA/mecC e grlA/gyrA)
+    "gene_sa_mecA": "ATGAAAAAGATAAAAATTGTTCCACTTATTT",
+    "gene_sa_mecC": "ATGAAAAAAATTTATATTAGTTTAGTTGCGC",
+    "mut_sa_grlA_S80F": "ACATGGCGATGTCTTATATGCTATGTCGATC",
+    "mut_sa_gyrA_S84L": "GATGGTGACGTATTGTATGCCATGTCGGTCG",
     # Loci candidatos não catalogados no baseline B1 (capturados por F3 k-mers longos / unitigs)
     "unitig_cand_marR_G103S": "GCGCAAATTCCGGTGCTGGATGAACTGGCGC",
     "unitig_cand_acrR_frameshift": "CGTCTGGCGCTGAAAGAGTTCCGTGACGCGT",
     "unitig_cand_cpxA_Y144C": "ACCCTGGCGCTGGTGITGCTGGCGCTGGCGA".replace("I", "T"),
     "unitig_cand_ompF_prom_del": "TAAACGTTZGTACGTACGTAGCTAGCTAGCA".replace("Z", "C"),
     "unitig_cand_ftsI_insYRIN": "TACCGJATCAACTACCGCATCAACTACCGCA".replace("J", "C"),
+    "unitig_cand_sa_pbp4_prom": "GCTAGCTAGCATCGATCGATCGTAGCTAGCG",
+    "unitig_cand_sa_norA_prom": "ATCGATCGATCGTAGCTAGCTAGCGATCGAT",
 }
 
 MAPEAMENTO_LOCUS_CANDIDATOS: dict[str, dict[str, str]] = {
@@ -84,6 +94,22 @@ MAPEAMENTO_LOCUS_CANDIDATOS: dict[str, dict[str, str]] = {
         "fonte": "Descoberta ML (F3)",
         "status": "candidata",
         "mecanismo": "Redução de afinidade de PBP3 a cefalosporinas",
+    },
+    "unitig_cand_sa_pbp4_prom": {
+        "gene": "pbp4",
+        "alteracao": "c.-90T>A (unitig)",
+        "tipo": "kmer_unitig",
+        "fonte": "Descoberta ML (F3)",
+        "status": "candidata",
+        "mecanismo": "Superexpressão de PBP4 conferindo resistência borderline a oxacilina (BORSA)",
+    },
+    "unitig_cand_sa_norA_prom": {
+        "gene": "norA",
+        "alteracao": "flqB_up (unitig)",
+        "tipo": "kmer_unitig",
+        "fonte": "Descoberta ML (F3)",
+        "status": "candidata",
+        "mecanismo": "Superexpressão da bomba de efluxo de fluoroquinolonas NorA em S. aureus",
     },
 }
 
@@ -442,3 +468,194 @@ def gerar_coorte_piloto_ecoli(
     df_genomas_meta = pd.DataFrame(linhas_genomas)
     df_genotipos_verdade = pd.DataFrame(linhas_genotipos)
     return registros_brutos, df_genomas_meta, df_genotipos_verdade
+
+
+def gerar_coorte_especie_extensao(
+    especie: str,
+    n_isolados_base: int = 160,
+    seed: int = GLOBAL_RANDOM_SEED,
+) -> tuple[list[RegistroBrutoBVBRC], pd.DataFrame, pd.DataFrame]:
+    """
+    Gera coorte realista para as extensões da Fase 6 (Seção 3.2):
+      - Fase 2: Klebsiella pneumoniae (ciprofloxacina, gentamicina, ceftriaxona)
+      - Fase 3: Staphylococcus aureus (oxacilina MRSA via mecA, ciprofloxacina via grlA/gyrA)
+      - Fase 1: Escherichia coli (delega a gerar_coorte_piloto_ecoli)
+    """
+    if especie == ESPECIE_PILOTO:
+        return gerar_coorte_piloto_ecoli(n_isolados_base=n_isolados_base, seed=seed)
+
+    if especie not in FARMACOS_POR_ESPECIE:
+        raise ValueError(f"Espécie '{especie}' não configurada em FARMACOS_POR_ESPECIE.")
+
+    rng = np.random.default_rng(seed + abs(hash(especie)) % 1000)
+    farmacos = FARMACOS_POR_ESPECIE[especie]
+    catalogo = CATALOGO_DETERMINANTES_POR_ESPECIE[especie]
+    crit_qc = CRITERIOS_QC_POR_ESPECIE[especie]
+
+    ids_det_f1_f2 = [d.id_atributo for d in catalogo]
+    ids_cand_f3 = list(MAPEAMENTO_LOCUS_CANDIDATOS.keys())
+
+    if especie == "Klebsiella pneumoniae":
+        linhagens_st = [
+            ("ST258", 0.78),
+            ("ST11", 0.75),
+            ("ST15", 0.62),
+            ("ST147", 0.65),
+            ("ST307", 0.58),
+            ("ST23", 0.18),
+            ("ST37", 0.25),
+            ("ST17", 0.20),
+        ]
+        prefixo = "KPNEU"
+    else:  # Staphylococcus aureus
+        linhagens_st = [
+            ("ST8_USA300", 0.76),
+            ("ST5", 0.72),
+            ("ST22", 0.68),
+            ("ST239", 0.80),
+            ("ST30", 0.22),
+            ("ST45", 0.18),
+            ("ST15", 0.14),
+            ("ST1", 0.25),
+        ]
+        prefixo = "SAUR"
+
+    paises = ["BR", "US", "DE", "UK", "FR", "IN", "JP"]
+    anos = list(range(2017, 2026))
+    registros_brutos: list[RegistroBrutoBVBRC] = []
+    linhas_genomas: list[dict[str, object]] = []
+    linhas_genotipos: list[dict[str, int | str]] = []
+
+    tam_medio = (crit_qc.tamanho_min_pb + crit_qc.tamanho_max_pb) // 2
+
+    for i in range(n_isolados_base):
+        genome_id = f"{prefixo}_{2000 + i:04d}"
+        st, prop_res = linhagens_st[i % len(linhagens_st)]
+        pais = paises[int(rng.integers(0, len(paises)))]
+        ano = int(rng.choice(anos))
+
+        tamanho_pb = int(
+            np.clip(
+                rng.normal(tam_medio, 80_000),
+                crit_qc.tamanho_min_pb + 50_000,
+                crit_qc.tamanho_max_pb - 50_000,
+            )
+        )
+        contigs = int(rng.integers(20, min(150, crit_qc.max_contigs - 20)))
+        n50 = int(rng.integers(crit_qc.min_n50_pb + 20_000, 280_000))
+
+        genotipo: dict[str, int | str] = {"genome_id": genome_id, "st": st}
+        for col in ids_det_f1_f2 + ids_cand_f3:
+            genotipo[col] = 0
+
+        for farmaco in farmacos:
+            dets_farm = [d.id_atributo for d in catalogo if farmaco in d.farmacos_associados]
+            tem_conhecido = rng.random() < (prop_res * 0.78)
+            tem_candidato = (not tem_conhecido) and (rng.random() < (0.16 + 0.12 * prop_res))
+
+            cand_ativo_farmaco: str | None = None
+            if tem_conhecido and dets_farm:
+                # Ativa o determinante principal (ex.: mecA para oxacilina) e opcionalmente o secundário
+                genotipo[dets_farm[0]] = 1
+                if len(dets_farm) > 1 and rng.random() < 0.45:
+                    genotipo[dets_farm[1]] = 1
+            elif tem_candidato:
+                if especie == "Staphylococcus aureus":
+                    cand_ativo_farmaco = (
+                        "unitig_cand_sa_pbp4_prom"
+                        if farmaco == "oxacilina"
+                        else "unitig_cand_sa_norA_prom"
+                    )
+                else:
+                    if farmaco == "ciprofloxacina":
+                        cand_ativo_farmaco = "unitig_cand_marR_G103S"
+                        genotipo["unitig_cand_acrR_frameshift"] = 1
+                    elif farmaco == "gentamicina":
+                        cand_ativo_farmaco = "unitig_cand_cpxA_Y144C"
+                    else:
+                        cand_ativo_farmaco = "unitig_cand_ompF_prom_del"
+                if cand_ativo_farmaco:
+                    genotipo[cand_ativo_farmaco] = 1
+
+            soma_conhecidos = sum(int(genotipo[d]) for d in dets_farm)
+            tem_cand_farm = 1 if (cand_ativo_farmaco and int(genotipo[cand_ativo_farmaco]) == 1) else 0
+            score = 6.0 * soma_conhecidos + 4.8 * tem_cand_farm
+            prob_r = 1.0 / (1.0 + np.exp(-(score - 3.2)))
+            is_r = bool(rng.random() < prob_r)
+
+            if farmaco == "oxacilina":
+                mic = float(rng.choice([8.0, 16.0, 32.0, 64.0])) if is_r else float(rng.choice([0.25, 0.5, 1.0]))
+            elif farmaco == "ceftriaxona":
+                mic = float(rng.choice([8.0, 16.0, 32.0])) if is_r else float(rng.choice([0.125, 0.25, 0.5]))
+            elif farmaco == "gentamicina":
+                mic = float(rng.choice([16.0, 32.0, 64.0])) if is_r else float(rng.choice([0.25, 0.5, 1.0]))
+            else:
+                mic = float(rng.choice([4.0, 8.0, 16.0])) if is_r else float(rng.choice([0.06, 0.125, 0.25]))
+
+            registros_brutos.append(
+                RegistroBrutoBVBRC(
+                    genome_id=genome_id,
+                    especie=especie,
+                    farmaco=farmaco,
+                    fenotipo_bruto="Resistant" if is_r else "Susceptible",
+                    mic_mg_l=mic,
+                    metodo_laboratorio="Broth microdilution",
+                    padrao="CLSI",
+                    versao_ponto_corte="2024.1",
+                    pais=pais,
+                    ano=ano,
+                    st=st,
+                )
+            )
+
+        linhas_genomas.append(
+            {
+                "genome_id": genome_id,
+                "especie_declarada": especie,
+                "especie_inferida": especie,
+                "st": st,
+                "pais": pais,
+                "ano": ano,
+                "tamanho_pb": tamanho_pb,
+                "contigs": contigs,
+                "n50": n50,
+                "fracao_n": 0.001,
+                "completude": 99.1,
+                "contaminacao": 0.6,
+                "clone_de": None,
+            }
+        )
+        linhas_genotipos.append(genotipo)
+
+    return registros_brutos, pd.DataFrame(linhas_genomas), pd.DataFrame(linhas_genotipos)
+
+
+def gerar_coorte_externa_ncbi_pathogen(
+    especie: str = ESPECIE_PILOTO,
+    n_isolados: int = 120,
+    seed: int = 1042,
+) -> tuple[list[RegistroBrutoBVBRC], pd.DataFrame, pd.DataFrame]:
+    """
+    Gera coorte de validação externa independente no formato NCBI Pathogen Detection AST
+    (Seção 3.1, 7.1 e Critério de Aceite da Fase 6) com semente e distribuição hospitalar independentes.
+    """
+    regs, df_meta, df_geno = gerar_coorte_especie_extensao(
+        especie=especie, n_isolados_base=n_isolados, seed=seed
+    )
+    # Filtra apenas isolados base limpos (renomeados com prefixo NCBI_PD_)
+    ids_base = set(df_geno["genome_id"].iloc[:n_isolados].values)
+    mapa_id = {gid: f"NCBI_PD_{gid}" for gid in ids_base}
+
+    regs_ext: list[RegistroBrutoBVBRC] = []
+    for r in regs:
+        if r.genome_id in mapa_id and r.especie == especie:
+            copia = r.model_copy(update={"genome_id": mapa_id[r.genome_id]})
+            regs_ext.append(copia)
+
+    df_meta_ext = df_meta[df_meta["genome_id"].isin(ids_base)].iloc[:n_isolados].copy()
+    df_meta_ext["genome_id"] = df_meta_ext["genome_id"].map(mapa_id)
+
+    df_geno_ext = df_geno[df_geno["genome_id"].isin(ids_base)].iloc[:n_isolados].copy()
+    df_geno_ext["genome_id"] = df_geno_ext["genome_id"].map(mapa_id)
+
+    return regs_ext, df_meta_ext.reset_index(drop=True), df_geno_ext.reset_index(drop=True)

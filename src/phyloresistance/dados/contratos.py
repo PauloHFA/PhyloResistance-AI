@@ -53,6 +53,10 @@ class RegistroBrutoBVBRC(BaseModel):
             "cxm": "cefuroxima",
             "ceftriaxone": "ceftriaxona",
             "ceftriaxona": "ceftriaxona",
+            "cro": "ceftriaxona",
+            "oxacillin": "oxacilina",
+            "oxacilina": "oxacilina",
+            "oxa": "oxacilina",
         }
         chave = v.strip().lower()
         return mapa.get(chave, chave)

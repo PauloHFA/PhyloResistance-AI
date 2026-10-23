@@ -14,6 +14,7 @@ from scipy.stats import spearmanr
 from phyloresistance.config import (
     AVISO_USO_PESQUISA,
     CATALOGO_DETERMINANTES_ECOLI,
+    CATALOGO_DETERMINANTES_POR_ESPECIE,
 )
 from phyloresistance.dados.bvbrc import MAPEAMENTO_LOCUS_CANDIDATOS
 
@@ -63,12 +64,19 @@ class AvaliacaoExplicabilidadeQ3(BaseModel):
 def construir_mapa_atributo_para_locus(
     nomes_atributos: list[str],
     farmaco: str | None = None,
+    especie: str = "Escherichia coli",
 ) -> dict[str, InfoLocusGenomico]:
     """
     Mapeia cada atributo de F1, F2 e F3 para seu locus genômico e cruza com o catálogo
     CARD / AMRFinderPlus (Seção 8.1 passos 2 e 4).
     """
-    catalogo_por_id = {d.id_atributo: d for d in CATALOGO_DETERMINANTES_ECOLI}
+    todos_determinantes = list(CATALOGO_DETERMINANTES_ECOLI)
+    for cat_esp in CATALOGO_DETERMINANTES_POR_ESPECIE.values():
+        todos_determinantes.extend(cat_esp)
+    catalogo_por_id = {d.id_atributo: d for d in todos_determinantes}
+    if especie in CATALOGO_DETERMINANTES_POR_ESPECIE:
+        for d in CATALOGO_DETERMINANTES_POR_ESPECIE[especie]:
+            catalogo_por_id[d.id_atributo] = d
     mapa: dict[str, InfoLocusGenomico] = {}
 
     for nome in nomes_atributos:

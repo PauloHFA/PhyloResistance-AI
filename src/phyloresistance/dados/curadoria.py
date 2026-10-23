@@ -11,6 +11,7 @@ from phyloresistance.config import (
     ESPECIE_PILOTO,
     FARMACOS_PILOTO,
     PONTOS_CORTE_ECOLI,
+    PONTOS_CORTE_POR_ESPECIE,
     PontoCorteMIC,
 )
 from phyloresistance.dados.contratos import (
@@ -49,7 +50,11 @@ def determinar_categoria_registro(
     Preferir MIC quando existir (Seção 3.3): recalcula a categoria a partir do MIC
     usando um único ponto de corte documentado. Caso contrário, usa o fenótipo bruto.
     """
-    tabela_corte = pontos_corte if pontos_corte is not None else PONTOS_CORTE_ECOLI
+    tabela_corte = (
+        pontos_corte
+        if pontos_corte is not None
+        else PONTOS_CORTE_POR_ESPECIE.get(reg.especie.strip(), PONTOS_CORTE_ECOLI)
+    )
     if reg.mic_mg_l is not None and reg.mic_mg_l > 0 and reg.farmaco in tabela_corte:
         corte = tabela_corte[reg.farmaco]
         cat_mic = corte.classificar(reg.mic_mg_l)

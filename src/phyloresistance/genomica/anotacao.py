@@ -12,7 +12,9 @@ import scipy.sparse as sp
 
 from phyloresistance.config import (
     CATALOGO_DETERMINANTES_ECOLI,
+    CATALOGO_DETERMINANTES_POR_ESPECIE,
     COLUNAS_METADADOS_PROIBIDAS,
+    ESPECIE_PILOTO,
     GLOBAL_RANDOM_SEED,
 )
 from phyloresistance.dados.bvbrc import (
@@ -119,6 +121,7 @@ def construir_matrizes_atributos_coorte(
     df_genotipos_verdade: pd.DataFrame,
     n_kmers_ruido_polimorfico: int = 120,
     seed: int = GLOBAL_RANDOM_SEED,
+    especie: str = ESPECIE_PILOTO,
 ) -> tuple[pd.DataFrame, sp.csr_matrix, list[str], np.ndarray]:
     """
     Constrói os três conjuntos de atributos da Seção 5.1 mais o controle negativo:
@@ -132,7 +135,8 @@ def construir_matrizes_atributos_coorte(
     rng = np.random.default_rng(seed)
     n_isolados = len(df_genotipos_verdade)
 
-    colunas_f1_f2 = [d.id_atributo for d in CATALOGO_DETERMINANTES_ECOLI]
+    catalogo = CATALOGO_DETERMINANTES_POR_ESPECIE.get(especie, CATALOGO_DETERMINANTES_ECOLI)
+    colunas_f1_f2 = [d.id_atributo for d in catalogo if d.id_atributo in df_genotipos_verdade.columns]
     for col in colunas_f1_f2:
         if col in COLUNAS_METADADOS_PROIBIDAS:
             raise ValueError(f"Violação REG-08: coluna proibida '{col}' em F1+F2.")
