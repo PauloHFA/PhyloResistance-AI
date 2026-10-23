@@ -1,0 +1,16 @@
+# Snakemake Workflow — PhyloResistance AI (Etapas 1 a 4 + Treino e Relatório)
+# Orquestra ingestão, QC, desduplicação, estrutura filogenética e atributos (F1, F2, F3)
+
+configfile: "workflow/config.yaml"
+
+include: "rules/pipeline.smk"
+
+rule all:
+    input:
+        "data/processed/curadoria_rotulos.parquet",
+        "data/processed/qc_genomas.parquet",
+        "data/processed/clusters_filogeneticos.parquet",
+        "data/processed/atributos_f1_f2.parquet",
+        "data/processed/atributos_f3_kmers.npz",
+        "reports/relatorio_validacao.json",
+        "reports/relatorio_cientifico.md"

@@ -1,0 +1,31 @@
+name: PhyloResistance AI — Rigor Científico & CI
+
+on:
+  push:
+    branches: ["main", "master"]
+  pull_request:
+    branches: ["main", "master"]
+
+jobs:
+  verify-scientific-rigor:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v3
+        with:
+          version: "latest"
+
+      - name: Set up Python 3.11
+        run: uv python install 3.11
+
+      - name: Install dependencies (locked)
+        run: uv sync --all-extras
+
+      - name: Lint with Ruff
+        run: uv run ruff check src tests
+
+      - name: Run Unit, Anti-Leakage (REG-01..15) and API Tests
+        run: uv run pytest -v
